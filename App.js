@@ -12,9 +12,24 @@ const App = () => {
   
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Therapist Home" component={TherapistScreen} />
+      <Stack.Navigator
+        screenOptions={{
+          title: '',
+          headerStyle: {
+            // backgroundColor: 'darkslateblue',
+            backgroundColor: '#fff',
+          },
+          // headerTintColor: '#fff',
+          headerTintColor: 'darkslateblue',
+          headerTitleStyle: {
+            fontWeight: 'normal',
+            fontSize: 18,
+            fontFamily: 'sans-serif-light',
+          },
+        }}
+      >
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
+        <Stack.Screen name="Therapist Home" component={TherapistScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Therapist Goals" component={TherapistGoalsScreen} />
       </Stack.Navigator>
 

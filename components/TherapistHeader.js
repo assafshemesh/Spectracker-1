@@ -4,58 +4,64 @@ import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
 
 const TherapistHeader = ({ route, navigation }) => {
   const { username }= route.params;
-  const lastPatient = 'Yardeni';
+  // const lastPatient = 'Yarden';
+  const lastPatient = 'ירדן';
 //   const patientImage = {require('../assets/Yardeni.jpg')};
   return (
     <View style={styles.header}>
-        <View style={styles.imageContainer}>
-            <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}>
-                    <Text style={styles.text}>Welcome
+        {/* <View style={styles.imageContainer}>
+            <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}> */}
+                    {/* <Text style={styles.text}>Welcome */}
+                    <Text style={styles.text}>שלום 
                         <Text style={styles.name}> { username }</Text>
-                        , {"\n"}Your patient is <Text style={styles.name}>{lastPatient}</Text>
+                        {/* , {"\n"}Your patient is <Text style={styles.name}>{lastPatient}</Text> */}
+                        , {"\n"}המטופלת שלך היא  <Text style={styles.name}>{lastPatient}</Text>
+                        {/* . המטופלת שלך היא <Text style={styles.name}>{lastPatient}</Text> */}
                     </Text>
-            </ImageBackground>
-        </View>
+            {/* </ImageBackground>
+        </View> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    flex: 0.8,
-    // padding: 15,
-    backgroundColor: 'darkslateblue',
-    justifyContent: 'center',
+    flex: 0.7,
+    backgroundColor: 'honeydew',
+    // backgroundColor: 'darkslateblue',
+    // justifyContent: 'center',
   },
-  imageContainer: {
-     flex: 1,
-     flexDirection: 'column',
-     backgroundColor: 'pink',
-  },
+  // imageContainer: {
+  //    flex: 1,
+  //    flexDirection: 'column',
+  //    backgroundColor: 'pink',
+  // },
 //   textContainer: {
 //      flex: 1,
 //   },
-  headerImage: {
-     flex: 1,
-     justifyContent: 'flex-end',
-    //  backgroundColor: 'skyblue',
-     resizeMode: 'cover',
-    //  height: 200,
-    //  width: 300,
-  },
+  // headerImage: {
+  //    flex: 1,
+  //    justifyContent: 'flex-end',
+  //    resizeMode: 'cover',
+  // },
   text: {
-     backgroundColor: 'rgba(72, 61, 139, 0.7)',
-     color: '#fff',
-     fontSize: 22,
+    //  backgroundColor: 'rgba(72, 61, 139, 0.7)',
+    //  color: '#fff',
+     color: 'darkslateblue',
+    //  fontSize: 20,
+     fontSize: 16,
      fontFamily: 'sans-serif-light',
-     lineHeight: 32,
+    //  lineHeight: 32,
      paddingLeft: 10,
+     paddingRight: 10,
     //  textAlign: 'center',
   },
   name: {
-     color: '#fff',
+    //  color: '#fff',
+     color: 'darkslateblue',
      fontWeight: 'bold',
-     fontSize: 22,
+    //  fontSize: 20,
+     fontSize: 16,
   },
 })
 

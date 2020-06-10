@@ -19,13 +19,16 @@ const UpperMenu = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   upperMenuContainer: {
-    flex: 0.13,
+    // flex: 0.13,
+    flex: 0.5,
     maxHeight: 40,
     flexDirection: 'row',
     alignContent: 'center',
     alignItems: 'center',
     backgroundColor: 'darkslateblue',
     color: '#fff',
+    // borderTopWidth: 0.2,
+    // borderTopColor: '#fff',
   },
 //   wrapper1: {
 //      flex: 1,

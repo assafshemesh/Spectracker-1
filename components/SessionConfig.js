@@ -35,9 +35,7 @@ const SessionConfig = ({ navigation }) => {
 const styles = StyleSheet.create({
     configContainer: {
         flex: 1,
-        // margin: 20,
-        marginTop: 30,
-        // paddingTop: 30,
+        marginTop: 35,
     },
     text: {
         fontSize: 20,
@@ -47,7 +45,8 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
         flex: 1,
-        marginTop: 20,
+        marginTop: 13,
+        // marginTop: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },

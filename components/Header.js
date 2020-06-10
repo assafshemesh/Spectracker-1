@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     padding: 15,
+    // marginTop: 0.2,
+    // borderTopWidth: 0.2,
+    // borderTopColor: '#fff',
     backgroundColor: 'darkslateblue',
   },
   text: {
