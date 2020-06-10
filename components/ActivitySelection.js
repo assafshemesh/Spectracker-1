@@ -5,6 +5,7 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 // import {uuid} from 'uuidv4';
 import Goal from '../components/Goal';
 import ActivityButtonGroup from '../components/ActivityButtonGroup';
+import {Picker} from '@react-native-community/picker';
 
 
 const ActivitySelection = ({ navigation }) => {
@@ -131,15 +132,13 @@ const ActivitySelection = ({ navigation }) => {
                     description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן",
                     color: '#3333',
                 },
-                // {   id: 1,
-                //     title: "אבא",
-                //     description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן",
-                    
-                //     color: '#3333',
-                // },
                 {   id: 2,
                     title: "צעצוע ישן",
                     description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
+                },
+                { id: 6,
+                  title: "בנייה בקוביות",
+                  description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
                 },
               ]
             },
@@ -155,23 +154,38 @@ const ActivitySelection = ({ navigation }) => {
                       description: "ירדן נותנת 3-4 אובייקטים ללא מבט, עם סיוע של הושטת יד",
                       doneAt: "",
                   },
-                //   {   id: 2.4,
-                //       serialNum: 2.4,
-                //       title: "2.4",
-                //       description: "ירדן נותנת 3-4 אובייקטים בליווי מבט, עם סיוע של הושטת יד + כניסה לטווח הראייה של המטפל",
-                //       doneAt: "",
-                //   }
               ],
               activities: [
                 {   id: 1,
                     title: "בועות סבון",
-                    // title: "אמא",
                     description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן",
                     color: '#F5DBEC',
                 },
                 {   id: 4,
                     title: "צעצוע חדש",
                     description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
+                },
+                { id: 6,
+                  title: "ציור",
+                  description: "  כנסי כבר לבאטמוביל וניסע...קורונה ג'ננה שלום שלום ",
+                },
+                {   id: 8,
+                    title: "השחלת חרוזים",
+                    description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן",
+                    color: '#F5DBEC',
+                },
+                {   id: 9,
+                    title: "הכנת עוגיות",
+                    description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
+                },
+                { id: 10,
+                  title: "ריקוד",
+                  description: "  כנסי כבר לבאטמוביל וניסע...קורונה ג'ננה שלום שלום ",
+                },
+                {   id: 11,
+                    title: "קריאת סיפור",
+                    description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן",
+                    color: '#F5DBEC',
                 },
               ]
             },
@@ -246,12 +260,12 @@ const ActivitySelection = ({ navigation }) => {
     const getRestOfSessionActivities = () => {
         const restOfSessionActivities = [
           { id: 3,
-          name: "בנייה בקוביות",
-          description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
+            title: "בנייה בקוביות",
+            description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
           },
           { id: 6,
-          name: "מציאת חיסון לקורונה",
-          description: "  כנסי כבר לבאטמוביל וניסע...קורונה ג'ננה שלום שלום ",
+            title: "ציור",
+            description: "  כנסי כבר לבאטמוביל וניסע...קורונה ג'ננה שלום שלום ",
           },
         ];
         return restOfSessionActivities;
@@ -282,7 +296,7 @@ const ActivitySelection = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <View styles={styles.activityButtons}>
-          <ActivityButtonGroup activities={getRecommendedActivities()} selectGoals={selectGoals} />
+          <ActivityButtonGroup recommendedActivities={getRecommendedActivities()} restOfActivities={getRestOfSessionActivities()} selectGoals={selectGoals} />
         </View>
         <View style={styles.goalsList}>
           <FlatList 

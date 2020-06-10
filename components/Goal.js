@@ -4,62 +4,17 @@ import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native
 import Subgoal from '../components/Subgoal';
 
 const Goal = ({goal}) => {
-//   return (
-//     <TouchableOpacity style={styles.goal}>
-//       <View style={styles.goalView}>
-//           <Text style={styles.goalTitle}>{goal.skillType}- מטרה {goal.serialNum}</Text>
-//           <FlatList style={styles.subgoalsList}
-//             data={goal.subgoals}
-//             renderItem={({item}) => <Subgoal subgoal={item} />}
-//           />
-//           {/* <Text style={styles.goalDescription}>{goal.description}</Text> */}
-//           {/* <Icon name="remove" size={20} color="firebrick" onPress={() => deleteItem(item.id)}/> */}
-//     </View>
-//     </TouchableOpacity>
-//   );
-// };
-
-//   return (
-//     <TouchableOpacity style={styles.goal}>
-//       <View style={styles.goalView}>
-//         <View style={styles.goalInfo}>
-//           <Text style={styles.goalTitle}>{goal.skillType}- מטרה {goal.serialNum}</Text>
-//           <FlatList style={styles.activitiesList}
-//             data={goal.activities}
-//             renderItem={({item}) => <Text style={styles.goalActivity}>{item.title}</Text> }
-//             horizontal={true}
-//           />
-//         </View>
-//         <FlatList style={styles.subgoalsList}
-//           data={goal.subgoals}
-//           renderItem={({item}) => <Subgoal subgoal={item} />}
-//         />
-//           {/* <Text style={styles.goalDescription}>{goal.description}</Text> */}
-//           {/* <Icon name="remove" size={20} color="firebrick" onPress={() => deleteItem(item.id)}/> */}
-//     </View>
-//     </TouchableOpacity>
-//   );
-// };
-
   return (
     <TouchableOpacity style={styles.goal}>
       <View style={styles.goalView}>
-        {/* <View style={styles.goalInfo}> */}
           <Text style={styles.goalTitle}>{goal.skillType}- מטרה {goal.serialNum}</Text>
-          {/* <View style={styles.activitiesList}> */}
-                    {/* {
-                        goal.activities.map((activity) => {
-                            return (<Text style={styles.goalActivity}>{activity.title}</Text>);
-                        })
-                    } */}
-          {/* </View> */}
-          
-          <FlatList style={styles.activitiesList}
-            data={goal.activities}
-            renderItem={({item}) => <Text style={styles.goalActivity}>{item.title}</Text> }
-            horizontal={true}
-          />
-        {/* </View> */}
+          <View style={styles.activitiesList}>
+            {
+              goal.activities.map((activity) => {
+                return (<View style={styles.goalActivity}><Text style={styles.activityText}>{activity.title}</Text></View>)
+              })
+            } 
+          </View>
         <FlatList style={styles.subgoalsList}
           data={goal.subgoals}
           renderItem={({item}) => <Subgoal subgoal={item} />}
@@ -80,8 +35,8 @@ const styles = StyleSheet.create({
         // borderColor: '#eee',
         borderColor: '#ddd',
         margin: 2,
-        marginLeft: 11,
-        marginRight: 11,
+        marginLeft: 10,
+        marginRight: 10,
     },
     goalView: {
         flex: 1,
@@ -109,10 +64,12 @@ const styles = StyleSheet.create({
       // lineHeight: 20,
     },
     activitiesList: {
-      flex: 1,
       flexWrap: 'wrap',
-      // flexShrink: 1,
+      flexDirection: 'row',
       marginTop: 1,
+      // backgroundColor: "yellow",
+      // borderWidth: 3,
+      // borderColor: "blue",
 
     },
     goalActivity: {
@@ -124,11 +81,17 @@ const styles = StyleSheet.create({
       padding: 1,
       paddingLeft: 4,
       paddingRight: 4,
-      fontSize: 12,
-      // width: 70,
+      // fontSize: 12,
+      // width: 100,
       // lineHeight: 15,
-      textAlign: 'center',
       height: 20,
+    },
+    activityText: {
+      fontSize: 12,
+    },
+    beimashelcha: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
     },
     // goalDescription: {
     //   fontSize: 16,
