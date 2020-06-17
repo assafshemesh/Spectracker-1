@@ -1,19 +1,28 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, Button, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, Alert } from 'react-native';
 import {uuid} from 'uuidv4';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ActivityButton from './ActivityButton';
-import {Picker} from '@react-native-community/picker';
+// import {Picker} from '@react-native-community/picker';
+// import {
+//   Menu,
+//   MenuOptions,
+//   MenuOption,
+//   MenuTrigger,
+// } from 'react-native-popup-menu';
+import DropDownList from './fromLiora/DropDownList';
 
 const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoals}) => {
 
   const [buttonsState, setButtonsState] = useState(recommendedActivities.map((activity) => false));
+  // const [buttonsState, setButtonsState] = useState([...recommendedActivities.map((activity) => false), false]);
 
   const [otherActivities, setOtherActivities] = useState(restOfActivities);
 
   const updateStyle = (id) => {
       setButtonsState(prevButtonsState => {
         return prevButtonsState.map((buttonState, index) => (recommendedActivities[index].id == id) );
+        // return prevButtonsState.map((buttonState, index) => ((index == (buttonsState.length - 1)) || (recommendedActivities[index].id == id)) );
       });
       console.log(buttonsState);
   };
@@ -23,32 +32,37 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
       selectGoals(id);
   };
 
-  // const testArray = ["one", "two", "three", "four", "five"];
-
+  const [selectedActivity, setSelectedActivity] = useState('עוד פעילויות...');
+  // const [selectedActivity, setSelectedActivity] = useState({
+  //   id: null,
+  //   title: 'עוד פעילויות...',
+  //   description: '',
+  // });
   return (
     <View style={styles.container}>
-    <FlatList 
-      data={recommendedActivities}
-      horizontal={true}
-      renderItem={({item, index}) => <ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
-    />
-    {/* <View stye={styles.testContainer}>
-      <Text>{testArray[0]}</Text>
-    </View> */}
-    {/* <View stye={styles.testContainer}> */}
-      {/* <FlatList stye={styles.testContainer}
-        data={testArray}
-        renderItem={({Item, index}) => <Text style={styles.textTest}>{Item}</Text>}
-      /> */}
-    {/* </View> */}
-    {/* <Picker style={styles.otherActivitiesPicker}
-      selectedValue={otherActivities}
-      style={{height: 50, width: 200}}
-      onValueChange={(itemValue, itemIndex) =>
-        setOtherActivities({otherActivities: itemValue})
-      }>
-      {otherActivities.map((activity) => <Picker.Item label={activity.title} value={activity.title} />)  }
-    </Picker> */}
+      <FlatList style={styles.recommendedActivities}
+        data={recommendedActivities}
+        horizontal={true}
+        renderItem={({item, index}) => <ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
+      />
+      {/* <DropDownList title={'עוד פעילויות...'} pickList={restOfActivities} handleItem={(activity) => updateGoals(activity.id)} /> */}
+      {/* <Menu onSelect={value => setSelectedActivity(prevSelectedActivity => value)}>
+        <MenuTrigger>
+          <TouchableOpacity>
+            <Text>{selectedActivity}</Text>
+          </TouchableOpacity>
+        </MenuTrigger>
+        <MenuOptions>
+          <FlatList
+            data={restOfActivities}
+            renderItem={({ item }) => (
+              <MenuOption value={item.title}><TouchableOpacity style={styles.optionMenuTouchable}><Text style={styles.menuOptionText}>{item.title}</Text></TouchableOpacity></MenuOption>
+            )}
+            style={{ height: 100 }}
+          />
+        </MenuOptions>
+      </Menu> */}
+
   </View>
   );
 };
@@ -98,6 +112,12 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 5,
     },
+    menuOptionText: {
+      fontSize: 18,
+    },
+    optionMenuTouchable: {
+      // backgroundColor: 'pink',
+    },
     testContainer: {
       backgroundColor: "rosybrown",
       // backgroundColor: 'rgba(0, 255, 0, 0.3)',
@@ -110,6 +130,12 @@ const styles = StyleSheet.create({
     textTest: {
       backgroundColor: "red",
       borderWidth: 1,
+    },
+    recommendedActivities: {
+      // flex: 4,
+    },
+    otherActivities: {
+      flex: 1,
     },
 });
 
