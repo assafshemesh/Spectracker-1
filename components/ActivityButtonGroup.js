@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighlight, TouchableOpacity } from 'react-native';
 import {uuid} from 'uuidv4';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 import ActivityButton from './ActivityButton';
 import {Picker} from '@react-native-community/picker';
 import { startClock } from 'react-native-reanimated';
@@ -15,14 +15,18 @@ import { startClock } from 'react-native-reanimated';
 
 const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoals}) => {
 
-  const [buttonsState, setButtonsState] = useState(recommendedActivities.map((activity) => false));
+  // const [buttonsState, setButtonsState] = useState(recommendedActivities.map((activity) => false));
+  const allSessionActivities = [...recommendedActivities, ...restOfActivities];
+  const [buttonsState, setButtonsState] = useState(allSessionActivities.map((activity) => false));
   // const [buttonsState, setButtonsState] = useState([...recommendedActivities.map((activity) => false), false]);
+  const dropdownButtonIndex = recommendedActivities.length;
 
   const [otherActivities, setOtherActivities] = useState(restOfActivities);
 
   const updateStyle = (id) => {
       setButtonsState(prevButtonsState => {
-        return prevButtonsState.map((buttonState, index) => (recommendedActivities[index].id == id) );
+        // return prevButtonsState.map((buttonState, index) => (recommendedActivities[index].id == id) );
+        return prevButtonsState.map((buttonState, index) => (allSessionActivities[index].id == id) );
         // return prevButtonsState.map((buttonState, index) => ((index == (buttonsState.length - 1)) || (recommendedActivities[index].id == id)) );
       });
       console.log(buttonsState);
@@ -47,6 +51,7 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
   // });
   const [restOfActivitiesItem, setItem] = useState('עוד פעילויות...');
   const [dropdownValue, setDropdownValue] = useState('עוד פעילויות...');
+  const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
       <View style={styles.recommendedActivities}>
@@ -59,7 +64,8 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
       </View>
     {/* <ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/> */}
     
-    <TouchableOpacity style={styles.dropdownButton} onPress={() => {
+    <TouchableOpacity style={buttonsState.slice(recommendedActivities.length, allSessionActivities.length).includes(true) ? styles.dropdownButtonOn : {...styles.dropdownButtonOn, backgroundColor: 'lightblue'}} onPress={() => {
+          setModalVisible(true);
           // updateStyle(activity.id);
           // updateGoals(activity.id);
         }}>
@@ -93,6 +99,41 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
           />
         </MenuOptions>
       </Menu> */}
+
+      <Modal
+        // animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+        }}
+      >
+          <View style={styles.modalView}>
+          <View style={styles.restOfActivities}>
+            <FlatList 
+              data={restOfActivities}
+              // horizontal={true}
+              // renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
+              renderItem={({item, index}) =><View><TouchableOpacity onPress={() => {
+                setDropdownValue(item.title);
+                updateGoals(item.id);
+                updateStyle(item.id);
+                setModalVisible(!modalVisible);
+              }}><Text>{item.title}</Text></TouchableOpacity></View>}
+              // renderItem={({item, index}) =><View style={styles.buttonsWrap}> <ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/></View>}
+            />
+          </View>
+
+            <TouchableHighlight
+              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+              onPress={() => {
+                setModalVisible(!modalVisible);
+              }}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </TouchableHighlight>
+          </View>
+      </Modal>
 
   </View>
   );
@@ -152,10 +193,10 @@ const styles = StyleSheet.create({
         height: 50,
         padding: 5,
     },
-    dropdownButton: {
-        flex: 1,
+    dropdownButtonOn: {
+        // flex: 1,
         // alignSelf: 'stretch',
-        backgroundColor: 'lightblue',
+        backgroundColor: 'pink',
         // borderWidth: 1,
         // borderColor: 'green',
         // textAlign: 'center',
@@ -163,9 +204,10 @@ const styles = StyleSheet.create({
         // alignContent: 'center',
         // textAlignVertical: 'center',
         margin: 1,
-        // width: 70,
-        height: 50,
-        padding: 5,
+        width: 99,
+        height: 54,
+        padding: 15,
+        paddingTop: 5,
         // alignSelf: 'flex-end',
         // borderColor: 'blue',
         // borderWidth: 1,
@@ -221,6 +263,45 @@ const styles = StyleSheet.create({
     //   margin: 0,
     //   padding: 0,
     // },
+    modalView: {
+      position: "absolute",
+      top: 120,
+      left: -8,
+      margin: 20,
+      backgroundColor: 'white',
+      // borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.84,
+      elevation: 5,
+    },
+    openButton: {
+      backgroundColor: "#F194FF",
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2
+    },
+    modalText: {
+      marginBottom: 15,
+      textAlign: "center"
+    },
+    openButton: {
+      backgroundColor: "#F194FF",
+      borderRadius: 20,
+      padding: 10,
+      elevation: 2
+    },
+    textStyle: {
+      color: "white",
+      fontWeight: "bold",
+      textAlign: "center"
+    },
 });
 
 export default ActivityButtonGroup;
