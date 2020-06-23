@@ -14,6 +14,7 @@ const App = () => {
   
   return (
     <MenuProvider>
+      {console.log("inside App")}
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{

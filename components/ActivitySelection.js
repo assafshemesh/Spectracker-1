@@ -259,6 +259,10 @@ const ActivitySelection = ({ navigation }) => {
     };
     const getRestOfSessionActivities = () => {
         const restOfSessionActivities = [
+          { id: 11,
+            title: "building blocks",
+            description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
+          },
           { id: 3,
             title: "בנייה בקוביות",
             description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
@@ -295,9 +299,9 @@ const ActivitySelection = ({ navigation }) => {
 
     return (
       <View style={styles.container}>
-        <View styles={styles.activityButtons}>
+        {/* <View styles={styles.activityButtons}> */}
           <ActivityButtonGroup recommendedActivities={getRecommendedActivities()} restOfActivities={getRestOfSessionActivities()} selectGoals={selectGoals} />
-        </View>
+        {/* </View> */}
         <View style={styles.goalsList}>
           <FlatList 
           // data={getSessionGoals()}
@@ -314,11 +318,16 @@ const styles = StyleSheet.create({
       flex: 8,
     },
     activityButtons: {
-      flex: 1,
+      // flex: 1,
+      // width: 350,
+      borderColor: 'green',
+      borderWidth: 3,
+      alignItems: "flex-end",
+      justifyContent: "flex-end",
       backgroundColor: 'blue',
     },
     goalsList: {
-        flex: 1,
+        flex: 8,
         backgroundColor: 'wheat',
         paddingTop: 2,
     },
