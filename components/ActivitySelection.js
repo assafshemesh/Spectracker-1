@@ -1,110 +1,10 @@
 import React, {useState}  from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Button, FlatList } from 'react-native';
-import { initialWindowSafeAreaInsets } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/dist/FontAwesome';
-// import {uuid} from 'uuidv4';
 import Goal from '../components/Goal';
 import ActivityButtonGroup from '../components/ActivityButtonGroup';
-import {Picker} from '@react-native-community/picker';
-
 
 const ActivitySelection = ({ navigation }) => {
 
-//   const getSessionGoals = () => {
-//     const sessionGoals = [ 
-//         { id: 1,
-//           serialNum: 1,
-//           title:  "1.תני לי x",
-//           description: "במהלך משחק משותף בחפצים או בפעילות אכילה \ הלבשה, כשירדן תקבל הוראה מילולית של 'תני לי X' עבור 8-10 אובייקטים ספציפיים, ירדן תיתן את האובייקט בליווי מבט. ירדן תיתן את האובייקטים בפעילויות עם שני מבוגרים שונים, לאורך 3 ימים עוקבים",
-//           skillType: "שפה רצפטיבית",
-//           subgoals: [
-//             {   id: 1.1,
-//                 serialNum: 1.1,
-//                 title: "1.1",
-//                 description: "ירדן נותנת 3-4 אובייקטים ללא מבט, עם סיוע של הושטת יד",
-//                 doneAt: "",
-//               },
-//             {   id: 1.2,
-//                 serialNum: 1.2,
-//                 title: "1.2",
-//                 description: "ירדן נותנת 3-4 אובייקטים בליווי מבט, עם סיוע של הושטת יד + כניסה לטווח הראייה של המטפל",
-//                 doneAt: "",
-//               }
-//           ],
-//           activities: [
-//             {   id: 1,
-//                 title: "soap bubbles",
-//                 description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
-//             },
-//             {   id: 2,
-//                 title: "old toy",
-//                 description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
-//             },
-//           ]
-//         },
-//         { id: 2,
-//           serialNum: 2,
-//           title:  "2. חפשי ותני לי את X",
-//           description: "במהלך משחק משותף בחפצים או בפעילות אכילה \ הלבשה, כשירדן תקבל הוראה מילולית של 'תני לי X' עבור 8-10 אובייקטים ספציפיים, ירדן תיתן את האובייקט בליווי מבט. ירדן תיתן את האובייקטים בפעילויות עם שני מבוגרים שונים, לאורך 3 ימים עוקבים",
-//           skillType: "שפה רצפטיבית",
-//           subgoals: [
-//               {   id: 2.1,
-//                   serialNum: 2.1,
-//                   title: "2.1",
-//                   description: "ירדן נותנת 3-4 אובייקטים ללא מבט, עם סיוע של הושטת יד",
-//                   doneAt: "",
-//               },
-//             //   {   id: 2.4,
-//             //       serialNum: 2.4,
-//             //       title: "2.4",
-//             //       description: "ירדן נותנת 3-4 אובייקטים בליווי מבט, עם סיוע של הושטת יד + כניסה לטווח הראייה של המטפל",
-//             //       doneAt: "",
-//             //   }
-//           ],
-//           activities: [
-//             {   id: 1,
-//               title: "soap bubbles",
-//                 description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
-//             },
-//             {   id: 2,
-//                 title: "new toy",
-//                 description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
-//             },
-//           ]
-//         },
-//         { id: 3,
-//           serialNum: 3,
-//           title:  "3. שיתוף בפעילות",
-//           description: "במהלך משחק משותף בחפצים או בפעילות אכילה \ הלבשה, כשירדן תקבל הוראה מילולית של 'תני לי X' עבור 8-10 אובייקטים ספציפיים, ירדן תיתן את האובייקט בליווי מבט. ירדן תיתן את האובייקטים בפעילויות עם שני מבוגרים שונים, לאורך 3 ימים עוקבים",
-//           skillType: "שפה רצפטיבית",
-//           subgoals: [
-//               {   id: 3.1,
-//                   serialNum: 3.1,
-//                   title: "2.1",
-//                   description: "ירדן נותנת 3-4 אובייקטים ללא מבט, עם סיוע של הושטת יד",
-//                   doneAt: "",
-//               },
-//             //   {   id: 3.2,
-//             //       serialNum: 3.2,
-//             //       title: "2.2",
-//             //       description: "ירדן נותנת 3-4 אובייקטים בליווי מבט, עם סיוע של הושטת יד + כניסה לטווח הראייה של המטפל",
-//             //       doneAt: "",
-//             //   }
-//           ],
-//           activities: [
-//             {   id: 1,
-//                 title: "soap bubbles",
-//                 description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
-//             },
-//             {   id: 2,
-//                 title: "new toy",
-//                 description: "1. ללכוד בועה בודדת ולמקמה בין הפנים שלך לשל ירדן 2.'פוף', ירדן תפוצץ את הבועה עם  האצבע- קשר עין וצחוק משותף 3. לעצור מדי פעם ולהמתין ליוזמה של ירדן"
-//             },
-//           ],
-//         },
-//     ];
-//     return (sessionGoals);
-// };
     const getSessionGoals = () => {
         const sessionGoals = [ 
             { id: 1,
@@ -280,35 +180,21 @@ const ActivitySelection = ({ navigation }) => {
     };
 
     var sessionGoals = getSessionGoals();
-    console.log(sessionGoals);
     var recommendedActivities = getRecommendedActivities();
-    // const [goals, setGoals] = useState(sessionGoals);
     const [goals, setGoals] = useState(getSessionGoals());
 
-    console.log("goals length =" + goals.length);
-    
-
-
-    // const selectGoals = (activity) => {
     const selectGoals = (id) => {
-      console.log(id);
       setGoals(sessionGoals);
       setGoals(prevGoals => { 
         return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(id)));
-        // return (prevGoals.filter(goal => ((goal.activities.map(gAct => gAct.title).includes(reversedActivity)))) || (goal.activities.map(gAct => gAct.title).includes(activity)));
       });
     };
 
-    console.log("goals length later =" + goals.length);
-
     return (
       <View style={styles.container}>
-        {/* <View styles={styles.activityButtons}> */}
-          <ActivityButtonGroup recommendedActivities={getRecommendedActivities()} restOfActivities={getRestOfSessionActivities()} selectGoals={selectGoals} />
-        {/* </View> */}
+        <ActivityButtonGroup recommendedActivities={getRecommendedActivities()} restOfActivities={getRestOfSessionActivities()} updateGoals={selectGoals} />
         <View style={styles.goalsList}>
           <FlatList 
-          // data={getSessionGoals()}
           data={goals}
           renderItem={({item}) => <Goal goal={item} />}
           />
@@ -322,8 +208,6 @@ const styles = StyleSheet.create({
       flex: 8,
     },
     activityButtons: {
-      // flex: 1,
-      // width: 350,
       borderColor: 'green',
       borderWidth: 3,
       alignItems: "flex-end",
@@ -335,8 +219,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'wheat',
         paddingTop: 2,
     },
-
-    
 
 })
 
