@@ -1,10 +1,14 @@
 import React, {useState} from 'react';
 import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighlight, TouchableOpacity } from 'react-native';
 import {uuid} from 'uuidv4';
-// import { TouchableOpacity } from 'react-native-gesture-handler';
 import ActivityButton from './ActivityButton';
-import {Picker} from '@react-native-community/picker';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import { startClock } from 'react-native-reanimated';
+import Icon from 'react-native-vector-icons/dist/FontAwesome';
+
+
 // import {
 //   Menu,
 //   MenuOptions,
@@ -50,10 +54,15 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
   //   description: '',
   // });
   const [restOfActivitiesItem, setItem] = useState('עוד פעילויות...');
-  const [dropdownValue, setDropdownValue] = useState('עוד פעילויות...');
+  // const [dropdownValue, setDropdownValue] = useState("עוד\nפעילויות");
+  const [dropdownValue, setDropdownValue] = useState("עוד פעילויות");
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View style={styles.container}>
+      
+      {/* <View>
+        <FontAwesomeIcon icon={ faCaretDown } />
+      </View> */}
       <View style={styles.recommendedActivities}>
         <FlatList 
           data={recommendedActivities}
@@ -63,42 +72,18 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
         />
       </View>
     {/* <ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/> */}
-    
-    <TouchableOpacity style={buttonsState.slice(recommendedActivities.length, allSessionActivities.length).includes(true) ? styles.dropdownButtonOn : {...styles.dropdownButtonOn, backgroundColor: 'lightblue'}} onPress={() => {
-          setModalVisible(true);
-          // updateStyle(activity.id);
-          // updateGoals(activity.id);
-        }}>
-        <Text>{dropdownValue}</Text>
-    </TouchableOpacity>
-
-    {/* <Picker
-        selectedValue={restOfActivitiesItem}
-        // style={{ backgroundColor: "magenta", color: "blue", fontFamily: "Ebrima", fontSize: 17, height: 200, width: 200}}
-        // style={styles.activitiesPicker}
-        // style={styles.buttonOff}
-        style={styles.dropdownButton}
-        onValueChange={(itemValue, itemIndex) => {setItem(itemValue); handleItem(itemValue.title, itemIndex);}}>
-        {restOfActivities.map((activity) => <Picker.Item label={activity.title} value={activity.title} />)}
-    </Picker> */}
-
-      {/* <DropDownList title={'עוד פעילויות...'} pickList={restOfActivities} handleItem={(activity) => updateGoals(activity.id)} /> */}
-      {/* <Menu onSelect={value => setSelectedActivity(prevSelectedActivity => value)}>
-        <MenuTrigger>
-          <TouchableOpacity>
-            <Text>{selectedActivity}</Text>
-          </TouchableOpacity>
-        </MenuTrigger>
-        <MenuOptions>
-          <FlatList
-            data={restOfActivities}
-            renderItem={({ item }) => (
-              <MenuOption value={item.title}><TouchableOpacity style={styles.optionMenuTouchable}><Text style={styles.menuOptionText}>{item.title}</Text></TouchableOpacity></MenuOption>
-            )}
-            style={{ height: 100 }}
-          />
-        </MenuOptions>
-      </Menu> */}
+      
+        <TouchableOpacity style={buttonsState.slice(recommendedActivities.length, allSessionActivities.length).includes(true) ? styles.dropdownButtonOn : {...styles.dropdownButtonOn, backgroundColor: 'lightblue'}} onPress={() => {
+              setModalVisible(true);
+              // updateGoals(activity.id);
+            }}>
+            <View style={styles.dropdownButtonTextContainer}>
+              <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCaretDown } />
+              <View style={styles.buttonTextWrapper}>
+                <Text style={styles.dropdownButtonText}>{dropdownValue}</Text>
+              </View>
+            </View>
+        </TouchableOpacity>
 
       <Modal
         // animationType="fade"
@@ -125,12 +110,12 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, selectGoa
           </View>
 
             <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+              style={styles.cancelButton}
               onPress={() => {
                 setModalVisible(!modalVisible);
               }}
             >
-              <Text style={styles.textStyle}>Hide Modal</Text>
+              <Text style={styles.textStyle}>בטל</Text>
             </TouchableHighlight>
           </View>
       </Modal>
@@ -206,11 +191,29 @@ const styles = StyleSheet.create({
         margin: 1,
         width: 99,
         height: 54,
-        padding: 15,
+        padding: 10,
         paddingTop: 5,
         // alignSelf: 'flex-end',
         // borderColor: 'blue',
         // borderWidth: 1,
+    },
+    dropdownButtonTextContainer: {
+      flex: 1,
+      flexDirection: 'row-reverse',
+      alignContent: 'center',
+      justifyContent: 'center',
+    },
+    buttonTextWrapper: {
+      flex: 4,
+      alignSelf: 'center',
+    },
+    // dropdownButtonText: {
+    //   flex: 4,
+    // },
+    dropdownButtonIcon: {
+      flex: 1,
+      marginLeft: 4,
+      alignSelf: 'center',
     },
     buttonOn: {
         flex: 1,
@@ -291,11 +294,14 @@ const styles = StyleSheet.create({
       marginBottom: 15,
       textAlign: "center"
     },
-    openButton: {
-      backgroundColor: "#F194FF",
-      borderRadius: 20,
+    cancelButton: {
+      backgroundColor: "#bbb",
+      // borderRadius: 20,
       padding: 10,
-      elevation: 2
+      // margin: 3,
+      // elevation: 2
+      borderWidth: 1,
+      borderColor: 'pink',
     },
     textStyle: {
       color: "white",

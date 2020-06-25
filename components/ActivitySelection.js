@@ -263,10 +263,10 @@ const ActivitySelection = ({ navigation }) => {
     };
     const getRestOfSessionActivities = () => {
         const restOfSessionActivities = [
-          { id: 11,
-            title: "building blocks",
-            description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
-          },
+          // { id: 11,
+          //   title: "building blocks",
+          //   description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
+          // },
           { id: 9,
             title: "בנייה בקוביות",
             description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
