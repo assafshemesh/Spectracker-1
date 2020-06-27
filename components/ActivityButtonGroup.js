@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighlight, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import {uuid} from 'uuidv4';
 import ActivityButton from './ActivityButton';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
@@ -30,7 +30,7 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
           renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
         />
       </View>
-      <TouchableOpacity style={buttonsState.slice(recommendedActivities.length, allSessionActivities.length).includes(true) ? styles.dropdownButtonOn : {...styles.dropdownButtonOn, backgroundColor: 'lightblue'}} onPress={() => {
+      <TouchableOpacity style={buttonsState.slice(recommendedActivities.length, allSessionActivities.length).includes(true) ? styles.dropdownButtonOn : styles.dropdownButtonOff} onPress={() => {
             setModalVisible(true);
           }}>
           <View style={styles.dropdownButtonTextContainer}>
@@ -45,33 +45,28 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
         transparent={true}
         visible={modalVisible}
       >
-          <View style={styles.modalView}>
-            <View style={styles.restOfActivities}>
-              <FlatList 
-                data={restOfActivities}
-                renderItem={({item, index}) =>
-                  <View>
-                    <TouchableOpacity onPress={() => {
-                      setDropdownValue(item.title);
-                      updateGoals(item.id);
-                      updateStyle(item.id);
-                      setModalVisible(!modalVisible);
-                      }}>
-                        <Text style={styles.menuOptionText}>{item.title}</Text>
-                    </TouchableOpacity>
-                  </View>}
-              />
+        <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
+          <View style={styles.modalBackgroundView}>
+            <View style={styles.modalView}>
+              <View style={styles.restOfActivities}>
+                <FlatList 
+                  data={restOfActivities}
+                  renderItem={({item, index}) =>
+                    <View>
+                      <TouchableOpacity onPress={() => {
+                        setDropdownValue(item.title);
+                        updateGoals(item.id);
+                        updateStyle(item.id);
+                        setModalVisible(!modalVisible);
+                        }}>
+                          <Text style={styles.menuOptionText}>{item.title}</Text>
+                      </TouchableOpacity>
+                    </View>}
+                />
+              </View>
             </View>
-
-            <TouchableHighlight
-              style={styles.cancelButton}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={styles.cancelButtonText}>בטל</Text>
-            </TouchableHighlight>
           </View>
+        </TouchableWithoutFeedback>
       </Modal>
 
   </View>
@@ -85,14 +80,14 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       flexDirection: 'row',
         flex: 1,  // relations 1:8 with the sibling goalList
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
+        // alignItems: 'flex-end',
+        // justifyContent: 'flex-end',
         flexDirection: 'row-reverse',
         paddingRight: 11,
         paddingLeft: 11,
     },
     buttonOff: {
-        flex: 1,
+        // flex: 1,
         backgroundColor: 'lightblue',
         margin: 1,
         width: 70,
@@ -103,22 +98,31 @@ const styles = StyleSheet.create({
         backgroundColor: 'pink',
         margin: 1,
         width: 99,
-        height: 54,
+        // height: 50,
+        padding: 10,
+        paddingTop: 5,
+    },
+    dropdownButtonOff: {
+        backgroundColor: 'lightblue',
+        margin: 1,
+        width: 99,
+        height: 50,
         padding: 10,
         paddingTop: 5,
     },
     dropdownButtonTextContainer: {
-      flex: 1,
+      // flex: 1,
       flexDirection: 'row-reverse',
       alignContent: 'center',
       justifyContent: 'center',
     },
     buttonTextWrapper: {
-      flex: 4,
-      alignSelf: 'center',
+      // flex: 4,
+      flex: 1,
+      // alignSelf: 'center',
     },
     dropdownButtonIcon: {
-      flex: 1,
+      // flex: 1,
       marginLeft: 4,
       alignSelf: 'center',
     },
@@ -136,11 +140,28 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
     },
     recommendedActivities: {
-      flex: 1,
+      // flex: 1,
     },
+    // modalView: {
+    //   position: "absolute",
+    //   top: 120,
+    //   left: -8,
+    //   margin: 20,
+    //   backgroundColor: 'white',
+    //   padding: 25,
+    //   alignItems: 'center',
+    //   shadowColor: '#000',
+    //   shadowOffset: {
+    //     width: 0,
+    //     height: 2,
+    //   },
+    //   shadowOpacity: 0.25,
+    //   shadowRadius: 3.84,
+    //   elevation: 5,
+    // },
     modalView: {
       position: "absolute",
-      top: 120,
+      top: 87,
       left: -8,
       margin: 20,
       backgroundColor: 'white',
@@ -154,6 +175,11 @@ const styles = StyleSheet.create({
       shadowOpacity: 0.25,
       shadowRadius: 3.84,
       elevation: 5,
+    },
+    modalBackgroundView: {
+      flex: 1,
+      alignSelf: 'stretch',
+      // backgroundColor: 'navy',
     },
     openButton: {
       backgroundColor: "#F194FF",

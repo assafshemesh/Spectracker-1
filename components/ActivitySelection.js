@@ -2,6 +2,7 @@ import React, {useState}  from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Button, FlatList } from 'react-native';
 import Goal from '../components/Goal';
 import ActivityButtonGroup from '../components/ActivityButtonGroup';
+import DropdownListButton from '../components/DropdownListButton';
 
 const ActivitySelection = ({ navigation }) => {
 
@@ -142,21 +143,89 @@ const ActivitySelection = ({ navigation }) => {
             // title: "הפרחת בועות סבון",
             title: "בועות סבון",
             // title: "אבא",
-            description: "פוף!' ירדן תפוצץ בועה עם האצבע'"
+            description: "פוף!' ירדן תפוצץ בועה עם האצבע'",
+            environments: [
+              { id: 1,
+                title: "חדר טיפול",
+                default: false,
+              },
+              { id: 2,
+                title: "סלון ילדים",
+                default: false,
+              },
+              { id: 4,
+                title: "חדר אמבטיה",
+                default: false,
+              },
+              { id: 3,
+                title: "חצר",
+                default: true,
+              },
+            ],
           },
           { id: 3,
             title: "הרכבת פאזל",
             // title: "אמא",
             description: "מציאת החלק המתאים של פאזל מגנטי",
+            environments: [
+              { id: 1,
+                title: "חדר טיפול",
+                default: true,
+              },
+              { id: 2,
+                title: "סלון ילדים",
+                default: false,
+              },
+              { id: 3,
+                title: "חצר",
+                default: false,
+              },
+              { id: 5,
+                title: "מטבח",
+                default: false,
+              },
+            ],
           },
           { id: 4,
             // title: "הצגת צעצוע חדש",
             title: "צעצוע חדש",
-            description: "משחק עם צעצוע חדש  פקפקפקפקפקפקפפקפקהההה"
+            description: "משחק עם צעצוע חדש  פקפקפקפקפקפקפפקפקהההה",
+            environments: [
+              { id: 1,
+                title: "חדר טיפול",
+                default: false,
+              },
+              { id: 2,
+                title: "סלון ילדים",
+                default: true,
+              },
+              { id: 3,
+                title: "חצר",
+                default: false,
+              },
+              { id: 6,
+                title: "חדר שינה",
+                default: false,
+              },
+            ],
           },
           { id: 5,
             title: "משחק בבובות",
             description: "עייפה בובה זהבה ועייף מאוד הדובבבבב",
+            environments: [
+              { id: 1,
+                title: "חדר טיפול",
+                default: true,
+              },
+              { id: 2,
+                title: "סלון ילדים",
+                default: false,
+              },
+              { id: 3,
+                title: "חצר",
+                default: false,
+              },
+            ],
           }
         ];
         return recommendedActivities.reverse();
@@ -169,11 +238,43 @@ const ActivitySelection = ({ navigation }) => {
           // },
           { id: 9,
             title: "בנייה בקוביות",
-            description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
+            description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט",
+            environments: [
+              { id: 1,
+                title: "חדר טיפול",
+                default: true,
+              },
+              { id: 2,
+                title: "סלון ילדים",
+                default: false,
+              },
+              { id: 3,
+                title: "חצר",
+                default: false,
+              },
+            ],
           },
           { id: 6,
             title: "ציור",
             description: "  כנסי כבר לבאטמוביל וניסע...קורונה ג'ננה שלום שלום ",
+            environments: [
+              { id: 1,
+                title: "חדר טיפול",
+                default: false,
+              },
+              { id: 2,
+                title: "סלון ילדים",
+                default: true,
+              },
+              { id: 3,
+                title: "חצר",
+                default: false,
+              },
+              { id: 7,
+                title: "פינת אוכל",
+                default: false,
+              },
+            ],
           },
         ];
         return restOfSessionActivities;
@@ -181,7 +282,10 @@ const ActivitySelection = ({ navigation }) => {
 
     var sessionGoals = getSessionGoals();
     var recommendedActivities = getRecommendedActivities();
+    var restOfActivities = getRestOfSessionActivities();
     const [goals, setGoals] = useState(getSessionGoals());
+    const [environments, setEnvironments] = useState([]);
+    const [defaultEnvironment, setDefaultEnvironment] = useState('');
 
     const selectGoals = (id) => {
       setGoals(sessionGoals);
@@ -189,10 +293,27 @@ const ActivitySelection = ({ navigation }) => {
         return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(id)));
       });
     };
+    // const selectGoals = (id) => {
+    //   setGoals(sessionGoals);
+    //   setGoals(prevGoals => { 
+    //     return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(id)));
+    //   });
+    //   setEnvironments([...recommendedActivities, ...restOfActivities].filter(activity => activity.id == id).environments);
+    //   setDefaultEnvironment(environments.filter(environment => environment.default == true));
+    // };
+
+    const updateEnvironments = (environment) => {
+      const envId = activity.id;
+      setEnvironments(prevEnvironments => {
+        return (activity.environments);
+      });
+    };
 
     return (
       <View style={styles.container}>
-        <ActivityButtonGroup recommendedActivities={getRecommendedActivities()} restOfActivities={getRestOfSessionActivities()} updateGoals={selectGoals} />
+        <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={selectGoals} />
+        {/* {console.log(environments.find(environment => environment.default == true).id)} */}
+        {/* <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log(environment.id)} /> */}
         <View style={styles.goalsList}>
           <FlatList 
           data={goals}
@@ -215,7 +336,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'blue',
     },
     goalsList: {
-        flex: 8,
+        flex: 9,
         backgroundColor: 'wheat',
         paddingTop: 2,
     },

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighli
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
-const DropdownListButton = ({arrayListItems, onSelect, defaultValue}) => {
+const DropdownListButton = ({arrayListItems, defaultValue, onSelect}) => {
 
   const [dropdownValue, setDropdownValue] = useState(defaultValue);
   const [modalVisible, setModalVisible] = useState(false);
@@ -16,7 +16,7 @@ const DropdownListButton = ({arrayListItems, onSelect, defaultValue}) => {
           <View style={styles.dropdownButtonTextContainer}>
             <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCaretDown } />
             <View style={styles.buttonTextWrapper}>
-              <Text style={styles.dropdownButtonText}>{dropdownValue}</Text>
+              <Text style={styles.dropdownButtonText}>{defaultValue}</Text>
             </View>
           </View>
       </TouchableOpacity>
@@ -157,4 +157,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default dropdownListButton;
+export default DropdownListButton;

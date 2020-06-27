@@ -6,26 +6,27 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 const UpperMenu = ({ route, navigation }) => {
   return (
     <View style={styles.upperMenuContainer}>
-        {/* <View style={styles.wrapper1}> */}
-            {/* <Icon name="ellipsis-h" style={styles.menuIcon} /> */}
             <Icon name="bars" style={styles.menuIcon} />
-        {/* </View> */}
-        {/* <View style={styles.wrapper2}> */}
-            <Text style={styles.menuText}>Spectracker</Text>
-        {/* </View> */}
+            {/* <Text style={styles.menuText}>Spectracker</Text> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   upperMenuContainer: {
+    position: "absolute",
+    top: -16,
+    left: -23,
+    margin: 20,
+    zIndex: 9999,
     // flex: 0.13,
-    flex: 0.5,
+    // flex: 0.5,
     maxHeight: 40,
     flexDirection: 'row',
-    alignContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'darkslateblue',
+    width: 40,
+    // alignContent: 'center',
+    // alignItems: 'center',
+    // backgroundColor: 'darkslateblue',
     color: '#fff',
     // borderTopWidth: 0.2,
     // borderTopColor: '#fff',
@@ -35,7 +36,8 @@ const styles = StyleSheet.create({
 //   },
   menuIcon: {
      textAlign: 'left',
-     color: '#fff',
+    //  color: '#fff',
+     color: '#bbb',
      fontSize: 26,
      marginLeft: 10,
     //  backgroundColor: 'pink',
