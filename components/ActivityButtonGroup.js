@@ -55,7 +55,8 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
                     <View>
                       <TouchableOpacity onPress={() => {
                         setDropdownValue(item.title);
-                        updateGoals(item.id);
+                        // updateGoals(item.id);
+                        updateGoals(item);
                         updateStyle(item.id);
                         setModalVisible(!modalVisible);
                         }}>
@@ -114,7 +115,9 @@ const styles = StyleSheet.create({
       // flex: 1,
       flexDirection: 'row-reverse',
       alignContent: 'center',
+      // alignSelf: 'center',
       justifyContent: 'center',
+      // textAlign: 'center',
     },
     buttonTextWrapper: {
       // flex: 4,

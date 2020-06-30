@@ -10,7 +10,8 @@ const ActivityButton = ({activity, buttonStyle, updateStyle, updateGoals}) => {
           // updateStyle(activity.title);
           // updateGoals(activity.title);
           updateStyle(activity.id);
-          updateGoals(activity.id);
+          // updateGoals(activity.id);
+          updateGoals(activity);
         }}>
         <Text>{activity.title}</Text>
       </TouchableOpacity>

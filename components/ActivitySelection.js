@@ -165,7 +165,6 @@ const ActivitySelection = ({ navigation }) => {
           },
           { id: 3,
             title: "הרכבת פאזל",
-            // title: "אמא",
             description: "מציאת החלק המתאים של פאזל מגנטי",
             environments: [
               { id: 1,
@@ -187,7 +186,6 @@ const ActivitySelection = ({ navigation }) => {
             ],
           },
           { id: 4,
-            // title: "הצגת צעצוע חדש",
             title: "צעצוע חדש",
             description: "משחק עם צעצוע חדש  פקפקפקפקפקפקפפקפקהההה",
             environments: [
@@ -209,6 +207,29 @@ const ActivitySelection = ({ navigation }) => {
               },
             ],
           },
+          // { id: 4,
+          //   // title: "הצגת צעצוע חדש",
+          //   title: "new toy",
+          //   description: "this is the description of new toy activity",
+          //   environments: [
+          //     { id: 1,
+          //       title: "treatment room",
+          //       default: false,
+          //     },
+          //     { id: 2,
+          //       title: "kids livingroom",
+          //       default: true,
+          //     },
+          //     { id: 3,
+          //       title: "backyard",
+          //       default: false,
+          //     },
+          //     { id: 6,
+          //       title: "bedroom",
+          //       default: false,
+          //     },
+          //   ],
+          // },
           { id: 5,
             title: "משחק בבובות",
             description: "עייפה בובה זהבה ועייף מאוד הדובבבבב",
@@ -287,33 +308,25 @@ const ActivitySelection = ({ navigation }) => {
     const [environments, setEnvironments] = useState([]);
     const [defaultEnvironment, setDefaultEnvironment] = useState('');
 
-    const selectGoals = (id) => {
+    
+    const updateGoals = (activity) => {
       setGoals(sessionGoals);
       setGoals(prevGoals => { 
-        return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(id)));
+        return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
       });
+      updateEnvironments(activity);
     };
-    // const selectGoals = (id) => {
-    //   setGoals(sessionGoals);
-    //   setGoals(prevGoals => { 
-    //     return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(id)));
-    //   });
-    //   setEnvironments([...recommendedActivities, ...restOfActivities].filter(activity => activity.id == id).environments);
-    //   setDefaultEnvironment(environments.filter(environment => environment.default == true));
-    // };
 
-    const updateEnvironments = (environment) => {
-      const envId = activity.id;
-      setEnvironments(prevEnvironments => {
-        return (activity.environments);
-      });
+    const updateEnvironments = (activity) => {
+      setEnvironments(activity.environments);
+      var defEnv = activity.environments?.filter((environment) => environment.default == true)[0] || {title: 'no environments', id: 444};
+      setDefaultEnvironment(defEnv.title);
     };
 
     return (
       <View style={styles.container}>
-        <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={selectGoals} />
-        {/* {console.log(environments.find(environment => environment.default == true).id)} */}
-        {/* <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log(environment.id)} /> */}
+        <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
+        <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
         <View style={styles.goalsList}>
           <FlatList 
           data={goals}
@@ -328,13 +341,13 @@ const styles = StyleSheet.create({
     container: {
       flex: 8,
     },
-    activityButtons: {
-      borderColor: 'green',
-      borderWidth: 3,
-      alignItems: "flex-end",
-      justifyContent: "flex-end",
-      backgroundColor: 'blue',
-    },
+    // activityButtons: {
+    //   borderColor: 'green',
+    //   borderWidth: 3,
+    //   alignItems: "flex-end",
+    //   justifyContent: "flex-end",
+    //   backgroundColor: 'blue',
+    // },
     goalsList: {
         flex: 9,
         backgroundColor: 'wheat',

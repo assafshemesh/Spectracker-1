@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighlight, TouchableOpacity } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighlight, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
@@ -8,49 +8,66 @@ const DropdownListButton = ({arrayListItems, defaultValue, onSelect}) => {
   const [dropdownValue, setDropdownValue] = useState(defaultValue);
   const [modalVisible, setModalVisible] = useState(false);
 
+  useEffect(() => {
+    setDropdownValue(defaultValue);
+  }, [defaultValue, arrayListItems]); //should re-render if any of those is changed
+                                      // BUT there is the following case in which this will not work as desired (to be fixed later): 
+                                      //if there are 2 activities A and B with the same list of envs and with the same defEnv
+                                      //and we 1.click activity A; 2.change the value of the dropdowm envs list to
+                                      //something else; 3. click activity B--- we'd expect the value of the
+                                      //dropdown list to change back to the defEnv--- but in this case the re-render will not be
+                                      //triggered, since the array [defaultValue, arrayListItems] is not changed.
+
+
   return (
     <View style={styles.container}>
+      <View style={styles.buttonAreaContainer}>
+       <View style={styles.buttonTextWrapper}>
+              {/* <Text style={styles.dropdownButtonText}>הסביבה:    </Text> */}
+              <Text style={styles.dropdownButtonText}>סביבת הפעילות:   </Text>
+            </View>
       <TouchableOpacity style={styles.button} onPress={() => {
             setModalVisible(true);
           }}>
-          <View style={styles.dropdownButtonTextContainer}>
+          <View style={styles.dropdownButtonContainer}>
+            {/* <View style={styles.buttonTextWrapper}>
+              <Text style={styles.dropdownButtonText}>הסביבה:    </Text>
+            </View> */}
             <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCaretDown } />
             <View style={styles.buttonTextWrapper}>
-              <Text style={styles.dropdownButtonText}>{defaultValue}</Text>
+              {/* <Text style={styles.dropdownButtonText}>הסביבה: {dropdownValue}</Text> */}
+              <Text style={styles.dropdownButtonText}>{dropdownValue}</Text>
             </View>
           </View>
       </TouchableOpacity>
+      </View>
 
       <Modal
         transparent={true}
         visible={modalVisible}
       >
-          <View style={styles.modalView}>
-            <View style={styles.listItemsContainer}>
-              <FlatList 
-                data={arrayListItems}
-                renderItem={({item, index}) =>
-                  <View>
-                    <TouchableOpacity onPress={() => {
-                      setDropdownValue(item.title);
-                      onSelect(item);
-                      setModalVisible(!modalVisible);
-                      }}>
-                        <Text style={styles.menuOptionText}>{item.title}</Text>
-                    </TouchableOpacity>
-                  </View>}
-              />
-            </View>
+          <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
+            <View style={styles.modalBackgroundView}>
+                <View style={styles.modalView}>
+                    <View style={styles.listItemsContainer}>
+                    <FlatList 
+                        data={arrayListItems}
+                        renderItem={({item, index}) =>
+                        <View>
+                            <TouchableOpacity onPress={() => {
+                            setDropdownValue(item.title);
+                            onSelect(item);
+                            setModalVisible(!modalVisible);
+                            }}>
+                                <Text style={styles.menuOptionText}>{item.title}</Text>
+                            </TouchableOpacity>
+                        </View>}
+                    />
+                    </View>
 
-            <TouchableHighlight
-              style={styles.cancelButton}
-              onPress={() => {
-                setModalVisible(!modalVisible);
-              }}
-            >
-              <Text style={styles.cancelButtonText}>בטל</Text>
-            </TouchableHighlight>
-          </View>
+                </View>
+            </View>
+          </TouchableWithoutFeedback>
       </Modal>
 
   </View>
@@ -63,64 +80,59 @@ const styles = StyleSheet.create({
     container: {
       flexWrap: 'wrap',
       flexDirection: 'row',
-        flex: 1,  // relations 1:8 with the sibling goalList
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-        flexDirection: 'row-reverse',
-        paddingRight: 11,
-        paddingLeft: 11,
-    },
-    // buttonOff: {
-    //     flex: 1,
-    //     backgroundColor: 'lightblue',
-    //     margin: 1,
-    //     width: 70,
-    //     height: 50,
-    //     padding: 5,
-    // },
-    // dropdownButtonOn: {
-    //     backgroundColor: 'pink',
-    //     margin: 1,
-    //     width: 99,
-    //     height: 54,
-    //     padding: 10,
-    //     paddingTop: 5,
-    // },
-    dropdownButtonTextContainer: {
+      // flex: 1,  // relation of 1:8 with the sibling goalList
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
+      paddingRight: 11,
+      paddingLeft: 11,
+      // borderColor: 'purple',
+      // borderWidth: 1,
+  },
+    dropdownButtonContainer: {
       flex: 1,
       flexDirection: 'row-reverse',
-      alignContent: 'center',
-      justifyContent: 'center',
+      // borderColor: 'green',
+      // borderWidth: 1,
+    },
+    buttonAreaContainer: {
+      // flex: 1,
+      flexDirection: 'row-reverse',
+      margin: 6,
+    //   borderColor: 'orange',
+    //   borderWidth: 1,
     },
     buttonTextWrapper: {
-      flex: 4,
+      // flex: 1,
       alignSelf: 'center',
+      // borderColor: 'red',
+      // borderWidth: 1,
+    },
+    dropdownButtonText: {
+        // textAlign: 'center',
+        fontSize: 16,
+        // height: 20,
+        // backgroundColor: 'lavender',
     },
     dropdownButtonIcon: {
       flex: 1,
       marginLeft: 4,
       alignSelf: 'center',
     },
-    // buttonOn: {
-    //     flex: 1,
-    //     backgroundColor: 'pink',
-    //     margin: 1,
-    //     width: 70,
-    //     height: 50,
-    //     padding: 5,
-    // },
     menuOptionText: {
+        flex: 1,
       fontSize: 16,
       marginBottom: 12,
       alignSelf: 'center',
     },
-    // recommendedActivities: {
-    //   flex: 1,
-    // },
+    modalBackgroundView: {
+        flex: 1,
+        alignSelf: 'stretch',
+    },    
     modalView: {
       position: "absolute",
-      top: 120,
-      left: -8,
+      top: 118,
+      // right: -8,
+      right: 120,
       margin: 20,
       backgroundColor: 'white',
       padding: 25,
