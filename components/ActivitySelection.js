@@ -307,9 +307,26 @@ const ActivitySelection = ({ navigation }) => {
     const [goals, setGoals] = useState(getSessionGoals());
     const [environments, setEnvironments] = useState([]);
     const [defaultEnvironment, setDefaultEnvironment] = useState('');
+    const [isSelectionVisible, setIsSelectionVisible] = useState(false);
 
-    
+    const showSelection = () => {
+       if (isSelectionVisible) {
+         return (
+           <View style={styles.goalsList}>
+            <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
+            <View style={styles.goalsList}>
+              <FlatList 
+              data={goals}
+              renderItem={({item}) => <Goal goal={item} />}
+              />
+            </View>
+           </View>
+         );
+       };
+    };
+
     const updateGoals = (activity) => {
+      setIsSelectionVisible(true);
       setGoals(sessionGoals);
       setGoals(prevGoals => { 
         return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
@@ -326,13 +343,14 @@ const ActivitySelection = ({ navigation }) => {
     return (
       <View style={styles.container}>
         <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
-        <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
+        {/* <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
         <View style={styles.goalsList}>
           <FlatList 
           data={goals}
           renderItem={({item}) => <Goal goal={item} />}
           />
-        </View>
+        </View> */}
+        {showSelection()}
       </View>
     );
 }

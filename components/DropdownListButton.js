@@ -23,19 +23,14 @@ const DropdownListButton = ({arrayListItems, defaultValue, onSelect}) => {
     <View style={styles.container}>
       <View style={styles.buttonAreaContainer}>
        <View style={styles.buttonTextWrapper}>
-              {/* <Text style={styles.dropdownButtonText}>הסביבה:    </Text> */}
               <Text style={styles.dropdownButtonText}>סביבת הפעילות:   </Text>
             </View>
       <TouchableOpacity style={styles.button} onPress={() => {
             setModalVisible(true);
           }}>
           <View style={styles.dropdownButtonContainer}>
-            {/* <View style={styles.buttonTextWrapper}>
-              <Text style={styles.dropdownButtonText}>הסביבה:    </Text>
-            </View> */}
             <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCaretDown } />
             <View style={styles.buttonTextWrapper}>
-              {/* <Text style={styles.dropdownButtonText}>הסביבה: {dropdownValue}</Text> */}
               <Text style={styles.dropdownButtonText}>{dropdownValue}</Text>
             </View>
           </View>
@@ -130,7 +125,7 @@ const styles = StyleSheet.create({
     },    
     modalView: {
       position: "absolute",
-      top: 118,
+      top: 119,
       // right: -8,
       right: 120,
       margin: 20,
