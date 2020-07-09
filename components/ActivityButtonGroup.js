@@ -23,6 +23,9 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
 
   return (
     <View style={styles.container}>
+      {/* <View style={styles.textWrapper}>
+        <Text>להתחלת הטיפול, בבקשה בחרי פעילות:</Text>
+      </View> */}
       <View style={styles.recommendedActivities}>
         <FlatList 
           data={recommendedActivities}
@@ -78,14 +81,21 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
 
 const styles = StyleSheet.create({
     container: {
-      flexWrap: 'wrap',
-      flexDirection: 'row',
-        flex: 1,  // relations 1:8 with the sibling goalList
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+        // flex: 1,  // relations 1:8 with the sibling goalList
         // alignItems: 'flex-end',
         // justifyContent: 'flex-end',
         flexDirection: 'row-reverse',
         paddingRight: 11,
         paddingLeft: 11,
+        // paddingTop: 30,
+        // borderTopLeftRadius: 30,
+        // borderTopRightRadius: 30,
+        // backgroundColor: 'tan',
+        // backgroundColor: 'rgba(255,255,255,0.755)',
+        // borderColor: 'green',
+        // borderWidth: 1,
     },
     buttonOff: {
         // flex: 1,
@@ -204,6 +214,10 @@ const styles = StyleSheet.create({
       color: "white",
       fontWeight: "bold",
       textAlign: "center"
+    },
+    textWrapper: {
+      marginBottom: 15,
+      fontSize: 24,
     },
 });
 

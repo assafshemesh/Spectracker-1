@@ -341,7 +341,11 @@ const ActivitySelection = ({ navigation }) => {
     };
 
     return (
-      <View style={styles.container}>
+      // <View style={isSelectionVisible ?  {flex: 8,} : {}}>
+      <View style={isSelectionVisible ?  {...styles.container, flex: 1,} : {...styles.container, paddingBottom: 20,}}>
+        <View style={styles.textWrapper}>
+          <Text style={styles.instructText}>להתחלת הטיפול, בבקשה בחרי פעילות:</Text>
+        </View>
         <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
         {/* <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
         <View style={styles.goalsList}>
@@ -357,10 +361,13 @@ const ActivitySelection = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 8,
+      // backgroundColor: 'tan',
+      backgroundColor: 'rgba(255,255,255,0.755)',
+      // marginTop: -170,
     },
     // activityButtons: {
     //   borderColor: 'green',
+    
     //   borderWidth: 3,
     //   alignItems: "flex-end",
     //   justifyContent: "flex-end",
@@ -370,6 +377,22 @@ const styles = StyleSheet.create({
         flex: 9,
         backgroundColor: 'wheat',
         paddingTop: 2,
+    },
+    textWrapper: {
+      color: '#fff',
+      // marginBottom: 15,
+      paddingRight: 11,
+      fontSize: 24,
+      paddingTop: 30,
+      paddingBottom: 10,
+      // borderTopLeftRadius: 30,
+      // borderTopRightRadius: 30,
+      // backgroundColor: 'tan',
+    },
+    instructText: {
+      // color: 'rgba(255,255,255,0)',
+      // color: '#697c82',
+      color: '#47595e',
     },
 
 })

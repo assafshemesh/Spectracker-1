@@ -10,11 +10,22 @@ import ActivitySelection from '../components/ActivitySelection';
 import StartSessionButton from '../components/StartSessionButton';
 
 const TherapistScreen = ({ route, navigation }) => {
+
+  // const [sessionDetails, setSessionDetails] = useState({});
+
+  // const handleSessionDetails = (details) => {
+  //   setSessionDetails((prevSessionDetails) => {
+  //     [...prevSessionDetails, ...details]
+  //   });
+  // };
+
+
     return (
         <View style={styles.container}>
             {/* <Text>Therapist Screen</Text> */}
             <UpperMenu />
             <TherapistHeader navigation={navigation} route={route} />
+            {/* <TherapistHeader navigation={navigation} route={route} handleSessionDetails={handleSessionDetails} /> */}
             {/* <ImageHeader navigation={navigation} route={route} /> */}
             {/* <SessionConfig  navigation={navigation} route={route} /> */}
             <ActivitySelection navigation={navigation} route={route} />
@@ -27,6 +38,7 @@ const TherapistScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      justifyContent: 'flex-end',
     },
   })
 
