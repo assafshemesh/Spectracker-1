@@ -1,10 +1,14 @@
-import React, {useState}  from 'react';
+import React, {useState, useContext}  from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+// import { SessionContext } from '../contexts/SessionState';
 
 
 
 const LoginPlaceholder = ({ navigation }) => {
-    // const managers = ["Adi"];
+
+    // const sessionContext = useContext(SessionContext);
+    // const { updateSession } = useContext(SessionContext);
+    // console.log("BEFORE UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
     const managers = ["עדי"];
     // const therapists = ["Adi", "Coral", "May", "Hadar"];
     const therapists = ["עדי","קורל", "מאי", "הדר"];
@@ -16,6 +20,12 @@ const LoginPlaceholder = ({ navigation }) => {
     const isValidUser = (username) => {
         if (managers.includes(username) || therapists.includes(username)) {
             // Alert.alert('User is valid. Route to the tracker.');
+            // var sessionProp = {name: 'therapistName', value: username};
+            // updateSession({name: 'therapistName', value: username});
+            // sessionContext.updateSession(sessionProp.value);
+            // sessionContext.updateSession("afunit");
+            // sessionContext.updateSession({name: 'therapistName', value: username});
+            // console.log("AFTER UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
             navigation.navigate('Therapist Home', { username });
         } else {
             Alert.alert('User is not valid!');

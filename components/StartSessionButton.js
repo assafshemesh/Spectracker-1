@@ -1,12 +1,16 @@
 import React, {useState}  from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { NavigationHelpersContext } from '@react-navigation/native';
 
 
 
-const StartSessionButton = ({ navigation }) => {
+const StartSessionButton = ({ navigation, isActive, onPress }) => {
+
+    console.log("Inside StartSessionButton: isActive = " + isActive);
     return (
         <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.button} onPress={() => Alert.alert("session starting")}>
+            {/* <TouchableOpacity style={styles.button} disabled={!isActive} onPress={() => navigation.navigate('Session')}> */}
+            <TouchableOpacity style={styles.button} disabled={!isActive} onPress={onPress}>
                 <Text style={styles.buttonText}>Start Session</Text>
             </TouchableOpacity>
         </View>

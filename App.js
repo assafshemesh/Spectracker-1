@@ -1,11 +1,12 @@
 import 'react-native-gesture-handler';
-import React, {useState} from 'react';
+import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer, StackActions } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
 import TherapistScreen from './screens/TherapistScreen';
-import TherapistGoalsScreen from './screens/TherapistGoalsScreen';
-import { MenuProvider } from 'react-native-popup-menu';
+// import TherapistGoalsScreen from './screens/TherapistGoalsScreen';
+import SessionScreen from './screens/SessionScreen';
+import { SessionProvider } from './contexts/SessionState';
 
 
 const Stack = createStackNavigator();
@@ -13,8 +14,7 @@ const Stack = createStackNavigator();
 const App = () => {
   
   return (
-    <MenuProvider>
-      {console.log("inside App")}
+    // <SessionProvider>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -34,11 +34,12 @@ const App = () => {
         >
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
           <Stack.Screen name="Therapist Home" component={TherapistScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="Therapist Goals" component={TherapistGoalsScreen} />
+          {/* <Stack.Screen name="Therapist Goals" component={TherapistGoalsScreen} /> */}
+          <Stack.Screen name="Session" component={SessionScreen} options={{ headerShown: false }}/>
         </Stack.Navigator>
 
       </NavigationContainer>
-    </MenuProvider>
+    // </SessionProvider>
   );
 };
 

@@ -1,10 +1,13 @@
-import React, {useState}  from 'react';
+import React, {useState, useEffect}  from 'react';
+// import React, {useState, useContext}  from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Button, FlatList } from 'react-native';
 import Goal from '../components/Goal';
 import ActivityButtonGroup from '../components/ActivityButtonGroup';
 import DropdownListButton from '../components/DropdownListButton';
 
-const ActivitySelection = ({ navigation }) => {
+const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
+
+  console.log("Inside ActivitySelection ------");
 
     const getSessionGoals = () => {
         const sessionGoals = [ 
@@ -301,6 +304,50 @@ const ActivitySelection = ({ navigation }) => {
         return restOfSessionActivities;
     };
 
+
+    const getSessionTime = () => {
+      return ({
+        date: "7.3.2020",
+        hour: "11:00",
+      });
+    };
+
+    const { username } = route.params;
+    const name = username;
+
+    console.log("username = " + username);
+
+    const [sessionDetails, setSessionDetails] = useState({
+          // therapistName: username,
+          therapistName: name,
+          patientName: 'ירדן',
+          timeOfSession: getSessionTime(),
+          sessionDuration: '120',
+          isOngoing: false,
+          sessionGoals: getSessionGoals(),
+          sessionRecommendedActivities: getRecommendedActivities(),
+          restOfActivities: getRestOfSessionActivities(),
+          selectedActivity: '',
+          selectedEnvironment: '',
+        });
+
+    const printSessionDetails = (where) => {
+        console.log("----------------sessionDetails content (" + where +"):-------------------------")
+        console.log("username = " + username);
+        console.log("ssessionDetails.username = " + sessionDetails.username );
+        console.log("ssessionDetails.patientName = " + sessionDetails.patientName );
+        console.log("ssessionDetails.timeOfSession = date: " + sessionDetails.timeOfSession.date  + "  hour: " + sessionDetails.timeOfSession.hour);
+        console.log("ssessionDetails.sessionDuration = " + sessionDetails.sessionDuration );
+        console.log("ssessionDetails.isOngoing = " + sessionDetails.isOngoing );
+        console.log("ssessionDetails.sessionGoals= " + sessionDetails.sessionGoals );
+        console.log("ssessionDetails.sessionRecommendedActivities= " + sessionDetails.sessionRecommendedActivities );
+        console.log("ssessionDetails.restOfActivities= " + sessionDetails.restOfActivities );
+        console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity.title );
+        console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment.title );
+    }
+
+    printSessionDetails("ActivitySelection");
+
     var sessionGoals = getSessionGoals();
     var recommendedActivities = getRecommendedActivities();
     var restOfActivities = getRestOfSessionActivities();
@@ -309,11 +356,24 @@ const ActivitySelection = ({ navigation }) => {
     const [defaultEnvironment, setDefaultEnvironment] = useState('');
     const [isSelectionVisible, setIsSelectionVisible] = useState(false);
 
+    useEffect(() => {
+      if (sessionDetails.selectedEnvironment !== '') {
+        handleSessionDetails(sessionDetails);
+      };
+    }, [sessionDetails]);
+
     const showSelection = () => {
        if (isSelectionVisible) {
          return (
            <View style={styles.goalsList}>
-            <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
+            <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} precedingText={'סביבת הפעילות:   '} onSelect={(environment) => {
+                console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id);
+                setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: environment}});
+                console.log("---ActivitySelection: ShowSelection - onSelect of DropdownListButton: --- sessionDetails.selectedEnvironment = " + environment.title);
+                // setDefaultEnvironment(environment.title);
+                printSessionDetails("DropdownListButton's onSelect");
+                // handleSessionDetails(sessionDetails);
+              }} />
             <View style={styles.goalsList}>
               <FlatList 
               data={goals}
@@ -327,33 +387,35 @@ const ActivitySelection = ({ navigation }) => {
 
     const updateGoals = (activity) => {
       setIsSelectionVisible(true);
+      // setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity.title }});
+      // setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity }});
       setGoals(sessionGoals);
-      setGoals(prevGoals => { 
-        return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
-      });
+      // setGoals(prevGoals => { 
+      //   return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
+      //   });
+      setGoals(sessionGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
       updateEnvironments(activity);
+      setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity }});
+      printSessionDetails("ActivitySelction- updateGoals");
+      // handleSessionDetails(sessionDetails);
     };
 
     const updateEnvironments = (activity) => {
       setEnvironments(activity.environments);
       var defEnv = activity.environments?.filter((environment) => environment.default == true)[0] || {title: 'no environments', id: 444};
       setDefaultEnvironment(defEnv.title);
+      // setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: defEnv.title }});
+      setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: defEnv }});
+      printSessionDetails("ActivitySelction- updateEnvironments");
+      // handleSessionDetails(sessionDetails);
     };
 
     return (
-      // <View style={isSelectionVisible ?  {flex: 8,} : {}}>
       <View style={isSelectionVisible ?  {...styles.container, flex: 1,} : {...styles.container, paddingBottom: 20,}}>
         <View style={styles.textWrapper}>
           <Text style={styles.instructText}>להתחלת הטיפול, בבקשה בחרי פעילות:</Text>
         </View>
         <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
-        {/* <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} onSelect={(environment) => console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id)} />
-        <View style={styles.goalsList}>
-          <FlatList 
-          data={goals}
-          renderItem={({item}) => <Goal goal={item} />}
-          />
-        </View> */}
         {showSelection()}
       </View>
     );

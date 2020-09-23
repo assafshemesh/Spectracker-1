@@ -1,12 +1,21 @@
 import React from 'react';
+// import React, {useState, useContext} from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
+// import { SessionContext } from '../contexts/SessionState';
+
 
 const TherapistHeader = ({ route, navigation }) => {
 
   const { username }= route.params;
   const lastPatient = 'ירדן';
   //const patientImage = {require('../assets/Yardeni.jpg')};
+
+  // const sessionContext = useContext(SessionContext);
+  // console.log("in TerapistHeader--------BEFORE UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
+  // sessionContext.updateSession({name: 'therapistName', value: username});
+  // console.log("in TerapistHeader--------AFTER UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
+
 
   const getSessionTime = () => {
     return ({
