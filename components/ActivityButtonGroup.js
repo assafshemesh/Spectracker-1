@@ -10,6 +10,8 @@ import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
 const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoals}) => {
 
+  console.log("||       ------ ActivityButtonGroup rendered ------");
+
   const allSessionActivities = [...recommendedActivities, ...restOfActivities];
   const [buttonsState, setButtonsState] = useState(allSessionActivities.map((activity) => false));
   const [dropdownValue, setDropdownValue] = useState("עוד פעילויות");
@@ -23,9 +25,7 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.textWrapper}>
-        <Text>להתחלת הטיפול, בבקשה בחרי פעילות:</Text>
-      </View> */}
+      {/* Creating the buttons for the recommended activities: */}
       <View style={styles.recommendedActivities}>
         <FlatList 
           data={recommendedActivities}
@@ -33,6 +33,7 @@ const ActivityButtonGroup = ({recommendedActivities, restOfActivities, updateGoa
           renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
         />
       </View>
+      {/* Creating the button for the rest of the activities (on press makes the Modal visible): */}
       <TouchableOpacity style={buttonsState.slice(recommendedActivities.length, allSessionActivities.length).includes(true) ? styles.dropdownButtonOn : styles.dropdownButtonOff} onPress={() => {
             setModalVisible(true);
           }}>

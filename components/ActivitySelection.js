@@ -5,9 +5,11 @@ import Goal from '../components/Goal';
 import ActivityButtonGroup from '../components/ActivityButtonGroup';
 import DropdownListButton from '../components/DropdownListButton';
 
+
+
 const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
 
-  console.log("Inside ActivitySelection ------");
+  console.log("|    ------ ActivitySelection rendered ------");
 
     const getSessionGoals = () => {
         const sessionGoals = [ 
@@ -145,6 +147,7 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
           { id: 1,
             // title: "הפרחת בועות סבון",
             title: "בועות סבון",
+            // title: "soap bubbles",
             // title: "אבא",
             description: "פוף!' ירדן תפוצץ בועה עם האצבע'",
             environments: [
@@ -168,6 +171,7 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
           },
           { id: 3,
             title: "הרכבת פאזל",
+            // title: "puzzle",
             description: "מציאת החלק המתאים של פאזל מגנטי",
             environments: [
               { id: 1,
@@ -254,6 +258,122 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
         ];
         return recommendedActivities.reverse();
     };
+    // const getRecommendedActivities = () => {
+    //     const recommendedActivities = [
+    //       { id: 1,
+    //         // title: "הפרחת בועות סבון",
+    //         // title: "בועות סבון",
+    //         title: "soap bubbles",
+    //         // title: "אבא",
+    //         description: "פוף!' ירדן תפוצץ בועה עם האצבע'",
+    //         environments: [
+    //           { id: 1,
+    //             title: "treatment room",
+    //             default: false,
+    //           },
+    //           { id: 2,
+    //             title: "kids living room",
+    //             default: false,
+    //           },
+    //           { id: 4,
+    //             title: "bath",
+    //             default: false,
+    //           },
+    //           { id: 3,
+    //             title: "back yard",
+    //             default: true,
+    //           },
+    //         ],
+    //       },
+    //       { id: 3,
+    //         // title: "הרכבת פאזל",
+    //         title: "puzzle",
+    //         description: "מציאת החלק המתאים של פאזל מגנטי",
+    //         environments: [
+    //           { id: 1,
+    //             title: "treatment room",
+    //             default: true,
+    //           },
+    //           { id: 2,
+    //             title: "kids living room",
+    //             default: false,
+    //           },
+    //           { id: 3,
+    //             title: "back yard",
+    //             default: false,
+    //           },
+    //           { id: 5,
+    //             title: "kitchen",
+    //             default: false,
+    //           },
+    //         ],
+    //       },
+    //       { id: 4,
+    //         title: "new toy",
+    //         description: "משחק עם צעצוע חדש  פקפקפקפקפקפקפפקפקהההה",
+    //         environments: [
+    //           { id: 1,
+    //             title: "treatment room",
+    //             default: false,
+    //           },
+    //           { id: 2,
+    //             title: "kids living room",
+    //             default: true,
+    //           },
+    //           { id: 3,
+    //             title: "back yard",
+    //             default: false,
+    //           },
+    //           { id: 6,
+    //             title: "bedroom",
+    //             default: false,
+    //           },
+    //         ],
+    //       },
+    //       // { id: 4,
+    //       //   // title: "הצגת צעצוע חדש",
+    //       //   title: "new toy",
+    //       //   description: "this is the description of new toy activity",
+    //       //   environments: [
+    //       //     { id: 1,
+    //       //       title: "treatment room",
+    //       //       default: false,
+    //       //     },
+    //       //     { id: 2,
+    //       //       title: "kids livingroom",
+    //       //       default: true,
+    //       //     },
+    //       //     { id: 3,
+    //       //       title: "backyard",
+    //       //       default: false,
+    //       //     },
+    //       //     { id: 6,
+    //       //       title: "bedroom",
+    //       //       default: false,
+    //       //     },
+    //       //   ],
+    //       // },
+    //       { id: 5,
+    //         title: "dolls play",
+    //         description: "עייפה בובה זהבה ועייף מאוד הדובבבבב",
+    //         environments: [
+    //           { id: 1,
+    //             title: "treatment room",
+    //             default: true,
+    //           },
+    //           { id: 2,
+    //             title: "kids living room",
+    //             default: false,
+    //           },
+    //           { id: 3,
+    //             title: "back yard",
+    //             default: false,
+    //           },
+    //         ],
+    //       }
+    //     ];
+    //     return recommendedActivities.reverse();
+    // };
     const getRestOfSessionActivities = () => {
         const restOfSessionActivities = [
           // { id: 11,
@@ -313,13 +433,9 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
     };
 
     const { username } = route.params;
-    const name = username;
-
-    console.log("username = " + username);
 
     const [sessionDetails, setSessionDetails] = useState({
-          // therapistName: username,
-          therapistName: name,
+          therapistName: username,
           patientName: 'ירדן',
           timeOfSession: getSessionTime(),
           sessionDuration: '120',
@@ -327,14 +443,14 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
           sessionGoals: getSessionGoals(),
           sessionRecommendedActivities: getRecommendedActivities(),
           restOfActivities: getRestOfSessionActivities(),
+          selectedGoals: [],
           selectedActivity: '',
           selectedEnvironment: '',
         });
 
     const printSessionDetails = (where) => {
-        console.log("----------------sessionDetails content (" + where +"):-------------------------")
-        console.log("username = " + username);
-        console.log("ssessionDetails.username = " + sessionDetails.username );
+        console.log("******  SESSION DETAILS (" + where +"): ******")
+        console.log("ssessionDetails.therapistName = " + sessionDetails.therapistName );
         console.log("ssessionDetails.patientName = " + sessionDetails.patientName );
         console.log("ssessionDetails.timeOfSession = date: " + sessionDetails.timeOfSession.date  + "  hour: " + sessionDetails.timeOfSession.hour);
         console.log("ssessionDetails.sessionDuration = " + sessionDetails.sessionDuration );
@@ -342,11 +458,12 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
         console.log("ssessionDetails.sessionGoals= " + sessionDetails.sessionGoals );
         console.log("ssessionDetails.sessionRecommendedActivities= " + sessionDetails.sessionRecommendedActivities );
         console.log("ssessionDetails.restOfActivities= " + sessionDetails.restOfActivities );
+        console.log("ssessionDetails.selectedGoals= " + sessionDetails.selectedGoals );
         console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity.title );
         console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment.title );
     }
 
-    printSessionDetails("ActivitySelection");
+    printSessionDetails("TherapistScreen: ActivitySelection");
 
     var sessionGoals = getSessionGoals();
     var recommendedActivities = getRecommendedActivities();
@@ -358,8 +475,10 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
 
     useEffect(() => {
       if (sessionDetails.selectedEnvironment !== '') {
-        handleSessionDetails(sessionDetails);
+        // handleSessionDetails(sessionDetails);
+        handleSessionDetails(sessionDetails, goals);
       };
+      // console.log(`-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* sessionDetails.selectedGoals[0].title = ${sessionDetails.selectedGoals[0].title}`);
     }, [sessionDetails]);
 
     const showSelection = () => {
@@ -377,6 +496,7 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
             <View style={styles.goalsList}>
               <FlatList 
               data={goals}
+              // data={sessionDetails.selectedGoals}
               renderItem={({item}) => <Goal goal={item} />}
               />
             </View>
@@ -387,17 +507,13 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
 
     const updateGoals = (activity) => {
       setIsSelectionVisible(true);
-      // setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity.title }});
-      // setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity }});
-      setGoals(sessionGoals);
-      // setGoals(prevGoals => { 
-      //   return (prevGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
-      //   });
       setGoals(sessionGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
-      updateEnvironments(activity);
-      setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity }});
+      setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity, selectedGoals: goals }});
+      // setSessionDetails((prevSessionDetails) =>{ 
+      //   return { ...prevSessionDetails, selectedActivity: activity, selectedGoals: prevSessionDetails.sessionGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)) }});
       printSessionDetails("ActivitySelction- updateGoals");
       // handleSessionDetails(sessionDetails);
+      updateEnvironments(activity);
     };
 
     const updateEnvironments = (activity) => {

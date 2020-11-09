@@ -4,8 +4,8 @@ import SessionGoal from '../components/SessionGoal.js';
 
 const GoalsList = ({goals}) => {
 
-  // useEffect(() => {
-  // }, [goals]);
+  useEffect(() => {
+  }, [goals]);
 
     return (
         <View style={styles.container}>

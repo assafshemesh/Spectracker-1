@@ -19,20 +19,26 @@ const TherapistScreen = ({ route, navigation }) => {
   console.log("----------------------------------------------------------------------------------")
   console.log("----------------------------------------------------------------------------------")
 
+  
   const [sessionDetails, setSessionDetails] = useState({});
-  const [isButtonActive, setIsButtonActive] = useState(false);
+  const [isStartButtonActive, setIsStartButtonActive] = useState(false);
+  // const [timesRendered, setTimesRendered] = useState(0);
 
-  const handleSessionDetails = (details) => {
-    console.log("----------inside TherapistScreen: handleSessionDetails--------------------");
-    setIsButtonActive(true);
-    setSessionDetails(details);
+  // setTimesRendered((prevTimesRendered) => prevTimesRendered++);
+  // console.log(`Times rendered: ${timesRendered}`);
+
+  const handleSessionDetails = (details, goals) => {
+    console.log(" ------ inside TherapistScreen: handleSessionDetails ------");
+    console.log(`-=-=-=-=-=-=-=-=-=-=-=-=-=-= goals[0].title = ${goals[0].title}`);
+    setIsStartButtonActive(true);
+    setSessionDetails({...details, selectedGoals: goals});
     // printSessionDetails();
   };
 
   const navigateToSession = () => {
 
-    const printSessionDetails = () => {
-      console.log("----------------TherpistScreen-- sessionDetails content:-------------------------")
+    const printSessionDetails = (where) => {
+      console.log("******  SESSION DETAILS (" + where +"): ******")
       console.log("ssessionDetails.username = " + sessionDetails.username );
       console.log("ssessionDetails.patientName = " + sessionDetails.patientName );
       console.log("ssessionDetails.timeOfSession = date: " + sessionDetails.timeOfSession.date  + "  hour: " + sessionDetails.timeOfSession.hour);
@@ -41,13 +47,14 @@ const TherapistScreen = ({ route, navigation }) => {
       console.log("ssessionDetails.sessionGoals= " + sessionDetails.sessionGoals );
       console.log("ssessionDetails.sessionRecommendedActivities= " + sessionDetails.sessionRecommendedActivities );
       console.log("ssessionDetails.restOfActivities= " + sessionDetails.restOfActivities );
-      console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity );
-      console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment );
+      console.log("ssessionDetails.selectedGoals= " + sessionDetails.selectedGoals );
+      console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity.title );
+      console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment.title );
     }
     
-    printSessionDetails();
+    printSessionDetails("TherapistScreen- navigateToSsession function");
     
-    console.log("----------inside TherapistScreen: navigate--------------------");
+    console.log(" ------ inside TherapistScreen: navigate ------");
     navigation.navigate('Session', sessionDetails);
   };
 
@@ -62,7 +69,7 @@ const TherapistScreen = ({ route, navigation }) => {
               {/* <SessionConfig  navigation={navigation} route={route} /> */}
               <ActivitySelection navigation={navigation} route={route} handleSessionDetails={handleSessionDetails} />
               {/* <StartSessionButton navigation={navigation} isActive={sessionDetails.selectedActivity ? true : false } onPress={navigateToSession}/>  */}
-              <StartSessionButton navigation={navigation} isActive={isButtonActive} onPress={navigateToSession}/> 
+              <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession}/> 
               {/* <StartSessionButton navigation={navigation} disabled={sessionDetails.selectedActivity ? false : true }/>  */}
           </View>
       // </SessionProvider>
