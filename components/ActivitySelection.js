@@ -539,9 +539,12 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
 
 const styles = StyleSheet.create({
     container: {
+      // flex: 0.15,
       // backgroundColor: 'tan',
-      backgroundColor: 'rgba(255,255,255,0.755)',
+      // backgroundColor: 'rgba(255,255,255,0.755)',
+      backgroundColor: 'yellow',
       // marginTop: -170,
+      // alignSelf: 'flex-end',
     },
     // activityButtons: {
     //   borderColor: 'green',

@@ -65,7 +65,7 @@ const TherapistScreen = ({ route, navigation }) => {
               {/* <Text>Therapist Screen</Text> */}
               <UpperMenu />
               <TherapistHeader navigation={navigation} route={route} />
-              {/* <ImageHeader navigation={navigation} route={route} /> */}
+              <ImageHeader navigation={navigation} route={route} />
               {/* <SessionConfig  navigation={navigation} route={route} /> */}
               <ActivitySelection navigation={navigation} route={route} handleSessionDetails={handleSessionDetails} />
               {/* <StartSessionButton navigation={navigation} isActive={sessionDetails.selectedActivity ? true : false } onPress={navigateToSession}/>  */}
@@ -82,7 +82,7 @@ const TherapistScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      justifyContent: 'flex-end',
+      // justifyContent: 'flex-end',
     },
   })
 

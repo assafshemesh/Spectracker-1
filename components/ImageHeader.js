@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, Dimensions } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 // import { NavigationContainer } from '@react-navigation/native';
 
 const ImageHeader = ({ route, navigation }) => {
@@ -8,33 +9,46 @@ const ImageHeader = ({ route, navigation }) => {
 //   const patientImage = {require('../assets/Yardeni.jpg')};
   return (
     <View style={styles.header}>
-        <View style={styles.imageContainer}>
+        {/* <View style={styles.imageContainer}> */}
+        {/* <TouchableHighlight style={styles.imageContainer}> */}
             <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}>
-                <Text style={styles.text}>שלום 
-                    <Text style={styles.name}> { username }</Text>
-                    , {"\n"}המטופלת שלך היא  <Text style={styles.name}>{lastPatient}</Text>
+                {/* <Text style={styles.text}>שלום  */}
+                    {/* <Text style={styles.name}> { username }</Text>
+                    , {"\n"}המטופלת שלך היא  <Text style={styles.name}>{lastPatient}</Text> */}
                     {/* . המטופלת שלך היא <Text style={styles.name}>{lastPatient}</Text> */}
-                </Text>
+                {/* </Text> */}
                     {/* <Text style={styles.text}>Welcome
                         <Text style={styles.name}> { username }</Text>
                         , {"\n"}Your patient is <Text style={styles.name}>{lastPatient}</Text>
                     </Text> */}
             </ImageBackground>
-        </View>
+        {/* </TouchableHighlight> */}
+        {/* </View> */}
+        {/* </View> */}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   header: {
-    flex: 0.8,
+    // flex: 0.8,
     backgroundColor: 'darkslateblue',
     justifyContent: 'center',
+
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    width: Dimensions.get('window').width * 0.3,
+    height: Dimensions.get('window').width * 0.3,
+    justifyContent: 'center',
+    alignItems: 'center'
+
   },
   imageContainer: {
      flex: 1,
      flexDirection: 'column',
      backgroundColor: 'pink',
+     borderRadius: 10,
+     borderWidth: 2,
+     borderColor: 'magenta',
   },
 //   textContainer: {
 //      flex: 1,
@@ -43,6 +57,8 @@ const styles = StyleSheet.create({
      flex: 1,
     //  justifyContent: 'flex-end',
      resizeMode: 'cover',
+     borderRadius: 150,
+
 
     },
   text: {

@@ -50,7 +50,7 @@ const TherapistHeader = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   header: {
-    // flex: 0.8,
+    // flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: 'honeydew',
