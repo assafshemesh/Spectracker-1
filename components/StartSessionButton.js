@@ -4,7 +4,7 @@ import { NavigationHelpersContext } from '@react-navigation/native';
 
 
 
-const StartSessionButton = ({ navigation, isActive, onPress }) => {
+const StartSessionButton = ({ navigation, isActive, onPress, buttonsText }) => {
 
     console.log("|    ------ StartSessionButton rendered ------");
 
@@ -12,7 +12,8 @@ const StartSessionButton = ({ navigation, isActive, onPress }) => {
         <View style={styles.buttonContainer}>
             {/* <TouchableOpacity style={styles.button} disabled={!isActive} onPress={() => navigation.navigate('Session')}> */}
             <TouchableOpacity style={styles.button} disabled={!isActive} onPress={onPress}>
-                <Text style={styles.buttonText}>Start Session</Text>
+                {/* <Text style={styles.buttonText}>Start Session</Text> */}
+                <Text style={styles.buttonText}>{buttonsText}</Text>
             </TouchableOpacity>
         </View>
   );

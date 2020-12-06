@@ -5,6 +5,8 @@ import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 // import StartSessionButton from '../components/StartSessionButton';
 import SessionConfigArea from '../components/SessionConfigArea';
 import GoalsList from '../components/GoalsList';
+import Timer from '../components/Timer';
+import StartSessionButton from '../components/StartSessionButton';
 
 const SessionScreen = ({ route, navigation }) => {
 
@@ -81,10 +83,14 @@ printSessionDetails("SessionScreen");
             setSessionDetails((prevDetails) => ({ ...prevDetails, selectedActivity: activity, selectedEnvironment: environment, selectedGoals: goals }));
             }} />
           {/* <SessionConfigArea sessionDetails={sessionDetails} updateSessionDetails={(selectedActivity, selectedEnvironment) => setSessionDetails(...sessionDetails, selectedActivity)} /> */}
+          
+          <Timer time={120}/>
           {/* <GoalsList goals={activityGoals} flag={flag}/> */}
           <GoalsList goals={sessionDetails.selectedGoals} />
           {/* <GoalsList goals={sessionDetails.sessionGoals}/> */}
             {/* <StartSessionButton navigation={navigation} route={route} /> */}
+            <StartSessionButton navigation={navigation} isActive={true} onPress={() => console.log("Session stopped")} buttonsText={'Stop Session'}/> 
+
         </View>
     )
 }

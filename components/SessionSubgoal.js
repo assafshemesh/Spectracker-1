@@ -10,25 +10,31 @@ const SessionSubgoal = ({subgoal}) => {
 
     const [attempts, setAttempts] = useState(0);
     const [successes, setSuccesses] = useState(0);
+    const [failures, setFailures] = useState(0);
+
     return (
         // <TouchableOpacity style={styles.subgoal}>
           <View style={styles.subgoalView}>
-              <Text style={styles.subgoalTitle}>
+              <Text style={styles.subgoalText}>
                   {subgoal.serialNum}
                   <Text style={styles.subgoalDescription}>   {subgoal.description}</Text>
               </Text>
               <View style={styles.attemptButtonsWrapper}>
-                    <TouchableOpacity style={styles.attemptButton}>
-                        {/* <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCheck } /> */}
+                    <TouchableOpacity onPress={() => setFailures((prev) => prev + 1)} style={[styles.attemptButton, {backgroundColor: 'mistyrose'}]}>
                         <FontAwesomeIcon style={styles.attemptButtonIcon} icon={ faTimes } />
+                        <Text style={styles.attemptButtonText}>פיספוסים: {failures}</Text>
+                        {/* <Text>out of {failures + successes} attempts</Text> */}
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.attemptButton}>
-                        <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCheck } />
-                        {/* <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faTimes } /> */}
+                    <TouchableOpacity onPress={() => setSuccesses((prev) => prev + 1)} style={[styles.attemptButton, {backgroundColor: 'honeydew'}]}>
+                        <FontAwesomeIcon style={styles.attemptButtonIcon} icon={ faCheck } />
+                        {/* <Text style={styles.attemptIconWrap}><FontAwesomeIcon style={styles.attemptButtonIcon} icon={ faCheck } /></Text> */}
+                        <Text style={styles.attemptButtonText}>הצלחות: {successes}</Text>
+
                     </TouchableOpacity>
               </View>
-              
-              
+              <Text>סך הכל: {failures + successes} ניסיונות</Text>
+
+
           </View>
         // </TouchableOpacity>
       );
@@ -48,32 +54,53 @@ const SessionSubgoal = ({subgoal}) => {
         //     justifyContent: 'space-between',
         //     // alignItems: 'center',
         // },
-        subgoalTitle: {
-          fontSize: 14,
+        subgoalText: {
+          fontSize: 16,
           fontWeight: 'bold',
           textAlign: 'right',
+          marginBottom: 10,
         },
         subgoalDescription: {
-          fontSize: 14,
+          fontSize: 18,
           fontWeight: 'normal',
+        //   backgroundColor: 'lavender',
         },
         attemptButtonsWrapper: {
             flex: 1,
             flexDirection: 'row',
             // alignItems: 'stretch',
             alignItems: 'center',
-            alignContent: 'stretch',
+            // alignContent: 'stretch',
         },
         attemptButton: {
             flex: 1,
-            borderColor: 'black',
-            borderWidth: 1,
-            fontSize: 30,
+            flexDirection: 'column',
+            justifyContent: "center",
+            alignItems: 'center',
+            // borderColor: 'black',
+            borderWidth: 0.5,
+            fontSize:90,
             backgroundColor: 'red',
-            height: 70,
+            height: 130,
+            margin: 2,
         },
         attemptButtonIcon: {
-            fontSize: 40,
+            // flex: 8,
+            color: 'grey',
+            padding: 25,
+            fontSize: 20,
+            height: 20,
+            // backgroundColor: 'magenta',
+        },
+        attemptButtonText: {
+            // flex: 1,
+            padding: 4,
+            marginTop: 10,
+            // backgroundColor: 'green',
+        },
+        attemptIconWrap: {
+            flex: 3,
+            padding: 20,
         },
       
     })

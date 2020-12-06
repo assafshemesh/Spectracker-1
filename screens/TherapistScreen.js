@@ -69,7 +69,7 @@ const TherapistScreen = ({ route, navigation }) => {
               {/* <SessionConfig  navigation={navigation} route={route} /> */}
               <ActivitySelection navigation={navigation} route={route} handleSessionDetails={handleSessionDetails} />
               {/* <StartSessionButton navigation={navigation} isActive={sessionDetails.selectedActivity ? true : false } onPress={navigateToSession}/>  */}
-              <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession}/> 
+              <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession} buttonsText={'Start Session'}/> 
               {/* <StartSessionButton navigation={navigation} disabled={sessionDetails.selectedActivity ? false : true }/>  */}
           </View>
       // </SessionProvider>

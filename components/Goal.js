@@ -81,13 +81,13 @@ const styles = StyleSheet.create({
       padding: 1,
       paddingLeft: 4,
       paddingRight: 4,
-      // fontSize: 12,
+      fontSize: 12,
       // width: 100,
       // lineHeight: 15,
       height: 20,
     },
     activityText: {
-      fontSize: 12,
+      // fontSize: 12,
     },
     beimashelcha: {
       flexWrap: 'wrap',
