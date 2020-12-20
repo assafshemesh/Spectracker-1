@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontWeight: 'bold',
     color: 'white',
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: 'orange',
   }
 });

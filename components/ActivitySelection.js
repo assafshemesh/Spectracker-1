@@ -484,30 +484,6 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
       // console.log(`-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* sessionDetails.selectedGoals[0].title = ${sessionDetails.selectedGoals[0].title}`);
     }, [sessionDetails]);
 
-    const showSelection = () => {
-       if (isSelectionVisible) {
-         return (
-           <View style={styles.goalsList}>
-            <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} precedingText={'סביבת הפעילות:   '} onSelect={(environment) => {
-                console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id);
-                setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: environment}});
-                console.log("---ActivitySelection: ShowSelection - onSelect of DropdownListButton: --- sessionDetails.selectedEnvironment = " + environment.title);
-                // setDefaultEnvironment(environment.title);
-                printSessionDetails("DropdownListButton's onSelect");
-                // handleSessionDetails(sessionDetails);
-              }} />
-            {/* <View style={styles.goalsList}> */}
-            <View>
-              <FlatList 
-              data={goals}
-              // data={sessionDetails.selectedGoals}
-              renderItem={({item}) => <Goal goal={item} />}
-              />
-            </View>
-           </View>
-         );
-       };
-    };
 
     const updateGoals = (activity) => {
       setIsSelectionVisible(true);
@@ -529,6 +505,33 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
       printSessionDetails("ActivitySelction- updateEnvironments");
       // handleSessionDetails(sessionDetails);
     };
+
+    const showSelection = () => {
+      if (isSelectionVisible) {
+        return (
+          <View style={styles.goalsList}>
+            <View style={styles.envDropDownContainer}>
+              <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} precedingText={'סביבת הפעילות:   '} onSelect={(environment) => {
+                  console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id);
+                  setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: environment}});
+                  console.log("---ActivitySelection: ShowSelection - onSelect of DropdownListButton: --- sessionDetails.selectedEnvironment = " + environment.title);
+                  // setDefaultEnvironment(environment.title);
+                  printSessionDetails("DropdownListButton's onSelect");
+                  // handleSessionDetails(sessionDetails);
+                }} />
+             </View>
+           {/* <View style={styles.goalsList}> */}
+           <View>
+             <FlatList 
+             data={goals}
+             // data={sessionDetails.selectedGoals}
+             renderItem={({item}) => <Goal goal={item} />}
+             />
+           </View>
+          </View>
+        );
+      };
+   };
 
     return (
       // <View style={isSelectionVisible ?  {...styles.container, flex: 1,} : {...styles.container, paddingBottom: 20,}}>
@@ -569,11 +572,17 @@ const styles = StyleSheet.create({
     //   backgroundColor: 'blue',
     // },
     goalsList: {
-        // flex: 9,
+        flex: 9,
         // backgroundColor: 'wheat',
         paddingTop: 2,
         borderWidth: 3,
         borderColor: 'green',
+        alignItems: 'flex-end',
+    },
+    envDropDownContainer: {
+      // alignSelf: 'flex-end',
+      borderWidth: 2,
+      borderColor: 'magenta',
     },
     textContainer: {
       color: '#fff',

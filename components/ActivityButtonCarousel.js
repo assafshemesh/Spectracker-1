@@ -15,13 +15,15 @@ const ActivityButtonCarousel = ({recommendedActivities, restOfActivities, update
   const allSessionActivities = [...recommendedActivities, ...restOfActivities];
 //   const allSessionActivities = [...restOfActivities, ...recommendedActivities];
   const [buttonsState, setButtonsState] = useState(allSessionActivities.map((activity) => false));
-  const [dropdownValue, setDropdownValue] = useState("עוד פעילויות");
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [dropdownValue, setDropdownValue] = useState("עוד פעילויות");
+  // const [modalVisible, setModalVisible] = useState(false);
+  const [isActivitySelected, setIsActivitySelected] =useState(false);
 
   const updateStyle = (id) => {
       setButtonsState(prevButtonsState => {
         return prevButtonsState.map((buttonState, index) => (allSessionActivities[index].id == id) );
       });
+      setIsActivitySelected(true);
   };
 
   return (
@@ -30,7 +32,8 @@ const ActivityButtonCarousel = ({recommendedActivities, restOfActivities, update
         <FlatList 
           data={allSessionActivities}
           horizontal={true}
-          renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
+          // renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
+          renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : (isActivitySelected ? styles.buttonOffSmall : styles.buttonOff)} updateStyle={updateStyle} updateGoals={updateGoals}/>}
           showsHorizontalScrollIndicator={false}
           style={styles.activitiesList}
         />
@@ -42,7 +45,7 @@ const styles = StyleSheet.create({
     container: {
         // flexWrap: 'wrap',
         // flexDirection: 'row',
-        // flex: 1,  // relations 1:8 with the sibling goalList
+        flex: 1,  // relations 1:8 with the sibling goalList
         // alignItems: 'flex-end',
         // justifyContent: 'flex-end',
         // flexDirection: 'row-reverse',
@@ -57,23 +60,23 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         // marginBottom: 40,
     },
-    buttonOff: {
+    buttonOffSmall: {
         // flex: 1,
         backgroundColor: 'lightblue',
         // marginRight: 12,
-        marginLeft: 12,
-        padding: 5,
+        marginLeft: 5,
+        padding: 3,
         width: Dimensions.get('window').width / 4,
-        height: Dimensions.get('window').width / 4,
+        height: Dimensions.get('window').width / 6,
         borderRadius: Dimensions.get('window').width / 32,
-        borderWidth: 5,
+        // borderWidth: 5,
         borderColor: 'lime',
         alignItems: 'center',
-        justifyContent: 'center',
+        // justifyContent: 'center',
     },
-    buttonOn: {
+    buttonOff: {
         // flex: 1,
-        backgroundColor: 'pink',
+        backgroundColor: 'lightblue',
         // marginRight: 12,
         marginLeft: 12,
         padding: 5,
@@ -84,6 +87,19 @@ const styles = StyleSheet.create({
         borderColor: 'lime',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    buttonOn: {
+        // flex: 1,
+        backgroundColor: 'pink',
+        // marginRight: 12,
+        marginLeft: 5,
+        padding: 3,
+        width: Dimensions.get('window').width / 4,
+        height: Dimensions.get('window').width / 6,
+        borderRadius: Dimensions.get('window').width / 32,
+        // borderWidth: 5,
+        borderColor: 'lime',
+        alignItems: 'center',
     },
     activitiesList: {
     //   flex: 1,
