@@ -4,6 +4,8 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Button, Fla
 import Goal from '../components/Goal';
 import ActivityButtonGroup from '../components/ActivityButtonGroup';
 import DropdownListButton from '../components/DropdownListButton';
+import Carousel from './Carousel';
+import ActivityButtonCarousel from '../components/ActivityButtonCarousel';
 
 
 
@@ -256,7 +258,8 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
             ],
           }
         ];
-        return recommendedActivities.reverse();
+        // return recommendedActivities.reverse();
+        return recommendedActivities;
     };
     // const getRecommendedActivities = () => {
     //     const recommendedActivities = [
@@ -493,7 +496,8 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
                 printSessionDetails("DropdownListButton's onSelect");
                 // handleSessionDetails(sessionDetails);
               }} />
-            <View style={styles.goalsList}>
+            {/* <View style={styles.goalsList}> */}
+            <View>
               <FlatList 
               data={goals}
               // data={sessionDetails.selectedGoals}
@@ -527,11 +531,16 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
     };
 
     return (
-      <View style={isSelectionVisible ?  {...styles.container, flex: 1,} : {...styles.container, paddingBottom: 20,}}>
-        <View style={styles.textWrapper}>
+      // <View style={isSelectionVisible ?  {...styles.container, flex: 1,} : {...styles.container, paddingBottom: 20,}}>
+      <View style={styles.container}>
+        <View style={styles.textContainer}>
           <Text style={styles.instructText}>להתחלת הטיפול, בבקשה בחרי פעילות:</Text>
         </View>
-        <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
+        {/* <View style={styles.carouselContainer}>
+          <Carousel/>
+        </View> */}
+        {/* <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} /> */}
+        <ActivityButtonCarousel recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
         {showSelection()}
       </View>
     );
@@ -539,32 +548,39 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
 
 const styles = StyleSheet.create({
     container: {
-      // flex: 0.15,
+      flex: 1,
       // backgroundColor: 'tan',
       // backgroundColor: 'rgba(255,255,255,0.755)',
       backgroundColor: 'yellow',
       // marginTop: -170,
       // alignSelf: 'flex-end',
+      borderWidth: 5,
+      // borderBottomWidth: 1,
+      borderColor: 'purple',
+      margin: 0,
+      padding: 0,
     },
     // activityButtons: {
-    //   borderColor: 'green',
+      // borderColor: 'green',
     
-    //   borderWidth: 3,
+      // borderWidth: 3,
     //   alignItems: "flex-end",
     //   justifyContent: "flex-end",
     //   backgroundColor: 'blue',
     // },
     goalsList: {
-        flex: 9,
-        backgroundColor: 'wheat',
+        // flex: 9,
+        // backgroundColor: 'wheat',
         paddingTop: 2,
+        borderWidth: 3,
+        borderColor: 'green',
     },
-    textWrapper: {
+    textContainer: {
       color: '#fff',
       // marginBottom: 15,
       paddingRight: 11,
       fontSize: 24,
-      paddingTop: 30,
+      paddingTop: 5,
       paddingBottom: 10,
       // borderTopLeftRadius: 30,
       // borderTopRightRadius: 30,

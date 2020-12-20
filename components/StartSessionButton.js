@@ -21,11 +21,14 @@ const StartSessionButton = ({ navigation, isActive, onPress, buttonsText }) => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        flex: 1,
-        minHeight: 30,
-        maxHeight: 60,
+        // flex: 1,
+        // minHeight: 30,
+        // maxHeight: 60,
         justifyContent: 'center',
-        backgroundColor: 'wheat',
+        // marginTop: 60,
+        // backgroundColor: 'wheat',
+        borderWidth: 5,
+        borderColor: 'brown',
     },
     button: {
         padding: 12,

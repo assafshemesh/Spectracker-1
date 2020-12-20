@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, ImageBackground, Dimensions } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import Carousel from './Carousel';
 // import { NavigationContainer } from '@react-navigation/native';
 
 const ImageHeader = ({ route, navigation }) => {
@@ -8,10 +9,11 @@ const ImageHeader = ({ route, navigation }) => {
   const lastPatient = 'ירדן';
 //   const patientImage = {require('../assets/Yardeni.jpg')};
   return (
-    <View style={styles.header}>
+    <View style={styles.container}>
         {/* <View style={styles.imageContainer}> */}
         {/* <TouchableHighlight style={styles.imageContainer}> */}
-            <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}>
+            {/* <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}> */}
+            <Image style={styles.image} source={require('../assets/Yardeni-cropped01.jpg')}>
                 {/* <Text style={styles.text}>שלום  */}
                     {/* <Text style={styles.name}> { username }</Text>
                     , {"\n"}המטופלת שלך היא  <Text style={styles.name}>{lastPatient}</Text> */}
@@ -21,34 +23,46 @@ const ImageHeader = ({ route, navigation }) => {
                         <Text style={styles.name}> { username }</Text>
                         , {"\n"}Your patient is <Text style={styles.name}>{lastPatient}</Text>
                     </Text> */}
-            </ImageBackground>
+            {/* </ImageBackground> */}
+            </Image>
         {/* </TouchableHighlight> */}
         {/* </View> */}
         {/* </View> */}
+        <View style={styles.patientContent}>
+          {/* <Carousel/> */}
+        </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  header: {
-    // flex: 0.8,
-    backgroundColor: 'darkslateblue',
-    justifyContent: 'center',
+  container: {
+    // flex: 9,
+    // backgroundColor: 'darkslateblue',
+    // justifyContent: 'center',
 
-    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
-    width: Dimensions.get('window').width * 0.3,
-    height: Dimensions.get('window').width * 0.3,
-    justifyContent: 'center',
-    alignItems: 'center'
-
-  },
-  imageContainer: {
-     flex: 1,
-     flexDirection: 'column',
-     backgroundColor: 'pink',
-     borderRadius: 10,
-     borderWidth: 2,
+    // borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    // width: Dimensions.get('window').width * 0.4,
+    // height: Dimensions.get('window').width * 0.4,
+    // justifyContent: 'center',
+    alignSelf: 'center',
+    borderWidth: 2,
      borderColor: 'magenta',
+  },
+  image: {
+    //  flex: 1,
+    //  flexDirection: 'column',
+    //  backgroundColor: 'pink',
+     borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    width: Dimensions.get('window').width * 0.35,
+    height: Dimensions.get('window').width * 0.35,
+    //  borderWidth: 2,
+     borderColor: 'cyan',
+  },
+  patientContent: {
+    // flex: 2,
+    height: Dimensions.get('window').width * 0.5,
+    // backgroundColor: 'lightcyan',
   },
 //   textContainer: {
 //      flex: 1,
@@ -57,7 +71,6 @@ const styles = StyleSheet.create({
      flex: 1,
     //  justifyContent: 'flex-end',
      resizeMode: 'cover',
-     borderRadius: 150,
 
 
     },

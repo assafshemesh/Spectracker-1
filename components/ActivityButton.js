@@ -9,7 +9,9 @@ const ActivityButton = ({activity, buttonStyle, updateStyle, updateGoals}) => {
           updateStyle(activity.id);
           updateGoals(activity);
         }}>
-        <Text>{activity.title}</Text>
+        {/* <View style={styles.buttonTextWrapper}> */}
+          <Text style={styles.buttonText}>{activity.title}</Text>
+        {/* </View> */}
       </TouchableOpacity>
     </View>
   );
@@ -18,7 +20,18 @@ const ActivityButton = ({activity, buttonStyle, updateStyle, updateGoals}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // borderWidth: 1,
+    // borderRadius: 20,
+    borderWidth: 1,
+    borderColor: 'blue',
   },
+  buttonText: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'white',
+    borderWidth: 1,
+    borderColor: 'orange',
+  }
 });
 
 export default ActivityButton;

@@ -1,6 +1,6 @@
 import React from 'react';
 // import React, {useState, useContext} from 'react';
-import { View, Text, StyleSheet, Image, ImageBackground } from 'react-native';
+import { View, Text, StyleSheet, Image, ImageBackground, Button } from 'react-native';
 // import { NavigationContainer } from '@react-navigation/native';
 // import { SessionContext } from '../contexts/SessionState';
 
@@ -26,22 +26,21 @@ const TherapistHeader = ({ route, navigation }) => {
   
 
   return (
-    <View style={styles.header}>
+    <View style={styles.container}>
         {/* <View style={styles.imageContainer}>
             <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}> */}
                     {/* <Text style={styles.text}>Welcome */}
+                    <View style={styles.helloTextWrapper}>
+                      <Text style={styles.text}>שלום 
+                          <Text style={styles.name}> { username }</Text>
+                          , {"\n"}המטופלת שלך היא  <Text style={styles.name}>{lastPatient}</Text>
+                      </Text>
+                    </View>
                     <View style={styles.timeTextWrapper}>
                       {/* <Text style={styles.text}>טיפול זה נקבע ל: {"\n"} {getSessionTime().date} {"\n"} {getSessionTime().hour}</Text> */}
                       <Text style={styles.text}>הטיפול הקרוב נקבע ל: {"\n"} {getSessionTime().date} {"\n"} {getSessionTime().hour}</Text>
                     </View>
-                    <View style={styles.helloTextWrapper}>
-                      <Text style={styles.text}>שלום 
-                          <Text style={styles.name}> { username }</Text>
-                          {/* , {"\n"}Your patient is <Text style={styles.name}>{lastPatient}</Text> */}
-                          , {"\n"}המטופלת שלך היא  <Text style={styles.name}>{lastPatient}</Text>
-                          {/* . המטופלת שלך היא <Text style={styles.name}>{lastPatient}</Text> */}
-                      </Text>
-                    </View>
+                    
             {/* </ImageBackground>
         </View> */}
     </View>
@@ -49,12 +48,12 @@ const TherapistHeader = ({ route, navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  header: {
-    // flex: 0.1,
+  container: {
+    // flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: 'honeydew',
-    paddingTop: 30,
+    // backgroundColor: 'honeydew',
+    paddingBottom: 10,
     // backgroundColor: 'darkslateblue',
     // justifyContent: 'center',
   },

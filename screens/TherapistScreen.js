@@ -37,40 +37,58 @@ const TherapistScreen = ({ route, navigation }) => {
 
   const navigateToSession = () => {
 
-    const printSessionDetails = (where) => {
-      console.log("******  SESSION DETAILS (" + where +"): ******")
-      console.log("ssessionDetails.username = " + sessionDetails.username );
-      console.log("ssessionDetails.patientName = " + sessionDetails.patientName );
-      console.log("ssessionDetails.timeOfSession = date: " + sessionDetails.timeOfSession.date  + "  hour: " + sessionDetails.timeOfSession.hour);
-      console.log("ssessionDetails.sessionDuration = " + sessionDetails.sessionDuration );
-      console.log("ssessionDetails.isOngoing = " + sessionDetails.isOngoing );
-      console.log("ssessionDetails.sessionGoals= " + sessionDetails.sessionGoals );
-      console.log("ssessionDetails.sessionRecommendedActivities= " + sessionDetails.sessionRecommendedActivities );
-      console.log("ssessionDetails.restOfActivities= " + sessionDetails.restOfActivities );
-      console.log("ssessionDetails.selectedGoals= " + sessionDetails.selectedGoals );
-      console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity.title );
-      console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment.title );
-    }
-    
-    printSessionDetails("TherapistScreen- navigateToSsession function");
-    
-    console.log(" ------ inside TherapistScreen: navigate ------");
-    navigation.navigate('Session', sessionDetails);
+      const printSessionDetails = (where) => {
+        console.log("******  SESSION DETAILS (" + where +"): ******")
+        console.log("ssessionDetails.username = " + sessionDetails.username );
+        console.log("ssessionDetails.patientName = " + sessionDetails.patientName );
+        console.log("ssessionDetails.timeOfSession = date: " + sessionDetails.timeOfSession.date  + "  hour: " + sessionDetails.timeOfSession.hour);
+        console.log("ssessionDetails.sessionDuration = " + sessionDetails.sessionDuration );
+        console.log("ssessionDetails.isOngoing = " + sessionDetails.isOngoing );
+        console.log("ssessionDetails.sessionGoals= " + sessionDetails.sessionGoals );
+        console.log("ssessionDetails.sessionRecommendedActivities= " + sessionDetails.sessionRecommendedActivities );
+        console.log("ssessionDetails.restOfActivities= " + sessionDetails.restOfActivities );
+        console.log("ssessionDetails.selectedGoals= " + sessionDetails.selectedGoals );
+        console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity.title );
+        console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment.title );
+      }
+      
+      printSessionDetails("TherapistScreen- navigateToSsession function");
+      
+      console.log(" ------ inside TherapistScreen: navigate ------");
+      navigation.navigate('Session', sessionDetails);
   };
+
+  const showHeaders = () => {
+    if (!isStartButtonActive) {
+      return (
+        <View style={styles.imageHeaderContainer}>
+          {/* <TherapistHeader navigation={navigation} route={route} /> */}
+          <ImageHeader navigation={navigation} route={route} />
+        </View>
+      )
+    }
+  }
+  const showStartSessionButton = () => {
+    if (isStartButtonActive) {
+      return (
+        <View style={styles.StartSessionButtonContainer}>
+            <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession} buttonsText={'Start Session'}/> 
+        </View>
+      )
+    }
+  }
+
 
 
     return (
       // <SessionProvider>
           <View style={styles.container}>
-              {/* <Text>Therapist Screen</Text> */}
               <UpperMenu />
               <TherapistHeader navigation={navigation} route={route} />
-              <ImageHeader navigation={navigation} route={route} />
-              {/* <SessionConfig  navigation={navigation} route={route} /> */}
+              {showHeaders()}
               <ActivitySelection navigation={navigation} route={route} handleSessionDetails={handleSessionDetails} />
-              {/* <StartSessionButton navigation={navigation} isActive={sessionDetails.selectedActivity ? true : false } onPress={navigateToSession}/>  */}
-              <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession} buttonsText={'Start Session'}/> 
-              {/* <StartSessionButton navigation={navigation} disabled={sessionDetails.selectedActivity ? false : true }/>  */}
+              {showStartSessionButton()}
+              {/* <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession} buttonsText={'Start Session'}/>  */}
           </View>
       // </SessionProvider>
 
@@ -82,7 +100,16 @@ const TherapistScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
       flex: 1,
+      // flexDirection: "column-reverse",
       // justifyContent: 'flex-end',
+      justifyContent: 'space-between',
+      // alignItems: "center",
+    },
+    imageHeaderContainer: {
+      // flex: 5,
+    },
+    StartSessionButtonContainer: {
+      // flex: 1,
     },
   })
 
