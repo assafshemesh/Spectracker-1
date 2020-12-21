@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     // borderWidth: 1,
     // borderRadius: 20,
-    borderWidth: 1,
+    // borderWidth: 1,
     borderColor: 'blue',
   },
   buttonText: {

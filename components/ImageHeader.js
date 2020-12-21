@@ -46,8 +46,9 @@ const styles = StyleSheet.create({
     // height: Dimensions.get('window').width * 0.4,
     // justifyContent: 'center',
     alignSelf: 'center',
-    borderWidth: 2,
+    // borderWidth: 2,
      borderColor: 'magenta',
+     marginTop: 17,
   },
   image: {
     //  flex: 1,

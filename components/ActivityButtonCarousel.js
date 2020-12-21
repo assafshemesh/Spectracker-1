@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
         // backgroundColor: 'tan',
         // backgroundColor: 'rgba(255,255,255,0.755)',
         borderColor: 'green',
-        borderWidth: 1,
+        // borderWidth: 1,
         // marginBottom: 40,
     },
     buttonOffSmall: {

@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
       flexWrap: 'wrap',
       flexDirection: 'row',
       // flex: 1,  // relation of 1:8 with the sibling goalList
-      alignItems: 'flex-end',
-      justifyContent: 'flex-end',
+      // alignItems: 'flex-end',
+      // justifyContent: 'flex-end',
       paddingRight: 11,
       paddingLeft: 11,
       // borderColor: 'purple',
@@ -85,13 +85,14 @@ const styles = StyleSheet.create({
   },
     dropdownButtonContainer: {
       flex: 1,
-      flexDirection: 'row-reverse',
+      flexDirection: 'row',
       // borderColor: 'green',
       // borderWidth: 1,
     },
     buttonAreaContainer: {
       // flex: 1,
-      flexDirection: 'row-reverse',
+      // flexDirection: 'row-reverse',
+      flexDirection: 'row',
       margin: 6,
     //   borderColor: 'orange',
     //   borderWidth: 1,
