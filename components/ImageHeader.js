@@ -13,6 +13,7 @@ const ImageHeader = ({ route, navigation }) => {
         {/* <View style={styles.imageContainer}> */}
         {/* <TouchableHighlight style={styles.imageContainer}> */}
             {/* <ImageBackground style={styles.headerImage} source={require('../assets/Yardeni-cropped01.jpg')}> */}
+            {/* <View style={styles.colorsBehindImage}></View> */}
             <Image style={styles.image} source={require('../assets/Yardeni-cropped01.jpg')}>
                 {/* <Text style={styles.text}>שלום  */}
                     {/* <Text style={styles.name}> { username }</Text>
@@ -38,6 +39,7 @@ const ImageHeader = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     // flex: 9,
+    position: 'relative',
     // backgroundColor: 'darkslateblue',
     // justifyContent: 'center',
 
@@ -92,6 +94,21 @@ const styles = StyleSheet.create({
      color: 'darkslateblue',
      fontWeight: 'bold',
      fontSize: 18,
+  },
+  colorsBehindImage: {
+    backgroundColor: 'green',
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    borderBottomRightRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 4,
+    borderTopRightRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 1.5,
+    width: Dimensions.get('window').width * 0.35,
+    // width: Dimensions.get('window').width * 0.25,
+    height: Dimensions.get('window').width * 0.35, 
+    position: 'absolute',
+    marginLeft: 10,
+    marginTop: 10,
+    // right: 2,
+    // bottom: 2,
+    zIndex: -1,
   },
 })
 

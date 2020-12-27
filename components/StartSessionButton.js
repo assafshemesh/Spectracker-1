@@ -32,8 +32,9 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 12,
-        marginLeft: 10,
-        marginRight: 10,
+        // marginLeft: 10,
+        // marginRight: 10,
+        margin: 10,
         backgroundColor: '#c2bad8',
     },
     buttonText: {

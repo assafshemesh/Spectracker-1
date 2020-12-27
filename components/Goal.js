@@ -26,6 +26,7 @@ const Goal = ({goal}) => {
 
 const styles = StyleSheet.create({
     goal: {
+        flex: 1,
         padding: 15,
         paddingTop: 8,
         paddingBottom: 10,
@@ -37,12 +38,15 @@ const styles = StyleSheet.create({
         margin: 2,
         marginLeft: 10,
         marginRight: 10,
+        alignItems: 'flex-start',
     },
     goalView: {
         flex: 1,
         // flexDirection: 'row',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         // alignItems: 'center',
+        alignItems: 'flex-start',
+
     },
     goalInfo: {
       flex: 1,
@@ -51,17 +55,23 @@ const styles = StyleSheet.create({
       // flexShrink: 1,
       alignContent: 'flex-start',
       // height: 80,
+      backgroundColor: 'red',
+      borderWidth: 2,
+      borderColor: 'limegreen',
     },
     goalTitle: {
       flex: 1,
       flexWrap: 'wrap',
-      fontSize: 16,
-      fontWeight: 'bold',
+      fontSize: 12,
+      // fontWeight: 'bold',
       // backgroundColor: 'darksalmon',
       // width: 300,
       marginLeft: 10,
       height: 20,
       // lineHeight: 20,
+      alignSelf: 'flex-end',
+      // borderWidth: 2,
+      // borderColor: 'lightgray',
     },
     activitiesList: {
       flexWrap: 'wrap',
@@ -88,6 +98,9 @@ const styles = StyleSheet.create({
     },
     activityText: {
       // fontSize: 12,
+    },
+    subgoalsList: {
+      // flex: 1,
     },
     beimashelcha: {
       flexWrap: 'wrap',

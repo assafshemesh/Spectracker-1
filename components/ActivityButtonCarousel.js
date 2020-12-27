@@ -34,6 +34,7 @@ const ActivityButtonCarousel = ({recommendedActivities, restOfActivities, update
           horizontal={true}
           // renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : styles.buttonOff} updateStyle={updateStyle} updateGoals={updateGoals}/>}
           renderItem={({item, index}) =><ActivityButton activity={item} buttonStyle={buttonsState[index] ? styles.buttonOn : (isActivitySelected ? styles.buttonOffSmall : styles.buttonOff)} updateStyle={updateStyle} updateGoals={updateGoals}/>}
+          // renderItem={({item, index}) =><ActivityButton activity={item} buttonOnStyle={styles.buttonOn} buttonOffStyle={isActivitySelected ? styles.buttonOffSmall : styles.buttonOff} isOn={buttonState[index]} updateStyle={updateStyle} updateGoals={updateGoals}/>}
           showsHorizontalScrollIndicator={false}
           style={styles.activitiesList}
         />
@@ -90,14 +91,16 @@ const styles = StyleSheet.create({
     },
     buttonOn: {
         // flex: 1,
-        backgroundColor: 'pink',
+        // backgroundColor: 'pink',
+        backgroundColor: 'white',
         // marginRight: 12,
         marginLeft: 5,
         padding: 3,
+        // marginBottom: 3,
         width: Dimensions.get('window').width / 4,
         height: Dimensions.get('window').width / 6,
         borderRadius: Dimensions.get('window').width / 32,
-        // borderWidth: 5,
+        borderWidth: 2,
         borderColor: 'lime',
         alignItems: 'center',
     },

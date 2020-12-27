@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
   text: {
     //  backgroundColor: 'rgba(72, 61, 139, 0.7)',
     //  color: '#fff',
-     color: 'darkslateblue',
+    //  color: 'darkslateblue',
+    color: '#47595e',
     //  fontSize: 20,
      fontSize: 16,
      fontFamily: 'sans-serif-light',
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
   },
   name: {
     //  color: '#fff',
-     color: 'darkslateblue',
+    //  color: 'darkslateblue',
+    color: '#47595e',
      fontWeight: 'bold',
     //  fontSize: 20,
      fontSize: 16,

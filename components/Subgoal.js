@@ -6,7 +6,7 @@ const Subgoal = ({subgoal}) => {
   return (
     <TouchableOpacity style={styles.subgoal}>
       <View style={styles.subgoalView}>
-          <Text style={styles.subgoalTitle}>
+          <Text style={styles.subgoalText}>
               {subgoal.serialNum}
               <Text style={styles.subgoalDescription}>   {subgoal.description}</Text>
           </Text>
@@ -25,13 +25,13 @@ const styles = StyleSheet.create({
     },
     subgoalView: {
         // flexDirection: 'row',
-        justifyContent: 'space-between',
+        // justifyContent: 'space-between',
         // alignItems: 'center',
     },
-    subgoalTitle: {
+    subgoalText: {
       fontSize: 14,
       fontWeight: 'bold',
-      textAlign: 'right',
+      // textAlign: 'right',
     },
     subgoalDescription: {
       fontSize: 14,
