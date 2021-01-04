@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#c2bad8',
     },
     buttonText: {
-        // color: 'darkslateblue',
+        color: 'darkslateblue',
         fontSize: 20,
         textAlign: 'center',
     },

@@ -20,10 +20,10 @@ const GoalsList = ({goals}) => {
 
 const styles = StyleSheet.create({
     container: {
-      // flex: 8,
-      borderWidth: 2,
-      borderColor: 'teal',
-      backgroundColor: 'aliceblue',
+      flex: 8,
+      // backgroundColor: 'aliceblue',
+      // borderWidth: 3,
+      // borderColor: 'orange',
     },
   })
 

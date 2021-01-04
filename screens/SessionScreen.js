@@ -78,13 +78,12 @@ printSessionDetails("SessionScreen");
           <Text> ssessionDetails.selectedActivity: {sessionDetails.selectedActivity.title}</Text>
           <Text> ssessionDetails.selectedEnvironment: {sessionDetails.selectedEnvironment.title}</Text>
           <Text> Goodbye there</Text> */}
+          <Timer time={120}/>
           <SessionConfigArea sessionDetails={sessionDetails} updateSessionDetails={(activity, environment, goals) => {
             // setActivityGoals(goals);
             setSessionDetails((prevDetails) => ({ ...prevDetails, selectedActivity: activity, selectedEnvironment: environment, selectedGoals: goals }));
             }} />
           {/* <SessionConfigArea sessionDetails={sessionDetails} updateSessionDetails={(selectedActivity, selectedEnvironment) => setSessionDetails(...sessionDetails, selectedActivity)} /> */}
-          
-          <Timer time={120}/>
           {/* <GoalsList goals={activityGoals} flag={flag}/> */}
           <GoalsList goals={sessionDetails.selectedGoals} />
           {/* <GoalsList goals={sessionDetails.sessionGoals}/> */}

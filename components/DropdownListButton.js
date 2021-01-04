@@ -23,7 +23,7 @@ const DropdownListButton = ({arrayListItems, defaultValue, precedingText, onSele
     <View style={styles.container}>
       <View style={styles.buttonAreaContainer}>
        <View style={styles.buttonTextWrapper}>
-              <Text style={styles.dropdownButtonText}>{precedingText}</Text>
+              <Text style={styles.dropdownButtonPrecedingText}>{precedingText}</Text>
             </View>
       <TouchableOpacity style={styles.button} onPress={() => {
             setModalVisible(true);
@@ -78,8 +78,8 @@ const styles = StyleSheet.create({
       // flex: 1,  // relation of 1:8 with the sibling goalList
       // alignItems: 'flex-end',
       // justifyContent: 'flex-end',
-      paddingRight: 11,
-      paddingLeft: 11,
+      // paddingRight: 11,
+      // paddingLeft: 11,
       // borderColor: 'purple',
       // borderWidth: 1,
   },
@@ -103,9 +103,17 @@ const styles = StyleSheet.create({
       // borderColor: 'red',
       // borderWidth: 1,
     },
+    
+    dropdownButtonPrecedingText: {
+        // textAlign: 'center',
+        fontSize: 16,
+        // height: 20,
+        // backgroundColor: 'lavender',
+    },
     dropdownButtonText: {
         // textAlign: 'center',
         fontSize: 16,
+        fontWeight: 'bold',
         // height: 20,
         // backgroundColor: 'lavender',
     },

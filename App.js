@@ -21,7 +21,7 @@ const App = () => {
             title: '',
             headerStyle: {
               // backgroundColor: 'darkslateblue',
-              backgroundColor: '#fff',
+              // backgroundColor: '#fff',
             },
             // headerTintColor: '#fff',
             headerTintColor: 'darkslateblue',

@@ -5,7 +5,8 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 const ActivityButton = ({activity, buttonStyle, updateStyle, updateGoals}) => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={{...buttonStyle, backgroundColor: activity.color}} onPress={() => {
+      {/* <TouchableOpacity style={{...buttonStyle, backgroundColor: activity.color}} onPress={() => { */}
+      <TouchableOpacity style={buttonStyle} onPress={() => {
       // <TouchableOpacity style={isOn? {...buttonOnStyle, color: activity.color} : {...buttonOffStyle, backgroundColor: activity.color}} onPress={() => {
           updateStyle(activity.id);
           updateGoals(activity);

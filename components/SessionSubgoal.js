@@ -22,13 +22,15 @@ const SessionSubgoal = ({subgoal}) => {
               <View style={styles.attemptButtonsWrapper}>
                     <TouchableOpacity onPress={() => setFailures((prev) => prev + 1)} style={[styles.attemptButton, {backgroundColor: 'mistyrose'}]}>
                         <FontAwesomeIcon style={styles.attemptButtonIcon} icon={ faTimes } />
-                        <Text style={styles.attemptButtonText}>פיספוסים: {failures}</Text>
+                        {/* <Text style={styles.attemptButtonText}>פיספוסים: {failures}</Text> */}
+                        <Text style={styles.attemptButtonText}>{failures}</Text>
                         {/* <Text>out of {failures + successes} attempts</Text> */}
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => setSuccesses((prev) => prev + 1)} style={[styles.attemptButton, {backgroundColor: 'honeydew'}]}>
                         <FontAwesomeIcon style={styles.attemptButtonIcon} icon={ faCheck } />
                         {/* <Text style={styles.attemptIconWrap}><FontAwesomeIcon style={styles.attemptButtonIcon} icon={ faCheck } /></Text> */}
-                        <Text style={styles.attemptButtonText}>הצלחות: {successes}</Text>
+                        {/* <Text style={styles.attemptButtonText}>הצלחות: {successes}</Text> */}
+                        <Text style={styles.attemptButtonText}>{successes}</Text>
 
                     </TouchableOpacity>
               </View>
@@ -57,7 +59,7 @@ const SessionSubgoal = ({subgoal}) => {
         subgoalText: {
           fontSize: 16,
           fontWeight: 'bold',
-          textAlign: 'right',
+        //   textAlign: 'right',
           marginBottom: 10,
         },
         subgoalDescription: {
@@ -81,21 +83,23 @@ const SessionSubgoal = ({subgoal}) => {
             borderWidth: 0.5,
             fontSize:90,
             backgroundColor: 'red',
-            height: 130,
+            // height: 130,
+            height: 80,
             margin: 2,
         },
         attemptButtonIcon: {
             // flex: 8,
             color: 'grey',
-            padding: 25,
+            // padding: 25,
+            padding: 20,
             fontSize: 20,
             height: 20,
             // backgroundColor: 'magenta',
         },
         attemptButtonText: {
             // flex: 1,
-            padding: 4,
-            marginTop: 10,
+            // padding: 4,
+            // marginTop: 10,
             // backgroundColor: 'green',
         },
         attemptIconWrap: {

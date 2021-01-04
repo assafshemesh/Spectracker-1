@@ -63,7 +63,8 @@ const styles = StyleSheet.create({
     },
     buttonOffSmall: {
         // flex: 1,
-        backgroundColor: 'lightblue',
+        // backgroundColor: '#cdcbb1',
+        backgroundColor: 'darkslateblue',
         // marginRight: 12,
         marginLeft: 5,
         padding: 3,
@@ -77,7 +78,8 @@ const styles = StyleSheet.create({
     },
     buttonOff: {
         // flex: 1,
-        backgroundColor: 'lightblue',
+        // backgroundColor: '#cdcbb1',
+        backgroundColor: 'darkslateblue',
         // marginRight: 12,
         marginLeft: 12,
         padding: 5,
@@ -92,7 +94,8 @@ const styles = StyleSheet.create({
     buttonOn: {
         // flex: 1,
         // backgroundColor: 'pink',
-        backgroundColor: 'white',
+        // backgroundColor: '#cdcbb1',
+        backgroundColor: 'darkslateblue',
         // marginRight: 12,
         marginLeft: 5,
         padding: 3,
@@ -100,7 +103,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width / 4,
         height: Dimensions.get('window').width / 6,
         borderRadius: Dimensions.get('window').width / 32,
-        borderWidth: 2,
+        borderWidth: 3,
         borderColor: 'lime',
         alignItems: 'center',
     },

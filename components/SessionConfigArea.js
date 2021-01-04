@@ -80,9 +80,14 @@ const SessionConfigArea = ({sessionDetails, updateSessionDetails}) => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 1,
-      flexDirection: 'row-reverse',
-      alignItems: 'center',
+      // flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      // alignItems: 'center',
+      // borderWidth: 3,
+      borderColor: 'pink',
+      paddingLeft: 10,
+      paddingRight: 10,
     },
   })
 

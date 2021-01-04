@@ -45,18 +45,25 @@ const Timer = ({time}) => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        // flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        margin: 10,
+        // margin: 10,
+        // backgroundColor: 'black',
+        backgroundColor: 'darkslateblue',
+        // borderWidth: 3,
+        borderColor: 'purple',
     },
     clockOnText: {
-      color: 'green',
-      fontSize: 60,
+    //   color: 'green',
+      color: 'white',
+    //   fontSize: 60,
+      fontSize: 20,
     },
     clockOffText: {
       color: 'red',
-      fontSize: 60,
+    //   fontSize: 60,
+      fontSize: 20,
     },
   })
 

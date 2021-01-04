@@ -11,7 +11,8 @@ const Goal = ({goal}) => {
           <View style={styles.activitiesList}>
             {
               goal.activities.map((activity) => {
-                return (<View style={styles.goalActivity}><Text style={styles.activityText}>{activity.title}</Text></View>)
+                // return (<View style={styles.goalActivity}><Text style={styles.activityText}>{activity.title}</Text></View>)
+                return (<View style={{...styles.goalActivity, backgroundColor: activity.color}}><Text style={styles.activityText}>{activity.title}</Text></View>)
               })
             } 
           </View>
