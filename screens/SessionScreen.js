@@ -29,6 +29,7 @@ const SessionScreen = ({ route, navigation }) => {
     selectedActivity: route.params.selectedActivity,
     selectedEnvironment: route.params.selectedEnvironment,
   });
+  const [isSessionStopped, setIsSessionStopped] =useState(false);
   
   // const [activityGoals, setActivityGoals] = useState([sessionDetails.sessionGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(sessionDetails.selectedActivity.id))]);
   // const [activityGoals, setActivityGoals] = useState(sessionDetails.selectedGoals);
@@ -78,7 +79,8 @@ printSessionDetails("SessionScreen");
           <Text> ssessionDetails.selectedActivity: {sessionDetails.selectedActivity.title}</Text>
           <Text> ssessionDetails.selectedEnvironment: {sessionDetails.selectedEnvironment.title}</Text>
           <Text> Goodbye there</Text> */}
-          <Timer time={120}/>
+          <Timer time={120} isStopped={isSessionStopped}/>
+          {/* <Timer time={120} /> */}
           <SessionConfigArea sessionDetails={sessionDetails} updateSessionDetails={(activity, environment, goals) => {
             // setActivityGoals(goals);
             setSessionDetails((prevDetails) => ({ ...prevDetails, selectedActivity: activity, selectedEnvironment: environment, selectedGoals: goals }));
@@ -88,7 +90,10 @@ printSessionDetails("SessionScreen");
           <GoalsList goals={sessionDetails.selectedGoals} />
           {/* <GoalsList goals={sessionDetails.sessionGoals}/> */}
             {/* <StartSessionButton navigation={navigation} route={route} /> */}
-            <StartSessionButton navigation={navigation} isActive={true} onPress={() => console.log("Session stopped")} buttonsText={'Stop Session'}/> 
+            <StartSessionButton navigation={navigation} isActive={true} onPress={() => {
+              console.log("Session stopped");
+              setIsSessionStopped(true);}}
+               buttonsText={'סיום טיפול'}/> 
 
         </View>
     )
