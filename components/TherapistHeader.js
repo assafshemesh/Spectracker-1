@@ -38,7 +38,8 @@ const TherapistHeader = ({ route, navigation }) => {
                     </View>
                     <View style={styles.timeTextWrapper}>
                       {/* <Text style={styles.text}>טיפול זה נקבע ל: {"\n"} {getSessionTime().date} {"\n"} {getSessionTime().hour}</Text> */}
-                      <Text style={styles.text}>הטיפול הקרוב נקבע ל: {"\n"} {getSessionTime().date} {"\n"} {getSessionTime().hour}</Text>
+                      {/* <Text style={styles.text}>הטיפול הקרוב נקבע ל: {"\n"} {getSessionTime().date} {"\n"} {getSessionTime().hour}</Text> */}
+                      <Text style={styles.text}>המפגש הקרוב נקבע ל: {"\n"} {getSessionTime().date} {getSessionTime().hour}</Text>
                     </View>
                     
             {/* </ImageBackground>
@@ -49,13 +50,15 @@ const TherapistHeader = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
+    flex: 0.1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     // backgroundColor: 'honeydew',
     paddingBottom: 10,
     // backgroundColor: 'darkslateblue',
     // justifyContent: 'center',
+    // borderWidth: 1,
+    borderColor: "orange",
   },
   // imageContainer: {
   //    flex: 1,
@@ -72,6 +75,7 @@ const styles = StyleSheet.create({
   // },
   timeTextWrapper: {
     // flex: 1,
+    justifyContent: 'flex-end',
   },
   helloTextWrapper: {
     // flex: 2,

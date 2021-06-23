@@ -72,7 +72,7 @@ const TherapistScreen = ({ route, navigation }) => {
     if (isStartButtonActive) {
       return (
         <View style={styles.StartSessionButtonContainer}>
-            <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession} buttonsText={'Start Session'}/> 
+            <StartSessionButton navigation={navigation} isActive={isStartButtonActive} onPress={navigateToSession} buttonsText={'התחלת מפגש'}/> 
         </View>
       )
     }

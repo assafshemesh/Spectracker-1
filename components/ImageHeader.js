@@ -38,7 +38,7 @@ const ImageHeader = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 9,
+    flex: 0.23,
     position: 'relative',
     // backgroundColor: 'darkslateblue',
     // justifyContent: 'center',
@@ -51,6 +51,8 @@ const styles = StyleSheet.create({
     // borderWidth: 2,
      borderColor: 'magenta',
      marginTop: 17,
+     marginBottom: 30,
+     padding: 0,
   },
   image: {
     //  flex: 1,
@@ -64,8 +66,8 @@ const styles = StyleSheet.create({
   },
   patientContent: {
     // flex: 2,
-    height: Dimensions.get('window').width * 0.5,
-    // backgroundColor: 'lightcyan',
+    // height: Dimensions.get('window').width * 0.5,
+    backgroundColor: 'lightcyan',
   },
 //   textContainer: {
 //      flex: 1,

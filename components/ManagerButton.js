@@ -1,18 +1,16 @@
 import React, {useState}  from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert, Dimensions } from 'react-native';
 import { NavigationHelpersContext } from '@react-navigation/native';
 
 
 
-const StartSessionButton = ({ navigation, isActive, onPress, buttonsText }) => {
+const ManagerButton = ({ navigation, onPress, buttonsText }) => {
 
-    console.log("|    ------ StartSessionButton rendered ------");
+    console.log("|    ------ ManagerButton rendered ------");
 
     return (
         <View style={styles.buttonContainer}>
-            {/* <TouchableOpacity style={styles.button} disabled={!isActive} onPress={() => navigation.navigate('Session')}> */}
-            <TouchableOpacity style={styles.button} disabled={!isActive} onPress={onPress}>
-                {/* <Text style={styles.buttonText}>Start Session</Text> */}
+            <TouchableOpacity style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonText}>{buttonsText}</Text>
             </TouchableOpacity>
         </View>
@@ -21,20 +19,28 @@ const StartSessionButton = ({ navigation, isActive, onPress, buttonsText }) => {
 
 const styles = StyleSheet.create({
     buttonContainer: {
-        // flex: 1,
+        // flex: 0.5,
+        // width: Dimensions.get('window').width * 0.48,
+        // width: 150,
+        // height: 100,
         // minHeight: 30,
         // maxHeight: 60,
         justifyContent: 'center',
         // marginTop: 60,
         // backgroundColor: 'wheat',
-        // borderWidth: 5,
+        // borderWidth: 1,
         borderColor: 'brown',
     },
     button: {
         padding: 12,
         // marginLeft: 10,
         // marginRight: 10,
-        margin: 10,
+        margin: 5,
+        height: 100,
+        width: Dimensions.get('window').width * 0.45,
+        borderRadius: 3,
+        justifyContent: "center",
+        alignItems: "center",
         // backgroundColor: '#c2bad8',
         backgroundColor: '#ccccca',
     },
@@ -47,4 +53,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default StartSessionButton;
+export default ManagerButton;

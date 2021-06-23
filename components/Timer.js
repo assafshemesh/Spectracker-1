@@ -17,7 +17,7 @@ const Timer = ({time, isStopped}) => {
 
     useEffect (() => {
         let timerID = null;
-        // if (isRunning) {
+
         if (isRunning && !isStopped) {
             timerID = setInterval(
                     () => {
@@ -54,8 +54,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         // margin: 10,
-        // backgroundColor: 'black',
-        backgroundColor: 'darkslateblue',
+        backgroundColor: 'black',
+        // backgroundColor: 'darkslateblue',
+        backgroundColor: '#babab8',
         // borderWidth: 3,
         borderColor: 'purple',
     },

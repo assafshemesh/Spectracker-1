@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import Header from '../components/Header';
-import LoginPlaceholder from '../components/LoginPlaceholder';
+import Login from '../components/Login';
 import { SessionProvider } from '../contexts/SessionState';
 
 
@@ -13,7 +13,7 @@ const LoginScreen = ({ navigation }) => {
       // <SessionProvider>
         <View style ={styles.container}>
             <Header title='Spectracker' />
-            <LoginPlaceholder navigation={navigation}/>
+            <Login navigation={navigation}/>
         </View>
       // </SessionProvider>
     );

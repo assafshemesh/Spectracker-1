@@ -6,12 +6,13 @@ import ActivityButtonGroup from '../components/ActivityButtonGroup';
 import DropdownListButton from '../components/DropdownListButton';
 import Carousel from './Carousel';
 import ActivityButtonCarousel from '../components/ActivityButtonCarousel';
+import ManagerButton from './ManagerButton';
 
 
 
-const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
+const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
 
-  console.log("|    ------ ActivitySelection rendered ------");
+  console.log("|    ------ ManagerButtons rendered ------");
 
     const colors = {c1: '#ffb3b3', c2: '#00cccc', c3: '#99ffbb', c4: '#99ccff', c5: '#ecb3ff', c6: '#ffb3ec', c7: '#cc9966', c8: '#ff0080', c9: '#ace600', c10: '#75a3a3', c11: '#d279a6',};
     const getSessionGoals = () => {
@@ -613,182 +614,28 @@ const ActivitySelection = ({ route, navigation, handleSessionDetails}) => {
     };
 
 
-    const getSessionTime = () => {
-      return ({
-        date: "7.3.2020",
-        hour: "11:00",
-      });
-    };
-
     const { username } = route.params;
 
-    const [sessionDetails, setSessionDetails] = useState({
-          therapistName: username,
-          patientName: 'ירדן',
-          timeOfSession: getSessionTime(),
-          sessionDuration: '120',
-          isOngoing: false,
-          sessionGoals: getSessionGoals(),
-          sessionRecommendedActivities: getRecommendedActivities(),
-          restOfActivities: getRestOfSessionActivities(),
-          selectedGoals: [],
-          selectedActivity: '',
-          selectedEnvironment: '',
-        });
-
-    const printSessionDetails = (where) => {
-        console.log("******  SESSION DETAILS (" + where +"): ******")
-        console.log("ssessionDetails.therapistName = " + sessionDetails.therapistName );
-        console.log("ssessionDetails.patientName = " + sessionDetails.patientName );
-        console.log("ssessionDetails.timeOfSession = date: " + sessionDetails.timeOfSession.date  + "  hour: " + sessionDetails.timeOfSession.hour);
-        console.log("ssessionDetails.sessionDuration = " + sessionDetails.sessionDuration );
-        console.log("ssessionDetails.isOngoing = " + sessionDetails.isOngoing );
-        console.log("ssessionDetails.sessionGoals= " + sessionDetails.sessionGoals );
-        console.log("ssessionDetails.sessionRecommendedActivities= " + sessionDetails.sessionRecommendedActivities );
-        console.log("ssessionDetails.restOfActivities= " + sessionDetails.restOfActivities );
-        console.log("ssessionDetails.selectedGoals= " + sessionDetails.selectedGoals );
-        console.log("ssessionDetails.selectedActivity= " + sessionDetails.selectedActivity.title );
-        console.log("ssessionDetails.selectedEnvironment= " + sessionDetails.selectedEnvironment.title );
-    }
-
-    printSessionDetails("TherapistScreen: ActivitySelection");
-
-    var sessionGoals = getSessionGoals();
-    var recommendedActivities = getRecommendedActivities();
-    var restOfActivities = getRestOfSessionActivities();
-    const [goals, setGoals] = useState(getSessionGoals());
-    const [environments, setEnvironments] = useState([]);
-    const [defaultEnvironment, setDefaultEnvironment] = useState('');
-    const [isSelectionVisible, setIsSelectionVisible] = useState(false);
-
-    useEffect(() => {
-      if (sessionDetails.selectedEnvironment !== '') {
-        // handleSessionDetails(sessionDetails);
-        handleSessionDetails(sessionDetails, goals);
-      };
-      // console.log(`-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* sessionDetails.selectedGoals[0].title = ${sessionDetails.selectedGoals[0].title}`);
-    }, [sessionDetails]);
-
-
-    const updateGoals = (activity) => {
-      setIsSelectionVisible(true);
-      setGoals(sessionGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)));
-      setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedActivity: activity, selectedGoals: goals }});
-      // setSessionDetails((prevSessionDetails) =>{ 
-      //   return { ...prevSessionDetails, selectedActivity: activity, selectedGoals: prevSessionDetails.sessionGoals.filter(goal => goal.activities.map(goalActivity => goalActivity.id).includes(activity.id)) }});
-      printSessionDetails("ActivitySelction- updateGoals");
-      // handleSessionDetails(sessionDetails);
-      updateEnvironments(activity);
-    };
-
-    const updateEnvironments = (activity) => {
-      setEnvironments(activity.environments);
-      var defEnv = activity.environments?.filter((environment) => environment.default == true)[0] || {title: 'no environments', id: 444};
-      setDefaultEnvironment(defEnv.title);
-      // setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: defEnv.title }});
-      setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: defEnv }});
-      printSessionDetails("ActivitySelction- updateEnvironments");
-      // handleSessionDetails(sessionDetails);
-    };
-
-    const showSelection = () => {
-      if (isSelectionVisible) {
-        return (
-          <View style={styles.goalsContainer}>
-            <View style={styles.envDropDownContainer}>
-              <DropdownListButton arrayListItems={environments} defaultValue={defaultEnvironment} precedingText={'סביבת הפעילות:   '} onSelect={(environment) => {
-                  console.log("inside onSelect (in ActivitySelection).  environment.id = " + environment.id);
-                  setSessionDetails((prevSessionDetails) =>{ return { ...prevSessionDetails, selectedEnvironment: environment}});
-                  console.log("---ActivitySelection: ShowSelection - onSelect of DropdownListButton: --- sessionDetails.selectedEnvironment = " + environment.title);
-                  // setDefaultEnvironment(environment.title);
-                  printSessionDetails("DropdownListButton's onSelect");
-                  // handleSessionDetails(sessionDetails);
-                }} />
-             </View>
-           {/* <View style={styles.goalsList}> */}
-           <View style={styles.goalsList}>
-             <FlatList 
-             data={goals}
-             // data={sessionDetails.selectedGoals}
-             renderItem={({item}) => <Goal goal={item} />}
-             />
-           </View>
-          </View>
-        );
-      };
-   };
-
     return (
-      // <View style={isSelectionVisible ?  {...styles.container, flex: 1,} : {...styles.container, paddingBottom: 20,}}>
-      <View style={styles.container}>
-        <View style={styles.textContainer}>
-          <Text style={styles.instructText}>להתחלת המפגש, בבקשה בחרי פעילות:</Text>
+        <View style={styles.container}>
+          <ManagerButton buttonsText={"תוכנית טיפול"} onPress={() => navigation.navigate('TreatmentPlan', { username })} />
+          <ManagerButton buttonsText={"תכנון שבועי"} onPress={() => navigation.navigate('WeeklyPlan', { username })} />
+          <ManagerButton buttonsText={"דוחות"} onPress={() => navigation.navigate('Reports', { username })} />
+          <ManagerButton buttonsText={"התחל מפגש"} onPress={() => navigation.navigate('StartSession', { username })} />
         </View>
-        {/* <View style={styles.carouselContainer}>
-          <Carousel/>
-        </View> */}
-        {/* <ActivityButtonGroup recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} /> */}
-        <ActivityButtonCarousel recommendedActivities={recommendedActivities} restOfActivities={restOfActivities} updateGoals={updateGoals} />
-        {showSelection()}
-      </View>
-    );
-}
+      );
+  }
+  
+  const styles = StyleSheet.create({
+      container: {
+        flex: 0.6,
+        flexWrap: 'wrap',
+        padding: 1,
+        marginTop: 80,
+        alignContent: "center",
+        // borderWidth: 1,
+        borderColor: 'blue',
+      }
+  })
 
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      // backgroundColor: 'tan',
-      // backgroundColor: 'rgba(255,255,255,0.755)',
-      // backgroundColor: 'yellow',
-      // marginTop: -170,
-      // alignSelf: 'flex-end',
-      // borderWidth: 5,
-      // borderBottomWidth: 1,
-      borderColor: 'purple',
-      margin: 0,
-      padding: 0,
-    },
-    // activityButtons: {
-      // borderColor: 'green',
-    
-      // borderWidth: 3,
-    //   alignItems: "flex-end",
-    //   justifyContent: "flex-end",
-    //   backgroundColor: 'blue',
-    // },
-    goalsContainer: {
-        flex: 9,
-        // backgroundColor: 'wheat',
-        paddingTop: 2,
-        // borderWidth: 3,
-        borderColor: 'green',
-        alignItems: 'flex-start',
-    },
-    goalsList: {
-      flex: 1,
-    },
-    envDropDownContainer: {
-      // flex: 1,
-      // borderWidth: 2,
-      borderColor: 'magenta',
-    },
-    textContainer: {
-      color: '#fff',
-      // marginBottom: 15,
-      paddingRight: 11,
-      fontSize: 24,
-      paddingTop: 5,
-      paddingBottom: 10,
-      // borderTopLeftRadius: 30,
-      // borderTopRightRadius: 30,
-      // backgroundColor: 'tan',
-    },
-    instructText: {
-      // color: 'rgba(255,255,255,0)',
-      // color: '#697c82',
-      color: '#47595e',
-    },
-
-})
-
-export default ActivitySelection;
+export default ManagerDashboard;

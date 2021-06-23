@@ -4,33 +4,43 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity, Alert } from 'reac
 
 
 
-const LoginPlaceholder = ({ navigation }) => {
+const Login = ({ navigation }) => {
 
     // const sessionContext = useContext(SessionContext);
     // const { updateSession } = useContext(SessionContext);
     // console.log("BEFORE UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
-    const managers = ["עדי"];
+    const managers = ["Adi"];
     // const therapists = ["Adi", "Coral", "May", "Hadar"];
-    const therapists = ["עדי","קורל", "מאי", "הדר"];
+    const therapists = ["Coral", "May", "Hadar"];
 
     const [text, setText] = useState('');
 
     const onChange = textValue => setText(textValue);
 
     const isValidUser = (username) => {
-        if (managers.includes(username) || therapists.includes(username)) {
-            // Alert.alert('User is valid. Route to the tracker.');
-            // var sessionProp = {name: 'therapistName', value: username};
-            // updateSession({name: 'therapistName', value: username});
-            // sessionContext.updateSession(sessionProp.value);
-            // sessionContext.updateSession("afunit");
-            // sessionContext.updateSession({name: 'therapistName', value: username});
-            // console.log("AFTER UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
-            navigation.navigate('Therapist Home', { username });
+        if (managers.includes(username)) {
+                navigation.navigate('Manager Home', { username });
+        } else if (therapists.includes(username)) {
+                navigation.navigate('Therapist Home', { username });
         } else {
             Alert.alert('User is not valid!');
         }
     };
+
+    // const isValidUser = (username) => {
+    //     if (managers.includes(username) || therapists.includes(username)) {
+    //         // Alert.alert('User is valid. Route to the tracker.');
+    //         // var sessionProp = {name: 'therapistName', value: username};
+    //         // updateSession({name: 'therapistName', value: username});
+    //         // sessionContext.updateSession(sessionProp.value);
+    //         // sessionContext.updateSession("afunit");
+    //         // sessionContext.updateSession({name: 'therapistName', value: username});
+    //         // console.log("AFTER UPDATE: sessionContext.therapistName = " + sessionContext.therapistName);
+    //         navigation.navigate('Therapist Home', { username });
+    //     } else {
+    //         Alert.alert('User is not valid!');
+    //     }
+    // };
 
     return (
         <View style={styles.loginContainer}>
@@ -91,4 +101,4 @@ const styles = StyleSheet.create({
 
 })
 
-export default LoginPlaceholder;
+export default Login;

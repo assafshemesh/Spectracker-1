@@ -93,8 +93,7 @@ printSessionDetails("SessionScreen");
             <StartSessionButton navigation={navigation} isActive={true} onPress={() => {
               console.log("Session stopped");
               setIsSessionStopped(true);}}
-               buttonsText={'סיום טיפול'}/> 
-
+               buttonsText={'סיום מפגש'} />
         </View>
     )
 }
