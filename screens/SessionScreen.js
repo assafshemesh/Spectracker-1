@@ -87,7 +87,7 @@ printSessionDetails("SessionScreen");
             }} />
           {/* <SessionConfigArea sessionDetails={sessionDetails} updateSessionDetails={(selectedActivity, selectedEnvironment) => setSessionDetails(...sessionDetails, selectedActivity)} /> */}
           {/* <GoalsList goals={activityGoals} flag={flag}/> */}
-          <GoalsList goals={sessionDetails.selectedGoals} />
+          <GoalsList goals={sessionDetails.selectedGoals} isSession={true}/>
           {/* <GoalsList goals={sessionDetails.sessionGoals}/> */}
             {/* <StartSessionButton navigation={navigation} route={route} /> */}
             <StartSessionButton navigation={navigation} isActive={true} onPress={() => {

@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import SessionGoal from '../components/SessionGoal.js';
+import Goal from '../components/Goal';
 
-const GoalsList = ({goals}) => {
+const GoalsList = ({goals, isSession}) => {
 
   useEffect(() => {
   }, [goals]);
@@ -11,7 +12,9 @@ const GoalsList = ({goals}) => {
         <View style={styles.container}>
               <FlatList 
                 data={goals}
-                renderItem={({item}) => <SessionGoal goal={item} key={item.serialNum}/>}
+                // renderItem={({item}) => <SessionGoal goal={item} key={item.serialNum}/>}
+                // renderItem={({item}) => <Goal goal={item} key={item.serialNum}/>}
+                renderItem={({item}) => isSession? <SessionGoal goal={item} key={item.serialNum}/> : <Goal goal={item} key={item.serialNum}/>}
               />
         </View>
     )
@@ -20,10 +23,10 @@ const GoalsList = ({goals}) => {
 
 const styles = StyleSheet.create({
     container: {
-      flex: 8,
+      flex: 1,
       // backgroundColor: 'aliceblue',
       // borderWidth: 3,
-      // borderColor: 'orange',
+      borderColor: 'orange',
     },
   })
 

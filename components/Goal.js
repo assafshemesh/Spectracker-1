@@ -8,7 +8,12 @@ const Goal = ({goal}) => {
     <TouchableOpacity style={styles.goal}>
       <View style={styles.goalView}>
           <Text style={styles.goalTitle}>{goal.skillType}- מטרה {goal.serialNum}</Text>
-          <View style={styles.activitiesList}>
+          
+        <FlatList style={styles.subgoalsList}
+          data={goal.subgoals}
+          renderItem={({item}) => <Subgoal subgoal={item} />}
+        />
+        <View style={styles.activitiesList}>
             {
               goal.activities.map((activity) => {
                 // return (<View style={styles.goalActivity}><Text style={styles.activityText}>{activity.title}</Text></View>)
@@ -16,10 +21,6 @@ const Goal = ({goal}) => {
               })
             } 
           </View>
-        <FlatList style={styles.subgoalsList}
-          data={goal.subgoals}
-          renderItem={({item}) => <Subgoal subgoal={item} />}
-        />
     </View>
     </TouchableOpacity>
   );

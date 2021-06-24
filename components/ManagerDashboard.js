@@ -12,10 +12,10 @@ import ManagerButton from './ManagerButton';
 
 const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
 
-  console.log("|    ------ ManagerButtons rendered ------");
+  console.log("|    ------ ManagerDashboard rendered ------");
 
     const colors = {c1: '#ffb3b3', c2: '#00cccc', c3: '#99ffbb', c4: '#99ccff', c5: '#ecb3ff', c6: '#ffb3ec', c7: '#cc9966', c8: '#ff0080', c9: '#ace600', c10: '#75a3a3', c11: '#d279a6',};
-    const getSessionGoals = () => {
+    const getGoals = () => {
         const sessionGoals = [ 
             { id: 1,
               serialNum: 1,
@@ -157,123 +157,6 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
         ];
         return (sessionGoals);
     };
-    // const getRecommendedActivities = () => {
-    //     const recommendedActivities = [
-    //       { id: 1,
-    //         // title: "הפרחת בועות סבון",
-    //         title: "בועות סבון",
-    //         // title: "soap bubbles",
-    //         // title: "אבא",
-    //         description: "פוף!' ירדן תפוצץ בועה עם האצבע'",
-    //         environments: [
-    //           { id: 1,
-    //             title: "חדר טיפול",
-    //             default: false,
-    //           },
-    //           { id: 2,
-    //             title: "סלון ילדים",
-    //             default: false,
-    //           },
-    //           { id: 4,
-    //             title: "חדר אמבטיה",
-    //             default: false,
-    //           },
-    //           { id: 3,
-    //             title: "חצר",
-    //             default: true,
-    //           },
-    //         ],
-    //       },
-    //       { id: 3,
-    //         title: "הרכבת פאזל",
-    //         // title: "puzzle",
-    //         description: "מציאת החלק המתאים של פאזל מגנטי",
-    //         environments: [
-    //           { id: 1,
-    //             title: "חדר טיפול",
-    //             default: true,
-    //           },
-    //           { id: 2,
-    //             title: "סלון ילדים",
-    //             default: false,
-    //           },
-    //           { id: 3,
-    //             title: "חצר",
-    //             default: false,
-    //           },
-    //           { id: 5,
-    //             title: "מטבח",
-    //             default: false,
-    //           },
-    //         ],
-    //       },
-    //       { id: 4,
-    //         title: "צעצוע חדש",
-    //         description: "משחק עם צעצוע חדש  פקפקפקפקפקפקפפקפקהההה",
-    //         environments: [
-    //           { id: 1,
-    //             title: "חדר טיפול",
-    //             default: false,
-    //           },
-    //           { id: 2,
-    //             title: "סלון ילדים",
-    //             default: true,
-    //           },
-    //           { id: 3,
-    //             title: "חצר",
-    //             default: false,
-    //           },
-    //           { id: 6,
-    //             title: "חדר שינה",
-    //             default: false,
-    //           },
-    //         ],
-    //       },
-    //       // { id: 4,
-    //       //   // title: "הצגת צעצוע חדש",
-    //       //   title: "new toy",
-    //       //   description: "this is the description of new toy activity",
-    //       //   environments: [
-    //       //     { id: 1,
-    //       //       title: "treatment room",
-    //       //       default: false,
-    //       //     },
-    //       //     { id: 2,
-    //       //       title: "kids livingroom",
-    //       //       default: true,
-    //       //     },
-    //       //     { id: 3,
-    //       //       title: "backyard",
-    //       //       default: false,
-    //       //     },
-    //       //     { id: 6,
-    //       //       title: "bedroom",
-    //       //       default: false,
-    //       //     },
-    //       //   ],
-    //       // },
-    //       { id: 5,
-    //         title: "משחק בבובות",
-    //         description: "עייפה בובה זהבה ועייף מאוד הדובבבבב",
-    //         environments: [
-    //           { id: 1,
-    //             title: "חדר טיפול",
-    //             default: true,
-    //           },
-    //           { id: 2,
-    //             title: "סלון ילדים",
-    //             default: false,
-    //           },
-    //           { id: 3,
-    //             title: "חצר",
-    //             default: false,
-    //           },
-    //         ],
-    //       }
-    //     ];
-    //     // return recommendedActivities.reverse();
-    //     return recommendedActivities;
-    // };
     const getRecommendedActivities = () => {
       const recommendedActivities = [
         { id: 1,
@@ -395,172 +278,6 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
       // return recommendedActivities.reverse();
       return recommendedActivities;
   };
-    // const getRecommendedActivities = () => {
-    //     const recommendedActivities = [
-    //       { id: 1,
-    //         // title: "הפרחת בועות סבון",
-    //         // title: "בועות סבון",
-    //         title: "soap bubbles",
-    //         // title: "אבא",
-    //         description: "פוף!' ירדן תפוצץ בועה עם האצבע'",
-    //         environments: [
-    //           { id: 1,
-    //             title: "treatment room",
-    //             default: false,
-    //           },
-    //           { id: 2,
-    //             title: "kids living room",
-    //             default: false,
-    //           },
-    //           { id: 4,
-    //             title: "bath",
-    //             default: false,
-    //           },
-    //           { id: 3,
-    //             title: "back yard",
-    //             default: true,
-    //           },
-    //         ],
-    //       },
-    //       { id: 3,
-    //         // title: "הרכבת פאזל",
-    //         title: "puzzle",
-    //         description: "מציאת החלק המתאים של פאזל מגנטי",
-    //         environments: [
-    //           { id: 1,
-    //             title: "treatment room",
-    //             default: true,
-    //           },
-    //           { id: 2,
-    //             title: "kids living room",
-    //             default: false,
-    //           },
-    //           { id: 3,
-    //             title: "back yard",
-    //             default: false,
-    //           },
-    //           { id: 5,
-    //             title: "kitchen",
-    //             default: false,
-    //           },
-    //         ],
-    //       },
-    //       { id: 4,
-    //         title: "new toy",
-    //         description: "משחק עם צעצוע חדש  פקפקפקפקפקפקפפקפקהההה",
-    //         environments: [
-    //           { id: 1,
-    //             title: "treatment room",
-    //             default: false,
-    //           },
-    //           { id: 2,
-    //             title: "kids living room",
-    //             default: true,
-    //           },
-    //           { id: 3,
-    //             title: "back yard",
-    //             default: false,
-    //           },
-    //           { id: 6,
-    //             title: "bedroom",
-    //             default: false,
-    //           },
-    //         ],
-    //       },
-    //       // { id: 4,
-    //       //   // title: "הצגת צעצוע חדש",
-    //       //   title: "new toy",
-    //       //   description: "this is the description of new toy activity",
-    //       //   environments: [
-    //       //     { id: 1,
-    //       //       title: "treatment room",
-    //       //       default: false,
-    //       //     },
-    //       //     { id: 2,
-    //       //       title: "kids livingroom",
-    //       //       default: true,
-    //       //     },
-    //       //     { id: 3,
-    //       //       title: "backyard",
-    //       //       default: false,
-    //       //     },
-    //       //     { id: 6,
-    //       //       title: "bedroom",
-    //       //       default: false,
-    //       //     },
-    //       //   ],
-    //       // },
-    //       { id: 5,
-    //         title: "dolls play",
-    //         description: "עייפה בובה זהבה ועייף מאוד הדובבבבב",
-    //         environments: [
-    //           { id: 1,
-    //             title: "treatment room",
-    //             default: true,
-    //           },
-    //           { id: 2,
-    //             title: "kids living room",
-    //             default: false,
-    //           },
-    //           { id: 3,
-    //             title: "back yard",
-    //             default: false,
-    //           },
-    //         ],
-    //       }
-    //     ];
-    //     return recommendedActivities.reverse();
-    // };
-    
-  //   const getRestOfSessionActivities = () => {
-  //     const restOfSessionActivities = [
-  //       // { id: 11,
-  //       //   title: "building blocks",
-  //       //   description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט"
-  //       // },
-  //       { id: 9,
-  //         title: "בנייה בקוביות",
-  //         description: " חומה ומגדל חומה ומגדל חומה ומגדל לה. מריה מגדלנה יור דה קריצ'ר אוף דה נייט",
-  //         environments: [
-  //           { id: 1,
-  //             title: "חדר טיפול",
-  //             default: true,
-  //           },
-  //           { id: 2,
-  //             title: "סלון ילדים",
-  //             default: false,
-  //           },
-  //           { id: 3,
-  //             title: "חצר",
-  //             default: false,
-  //           },
-  //         ],
-  //       },
-  //       { id: 6,
-  //         title: "ציור",
-  //         description: "  כנסי כבר לבאטמוביל וניסע...קורונה ג'ננה שלום שלום ",
-  //         environments: [
-  //           { id: 1,
-  //             title: "חדר טיפול",
-  //             default: false,
-  //           },
-  //           { id: 2,
-  //             title: "סלון ילדים",
-  //             default: true,
-  //           },
-  //           { id: 3,
-  //             title: "חצר",
-  //             default: false,
-  //           },
-  //           { id: 7,
-  //             title: "פינת אוכל",
-  //             default: false,
-  //           },
-  //         ],
-  //       },
-  //     ];
-  //     return restOfSessionActivities;
-  // };
     const getRestOfSessionActivities = () => {
         const restOfSessionActivities = [
           // { id: 11,
@@ -613,12 +330,14 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
         return restOfSessionActivities;
     };
 
-
     const { username } = route.params;
+    var goals = getGoals();
+
+    console.log("ManagerDashboard: goals = " + goals);
 
     return (
         <View style={styles.container}>
-          <ManagerButton buttonsText={"תוכנית טיפול"} onPress={() => navigation.navigate('TreatmentPlan', { username })} />
+          <ManagerButton buttonsText={"תוכנית טיפול"} onPress={() => navigation.navigate('TreatmentPlan', { username, goals })} />
           <ManagerButton buttonsText={"תכנון שבועי"} onPress={() => navigation.navigate('WeeklyPlan', { username })} />
           <ManagerButton buttonsText={"דוחות"} onPress={() => navigation.navigate('Reports', { username })} />
           <ManagerButton buttonsText={"התחל מפגש"} onPress={() => navigation.navigate('StartSession', { username })} />
