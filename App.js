@@ -6,6 +6,7 @@ import LoginScreen from './screens/LoginScreen';
 import TherapistScreen from './screens/TherapistScreen';
 import ManagerScreen from './screens/ManagerScreen';
 import TreatmentPlanScreen from './screens/TreatmentPlanScreen';
+import CreateGoalScreen from './screens/CreateGoalScreen';
 import WeeklyPlanScreen from './screens/WeeklyPlanScreen';
 import ReportsScreen from './screens/ReportsScreen';
 import StartSessionScreen from './screens/StartSessionScreen';
@@ -41,6 +42,7 @@ const App = () => {
           <Stack.Screen name="Therapist Home" component={TherapistScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Manager Home" component={ManagerScreen} options={{ headerShown: false }} />
           <Stack.Screen name="TreatmentPlan" component={TreatmentPlanScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="CreateGoal" component={CreateGoalScreen} options={{ headerShown: false }} />
           <Stack.Screen name="WeeklyPlan" component={WeeklyPlanScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Reports" component={ReportsScreen} options={{ headerShown: false }} />
           <Stack.Screen name="StartSession" component={StartSessionScreen} options={{ headerShown: false }} />

@@ -8,11 +8,11 @@ import GoalsList from '../components/GoalsList';
 // import { SessionProvider } from '../contexts/SessionState';
 
 
-const TreatmentPlanScreen = ({ route, navigation }) => {
+const CreateGoalScreen = ({ route, navigation }) => {
 
   console.log("----------------------------------------------------------------------------------")
   console.log("----------------------------------------------------------------------------------")
-  console.log("--------------------------TreatmentPlanScreen rendered----------------------------")
+  console.log("--------------------------CreateGoalScreen rendered-------------------------------")
   console.log("----------------------------------------------------------------------------------")
   console.log("----------------------------------------------------------------------------------")
 
@@ -158,4 +158,4 @@ const styles = StyleSheet.create({
     
   })
 
-export default TreatmentPlanScreen;
+export default CreateGoalScreen;

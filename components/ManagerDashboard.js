@@ -330,8 +330,12 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
         return restOfSessionActivities;
     };
 
+
+    const getGoalsEmpty = () => {const goals = []};
+
     const { username } = route.params;
     var goals = getGoals();
+    // var goals = getGoalsEmpty();
 
     console.log("ManagerDashboard: goals = " + goals);
 
