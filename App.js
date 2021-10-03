@@ -13,14 +13,20 @@ import StartSessionScreen from './screens/StartSessionScreen';
 // import TherapistGoalsScreen from './screens/TherapistGoalsScreen';
 import SessionScreen from './screens/SessionScreen';
 import { SessionProvider } from './contexts/SessionState';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import goalsReducer from './state_managment/GoalsReducer'
 
 
 const Stack = createStackNavigator();
+
+const store = createStore(goalsReducer);
 
 const App = () => {
   
   return (
     // <SessionProvider>
+    <Provider store = {store}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
@@ -51,6 +57,7 @@ const App = () => {
         </Stack.Navigator>
 
       </NavigationContainer>
+    </Provider>
     // </SessionProvider>
   );
 };
