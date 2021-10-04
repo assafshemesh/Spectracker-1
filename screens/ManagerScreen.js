@@ -43,6 +43,8 @@ const styles = StyleSheet.create({
       // justifyContent: 'flex-end',
       // justifyContent: 'space-between',
       // alignItems: "center",
+      // borderWidth: 1,
+      borderColor: 'red',
     },
     
   })

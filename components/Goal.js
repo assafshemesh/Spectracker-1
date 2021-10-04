@@ -20,7 +20,7 @@ const Goal = ({goal}) => {
                 return (<View style={{...styles.goalActivity, backgroundColor: activity.color}}><Text style={styles.activityText}>{activity.title}</Text></View>)
               })
             } 
-          </View>
+        </View>
     </View>
     </TouchableOpacity>
   );

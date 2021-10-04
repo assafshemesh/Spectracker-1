@@ -329,6 +329,36 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
         ];
         return restOfSessionActivities;
     };
+    const getSkills = () => {
+      const skills = [
+        {id: 1,
+         type: "ויזואלי",
+         wasAchieved: true,
+         description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+        },
+        {id: 2,
+         type: "תחושתי",
+         wasAchieved: false,
+         description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+        },
+        {id: 3,
+         type: "קוגנטיבי",
+         wasAchieved: true,
+         description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+        },
+        {id: 4,
+         type: "ווקלי",
+         wasAchieved: false,
+         description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+        },
+        {id: 5,
+         type: "טקסטואלי",
+         wasAchieved: true,
+         description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+        },
+      ]
+      return (skills);
+    };
 
 
     const getGoalsEmpty = () => {const goals = []};
@@ -336,12 +366,14 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
     const { username } = route.params;
     var goals = getGoals();
     // var goals = getGoalsEmpty();
+    var skills = getSkills();
+    console.log("ManagerDashboard: skills = " + skills);
 
     console.log("ManagerDashboard: goals = " + goals);
 
     return (
         <View style={styles.container}>
-          <ManagerButton buttonsText={"תוכנית טיפול"} onPress={() => navigation.navigate('TreatmentPlan', { username, goals })} />
+          <ManagerButton buttonsText={"תוכנית טיפול"} onPress={() => navigation.navigate('TreatmentPlan', { username, goals, skills })} />
           <ManagerButton buttonsText={"תכנון שבועי"} onPress={() => navigation.navigate('WeeklyPlan', { username })} />
           <ManagerButton buttonsText={"דוחות"} onPress={() => navigation.navigate('Reports', { username })} />
           <ManagerButton buttonsText={"התחל מפגש"} onPress={() => navigation.navigate('StartSession', { username })} />
@@ -351,9 +383,10 @@ const ManagerDashboard = ({ route, navigation, handleSessionDetails}) => {
   
   const styles = StyleSheet.create({
       container: {
-        flex: 0.6,
+        flex: 0.5,
         flexWrap: 'wrap',
-        padding: 1,
+        // height: 200,
+        // padding: 1,
         marginTop: 80,
         alignContent: "center",
         // borderWidth: 1,
