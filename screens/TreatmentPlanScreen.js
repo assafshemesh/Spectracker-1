@@ -1,4 +1,6 @@
 import React, {useState} from 'react';
+// import { connect } from 'react-redux';
+import { useSelector, useDispatch  } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
@@ -18,6 +20,9 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   console.log("----------------------------------------------------------------------------------")
 
   const { goals } = route.params;
+  // const { goals } =  rgoals.current 
+  // const { goals } =  this.props.rgoals.current '
+  // const { goals } = useSelector(state => state.goalsReducer);
   const { skills } = route.params; 
   const lastPatient = "ירדן";
   console.log("TreatmentPlanScreen: goals = " + goals);
@@ -189,6 +194,12 @@ const styles = StyleSheet.create({
       borderColor: "pink",
     },
     
-  })
+  });
+
+  const mapStateToProps = (state) => {
+    const { rgoals } = state
+    return { rgoals }
+  };
 
 export default TreatmentPlanScreen;
+// export default connect(mapStateToProps)(TreatmentPlanScreen);
