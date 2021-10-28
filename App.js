@@ -12,21 +12,22 @@ import ReportsScreen from './screens/ReportsScreen';
 import StartSessionScreen from './screens/StartSessionScreen';
 // import TherapistGoalsScreen from './screens/TherapistGoalsScreen';
 import SessionScreen from './screens/SessionScreen';
-import { SessionProvider } from './contexts/SessionState';
+// import { SessionProvider } from './contexts/SessionState';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import goalsReducer from './state_managment/GoalsReducer'
+import configureStore from './store/configureStore';
+// import { createStore } from 'redux';
+// import goalsReducer from './state_managment/GoalsReducer'
 
 
 const Stack = createStackNavigator();
 
-const store = createStore(goalsReducer);
+// const store = createStore(goalsReducer);
 
 const App = () => {
   
   return (
     // <SessionProvider>
-    <Provider store = {store}>
+    <Provider store = {configureStore}>
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{

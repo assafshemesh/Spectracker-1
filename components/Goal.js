@@ -11,13 +11,15 @@ const Goal = ({goal}) => {
           
         <FlatList style={styles.subgoalsList}
           data={goal.subgoals}
-          renderItem={({item}) => <Subgoal subgoal={item} />}
+          // renderItem={({item}) => <Subgoal subgoal={item} />}
+          renderItem={({item}) => <Subgoal key={item.id} subgoal={item} />}
         />
         <View style={styles.activitiesList}>
             {
               goal.activities.map((activity) => {
                 // return (<View style={styles.goalActivity}><Text style={styles.activityText}>{activity.title}</Text></View>)
-                return (<View style={{...styles.goalActivity, backgroundColor: activity.color}}><Text style={styles.activityText}>{activity.title}</Text></View>)
+                // return (<View style={{...styles.goalActivity, backgroundColor: activity.color}}><Text style={styles.activityText}>{activity.title}</Text></View>)
+                return (<View key={activity.id} style={{...styles.goalActivity, backgroundColor: activity.color}}><Text style={styles.activityText}>{activity.title}</Text></View>)  //is a key really needed here?
               })
             } 
         </View>

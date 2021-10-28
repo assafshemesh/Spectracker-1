@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import Skill from '../components/Skill';
 
-const GoalsList = ({skills}) => {
+const SkillsList = ({skills}) => {
 
   useEffect(() => {
   }, [skills]);

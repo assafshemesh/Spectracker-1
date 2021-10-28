@@ -35,4 +35,10 @@ allprojects {
         jcenter()
         maven { url 'https://www.jitpack.io' }
     }
+    configurations.all {
+    resolutionStrategy {
+      force 'com.facebook.fresco:imagepipeline-base:2.5.0'
+    }
+  }
+
 }

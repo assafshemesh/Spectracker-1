@@ -26,7 +26,7 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   const { skills } = route.params; 
   const lastPatient = "ירדן";
   console.log("TreatmentPlanScreen: goals = " + goals);
-  console.log("TreatmentPlanScreen: skills = " + skills);  //prints "undefined" :(
+  console.log("TreatmentPlanScreen: skills = " + skills); 
 
   const goalsSection = () => {
     console.log("TreatmentPlanScreen:   goals = " + goals);
@@ -143,8 +143,8 @@ const styles = StyleSheet.create({
       borderColor: '#47595e',
       borderWidth: 1,
       borderRadius: 40,
-      justifyContent: "center",
-      alignSelf: "center",
+      // justifyContent: "center",
+      // alignSelf: "center",
       marginTop: 60,
       margin: 10,
 
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
       fontSize: 40,
       color: '#47595e',
       // fontWeight: "bold",
-      textAlign: "center",
+      // textAlign: "center",
     },
     
     toolCreateGoalContainer: {
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
       borderRadius: 15,
       borderColor: '#47595e',
       borderWidth: 1,
-      justifyContent: "center",
+      // justifyContent: "center",
       // alignSelf: "center",
       // marginTop: 60,
       margin: 5,
