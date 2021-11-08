@@ -1,15 +1,17 @@
-import React, {useState} from 'react';
-// import { connect } from 'react-redux';
-import { useSelector, useDispatch  } from 'react-redux';
+import React, {useState, useRef} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, Dimensions } from 'react-native';
 import TherapistHeader from '../components/TherapistHeader';
 import UpperMenu from '../components/UpperMenu';
 import GoalsList from '../components/GoalsList';
+import SkillsList from '../components/SkillsList';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 // import { SessionProvider } from '../contexts/SessionState';
-
+// import { connect } from 'react-redux';
+import { useSelector, useDispatch  } from 'react-redux';
+/* action creators */
+import { updateGoal } from '../store/actions/goals/goals';
 
 const TreatmentPlanScreen = ({ route, navigation }) => {
 
@@ -19,21 +21,22 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   console.log("----------------------------------------------------------------------------------")
   console.log("----------------------------------------------------------------------------------")
 
-  const { goals } = route.params;
-  // const { goals } =  rgoals.current 
-  // const { goals } =  this.props.rgoals.current '
-  // const { goals } = useSelector(state => state.goalsReducer);
-  const { skills } = route.params; 
+  // const state = useSelector(state => state.goals);
+  const state = useSelector(state => state);
+  const dispatch = useDispatch();
+
+  const goals = state.goals.allGoals;
+  const skills = state.skills.allSkills;
+  const treatmentArray = [{ data: goals, name: "goals", id: 1}, { data: skills, name: "skills", id: 2}];
+  
   const lastPatient = "ירדן";
   console.log("TreatmentPlanScreen: goals = " + goals);
   console.log("TreatmentPlanScreen: skills = " + skills); 
 
+  const flatListRef = useRef(null);
+
   const goalsSection = () => {
     console.log("TreatmentPlanScreen:   goals = " + goals);
-
-    const showSkills = () => {
-
-    }
 
     if (goals?.length) {
       return (
@@ -43,9 +46,7 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
             <View style={styles.toolCreateGoalContainer}>
               <Text style={styles.toolCreateGoalIcon}>+</Text>  
             </View>
-            <TouchableOpacity style={styles.skillsButton} onPress={showSkills()}>
-              <Text style={styles.linkText}>מיומנויות</Text>  
-            </TouchableOpacity>
+            
           </View>
           {/* <Text style={styles.explainsText}> (כפי שנקבעו בהתאם ל<Text style={styles.linkText}>מיומנויות של ירדן </Text>)</Text> */}
           <GoalsList goals={goals} isSession={false}/>
@@ -64,20 +65,49 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
     }
   };
 
+  const showSkills = () => {
+
+  }
+
   return (
     // <SessionProvider>
         <View style={styles.container}>
             <UpperMenu />
-            {/* <TherapistHeader navigation={navigation} route={route} /> */}
             <View style={styles.textContainer}>
-              {/* <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text>♡</Text> */}
               <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
-              {/* <Text style={styles.heading2Text}>מטרות הטיפול </Text> */}
-              {/* <Text style={styles.skillsText}> (כפי שנקבעו בהתאם ל<Text style={styles.skillsLinkText}>מיומנויות של ירדן </Text>)</Text> */}
             </View>
-            {goalsSection()}
-            {/* <GoalsList goals={goals} isSession={false}/> */}
-            
+            <View style={styles.buttonsContainer}>
+              <TouchableOpacity style={styles.heading2Text} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}>
+                <Text style={styles.linkText}>מטרות טיפול</Text>  
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={styles.heading2Text} onPress={showSkills()}> */}
+              <TouchableOpacity style={styles.heading2Text} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}>
+                <Text style={styles.linkText}>מיומנויות</Text>  
+              </TouchableOpacity>
+            </View>
+            <View style={styles.flatlistContainer}>
+            {/* <View style={[styles.flatlistContainer, , {
+              transform: [{ translateX: 80 }]
+            }]}> */}
+              <FlatList
+                ref={flatListRef}
+                keyExtractor={(item) => item.id}
+                horizontal={true}
+                pagingEnabled={true}
+                showsHorizontalScrollIndicator={false}
+                legacyImplementation={false}
+                data={treatmentArray}
+                renderItem={({item}) => (
+                  item.name == "goals" ? 
+                  <View style={styles.flatListItem}><GoalsList goals={item.data} isSession={false}/></View> :
+                  <View style={styles.flatListItem}><SkillsList skills={item.data} /></View>)}
+                // style={{width: SCREEN_WIDTH + 5}}
+              />
+            </View>
+            {/* <TouchableOpacity style={styles.heading2Text} onPress={() => this.flatlist.scrollToIndex({ index: 0 })}>
+                <Text style={styles.linkText}>מיומנויות</Text>  
+            </TouchableOpacity> */}
+            {/* {goalsSection()} */}
         </View>
     // </SessionProvider>
 
@@ -110,8 +140,8 @@ const styles = StyleSheet.create({
       fontWeight: "bold",
       textAlign: "center",
       color: '#47595e',
-      // margin: 5,
-      // marginLeft: 15, //"left" is actually "right"because of the RTL direction configured somewhere-- which is good but I need to check where I set it.
+      marginLeft: 10, //"left" is actually "right"because of the RTL direction configured somewhere-- which is good but I need to check where I set it.
+      marginRight: 15,
     },
     nameText: {
       fontSize: 18,
@@ -126,6 +156,7 @@ const styles = StyleSheet.create({
       marginLeft: 12,
     },
     linkText: {
+      fontSize: 16,
       fontWeight: "bold",
       marginBottom: 10,
       color: '#47595e',
@@ -193,7 +224,25 @@ const styles = StyleSheet.create({
       // borderWidth: 1,
       borderColor: "pink",
     },
-    
+    flatlistContainer: {
+      flex: 1,
+      // width: Dimensions.get('window').width * 2,
+      // justifyContent: 'flex-start',
+      // justifyContent: 'space-between',
+      // padding: 13,
+      // borderWidth: 3,
+      borderColor: 'red',
+      ackgroundColor: "green",
+    },
+    flatListItem: {
+      // flex: 1,
+      width: Dimensions.get('window').width,
+      // alignItems: 'stretch',
+    },
+    buttonsContainer: {
+      flexDirection: 'row',
+
+    },
   });
 
   const mapStateToProps = (state) => {

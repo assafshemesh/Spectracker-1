@@ -8,6 +8,7 @@ const GoalsList = ({goals, isSession}) => {
   useEffect(() => {
   }, [goals]);
 
+  if (goals?.length) {
     return (
         <View style={styles.container}>
               <FlatList 
@@ -17,7 +18,14 @@ const GoalsList = ({goals, isSession}) => {
                 renderItem={({item}) => isSession? <SessionGoal goal={item} key={item.serialNum}/> : <Goal goal={item} key={item.serialNum}/>}
               />
         </View>
-    )
+    );
+  } else {
+    return (
+      <View style={styles.container}>
+          <Text style={styles.explainsText}>לא קיימות מטרות טיפול</Text>
+      </View>
+    );
+  }
 }
 
 
@@ -27,6 +35,13 @@ const styles = StyleSheet.create({
       // backgroundColor: 'aliceblue',
       // borderWidth: 3,
       borderColor: 'orange',
+    },
+    explainsText: {
+      fontSize: 14,
+      // fontWeight: "bold",
+      textAlign: "center",
+      color: '#47595e',
+      marginLeft: 12,
     },
   })
 
