@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, StyleSheet, FlatList, Alert, Dimensions } from 'react-native';
@@ -21,10 +21,16 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   console.log("----------------------------------------------------------------------------------")
   console.log("----------------------------------------------------------------------------------")
 
+  // useEffect(() => {
+    
+  // },[]);
+
   // const state = useSelector(state => state.goals);
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
+  const [currentItem, setCurrentItem] = useState(0);
+  // const [viewablePage, setViewablePage] = useState(0);
   const goals = state.goals.allGoals;
   const skills = state.skills.allSkills;
   const treatmentArray = [{ data: goals, name: "goals", id: 1}, { data: skills, name: "skills", id: 2}];
@@ -69,6 +75,29 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
 
   }
 
+  // const myFunc = ({ viewableItems, changed }) => {
+  //   setCurrentPage(viewableItems[0].index);
+  //   console.log("Current page is:" + viewableItems[0].index);
+  //   console.log("Visible items are", viewableItems);
+  //   console.log("Changed in this iteration", changed);
+  // }
+
+  const onViewRef = useRef((viewableItems) => {
+    // setCurrentPage(viewableItems[0].index);
+    setCurrentItem(viewableItems.viewableItems[0]?.index);
+    // setCurrentItem(prev => !prev);
+    // console.log("Current page is:" + viewableItems[0].index);
+    console.log("Visible items are", viewableItems);
+    console.log("-*-*-*-*-*-*-*-*-----Current page is (viewableItems.viewableItems[0]?.index):" + viewableItems.viewableItems[0]?.index);
+    console.log("-*-*-*-*-*-*-*-*-----Current page is:" + currentItem);
+  });
+
+  // setViewablePage[viewables[0].index];
+
+
+
+  const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
+
   return (
     // <SessionProvider>
         <View style={styles.container}>
@@ -77,12 +106,17 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
               <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
             </View>
             <View style={styles.buttonsContainer}>
-              <TouchableOpacity style={styles.heading2Text} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}>
-                <Text style={styles.linkText}>מטרות טיפול</Text>  
+              {/* <TouchableOpacity style={styles.pageOnHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}> */}
+              <TouchableOpacity style={(currentItem == 0) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}>
+              {/* <TouchableOpacity style={(viewables[0]?.index == 0) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}> */}
+                {/* <Text style={styles.linkText}>מטרות טיפול</Text>   */}
+                <Text style={(currentItem == 0) ? styles.linkTextOn : styles.linkTextOff}>מטרות טיפול</Text>  
               </TouchableOpacity>
               {/* <TouchableOpacity style={styles.heading2Text} onPress={showSkills()}> */}
-              <TouchableOpacity style={styles.heading2Text} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}>
-                <Text style={styles.linkText}>מיומנויות</Text>  
+              {/* <TouchableOpacity style={styles.heading2Text} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}> */}
+              <TouchableOpacity style={(currentItem == 1) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}>
+                {/* <Text style={styles.linkText}>מיומנויות</Text>   */}
+                <Text style={(currentItem == 1) ? styles.linkTextOn : styles.linkTextOff}>מיומנויות</Text>  
               </TouchableOpacity>
             </View>
             <View style={styles.flatlistContainer}>
@@ -102,6 +136,12 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
                   <View style={styles.flatListItem}><GoalsList goals={item.data} isSession={false}/></View> :
                   <View style={styles.flatListItem}><SkillsList skills={item.data} /></View>)}
                 // style={{width: SCREEN_WIDTH + 5}}
+                // onViewableItemsChanged={myFunc}
+                onViewableItemsChanged={onViewRef.current}
+                // viewabilityConfig={{
+                //   itemVisiblePercentThreshold: 50
+                // }}
+                viewabilityConfig={viewConfigRef.current}
               />
             </View>
             {/* <TouchableOpacity style={styles.heading2Text} onPress={() => this.flatlist.scrollToIndex({ index: 0 })}>
@@ -135,11 +175,21 @@ const styles = StyleSheet.create({
       fontSize: 18,
       color: '#47595e',
     },
-    heading2Text: {
+    pageOnHeading: {
       fontSize: 16,
       fontWeight: "bold",
       textAlign: "center",
       color: '#47595e',
+      marginLeft: 10, //"left" is actually "right"because of the RTL direction configured somewhere-- which is good but I need to check where I set it.
+      marginRight: 15,
+      borderBottomWidth: 4,
+      borderBottomColor: '#47595e',
+    },
+    pageOffHeading: {
+      fontSize: 16,
+      fontWeight: "bold",
+      textAlign: "center",
+      color: '#7e979e',
       marginLeft: 10, //"left" is actually "right"because of the RTL direction configured somewhere-- which is good but I need to check where I set it.
       marginRight: 15,
     },
@@ -155,11 +205,18 @@ const styles = StyleSheet.create({
       color: '#47595e',
       marginLeft: 12,
     },
-    linkText: {
+    linkTextOn: {
       fontSize: 16,
       fontWeight: "bold",
       marginBottom: 10,
       color: '#47595e',
+      textAlign: "center",
+    },
+    linkTextOff: {
+      fontSize: 16,
+      fontWeight: "bold",
+      marginBottom: 10,
+      color: '#a9bec4',
       textAlign: "center",
     },
     goalsSectionContainer: {
