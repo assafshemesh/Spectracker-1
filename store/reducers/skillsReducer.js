@@ -2,29 +2,44 @@ import { FETCH_SKILLS, UPDATE_SKILL } from '../actions/skills/skillsActionTypes'
 
 const getSkills = () => {
     const skills = [
-      {id: 1,
+      {id: 0,
        type: "ויזואלי",
        wasAchieved: true,
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
-      {id: 2,
+      {id: 1,
        type: "תחושתי",
        wasAchieved: false,
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
-      {id: 3,
+      {id: 2,
        type: "קוגנטיבי",
        wasAchieved: true,
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
-      {id: 4,
+      {id: 3,
        type: "ווקלי",
+       wasAchieved: true,
+       description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+      },
+      {id: 4,
+       type: "טקסטואלי",
        wasAchieved: false,
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
       {id: 5,
-       type: "טקסטואלי",
+        type: "קוגנטיבי",
+       wasAchieved: false,
+       description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+      },
+      {id: 6,
+        type: "תחושתי",
        wasAchieved: true,
+       description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
+      },
+      {id: 7,
+        type: "ויזואלי",
+       wasAchieved: false,
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
     ]
@@ -44,10 +59,10 @@ const skillsReducer = (state = initialState, action) => {
             break
         case UPDATE_SKILL:
             const skill = action.payload;
-            const { updatedSkills } = state;
-            updatedSkills[skill.id] = skill;
-            newState = { updatedSkills }; //should it be const newState(...)?
-            return newState;
+            const updatedSkills = state.allSkills;
+            updatedSkills[skill.id].wasAchieved = skill.wasAchieved;
+            const updatedState = { allSkills: updatedSkills };
+            return updatedState;
             break
         default:
             return state;

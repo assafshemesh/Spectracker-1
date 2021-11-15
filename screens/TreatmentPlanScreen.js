@@ -21,16 +21,12 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   console.log("----------------------------------------------------------------------------------")
   console.log("----------------------------------------------------------------------------------")
 
-  // useEffect(() => {
-    
-  // },[]);
-
   // const state = useSelector(state => state.goals);
   const state = useSelector(state => state);
   const dispatch = useDispatch();
 
   const [currentItem, setCurrentItem] = useState(0);
-  // const [viewablePage, setViewablePage] = useState(0);
+  
   const goals = state.goals.allGoals;
   const skills = state.skills.allSkills;
   const treatmentArray = [{ data: goals, name: "goals", id: 1}, { data: skills, name: "skills", id: 2}];
@@ -106,16 +102,10 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
               <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
             </View>
             <View style={styles.buttonsContainer}>
-              {/* <TouchableOpacity style={styles.pageOnHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}> */}
               <TouchableOpacity style={(currentItem == 0) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}>
-              {/* <TouchableOpacity style={(viewables[0]?.index == 0) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}> */}
-                {/* <Text style={styles.linkText}>מטרות טיפול</Text>   */}
                 <Text style={(currentItem == 0) ? styles.linkTextOn : styles.linkTextOff}>מטרות טיפול</Text>  
               </TouchableOpacity>
-              {/* <TouchableOpacity style={styles.heading2Text} onPress={showSkills()}> */}
-              {/* <TouchableOpacity style={styles.heading2Text} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}> */}
               <TouchableOpacity style={(currentItem == 1) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}>
-                {/* <Text style={styles.linkText}>מיומנויות</Text>   */}
                 <Text style={(currentItem == 1) ? styles.linkTextOn : styles.linkTextOff}>מיומנויות</Text>  
               </TouchableOpacity>
             </View>

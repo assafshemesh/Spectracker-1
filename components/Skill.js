@@ -1,15 +1,53 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { useSelector, useDispatch  } from 'react-redux';
+import BouncyCheckbox from "react-native-bouncy-checkbox";
+import { updateSkill } from '../store/actions/skills/skills';
+
 
 const Skill = ({skill}) => {
+  const [isSelected, setSelection] = useState(skill.wasAchieved);
+  console.log("Inside skill: skill.wasAchieved = " + skill.wasAchieved);
+
+  const state = useSelector(state => state.skills);
+  const dispatch = useDispatch();
+
+  const updateSkillStatus = (skill) => {
+    console.log("--------------------->>>>>> Inside Skill: skill before = " + skill.wasAchieved)
+    skill.wasAchieved = !skill.wasAchieved;
+    dispatch(updateSkill(skill));
+    console.log("--------------------->>>>>> Inside Skill: skill after = " + skill.wasAchieved)
+  }
+
+  // useEffect(() => {
+  //   // setSelection(!isSelected);
+  // }, [skill.wasAchieved])
+
   return (
-    <TouchableOpacity style={styles.container}>
-      <View style={styles.skillView}>
-          <Text style={styles.skillTitle}>{skill.type}- מיומנות {skill.serialNum}</Text>
-          <Text style={styles.skillTitle}>{skill.wasAchieved} הושגה: </Text>
+    // <TouchableOpacity style={isSelected ? styles.container : {...styles.container, backgroundColor: "#ebf2eb"}}>
+    <TouchableOpacity style={!skill.wasAchieved ? styles.container : {...styles.container, backgroundColor: "#ebf2eb"}}>
+      {/* <View style={styles.skillView}> */}
+          <Text style={styles.skillTitle}>{skill.type}{skill.serialNum}</Text>
+          <View style={styles.checkboxContainer}>
+            <BouncyCheckbox
+              size={25}
+              fillColor="green"
+              unfillColor="#FFFFFF"
+              text="הושגה:"
+              disableText={true}
+              iconStyle={{ borderColor: "green" }}
+              textStyle={{ fontFamily: "JosefinSans-Regular" }}
+              isChecked={skill.wasAchieved}
+              onPress={() => {
+                setSelection(!isSelected);
+                updateSkillStatus(skill);
+              }}
+            />
+            {/* <Text style={styles.skillTitle}> הושגה: </Text> */}
+          </View>
           <Text style={styles.skillDescription}>{skill.description}</Text>
           
-    </View>
+      {/* </View> */}
     </TouchableOpacity>
   );
 };
@@ -40,7 +78,7 @@ const styles = StyleSheet.create({
     },
     skillTitle: {
       flex: 1,
-      flexWrap: 'wrap',
+      // flexWrap: 'wrap',
       fontSize: 12,
       // fontWeight: 'bold',
       // backgroundColor: 'darksalmon',
@@ -54,9 +92,13 @@ const styles = StyleSheet.create({
     },
     skillDescription: {
         flex: 1,
-        fontSize: 10,
+        fontSize: 12,
         height: 20,
     },
+    checkboxContainer: {
+        flexDirection: "row",
+        marginBottom: 20,
+    }
 })
 
 export default Skill;

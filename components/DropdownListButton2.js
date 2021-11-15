@@ -3,14 +3,20 @@ import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighli
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
-const DropdownListButton = ({arrayListItems, defaultValue, precedingText, onSelect}) => {
+const DropdownListButton2 = ({arrayListItems, defaultValue, precedingText, onSelect}) => {
+
+    console.log("----------------------------------------------------------------------------------")
+    console.log("----------------------------------------------------------------------------------")
+    console.log("--------------------------DropdownListButton2 rendered----------------------------")
+    console.log("----------------------------------------------------------------------------------")
+    console.log("----------------------------------------------------------------------------------")  
 
   const [dropdownValue, setDropdownValue] = useState(defaultValue);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    setDropdownValue(defaultValue);
-  }, [defaultValue, arrayListItems]); //should re-render if any of those is changed
+//   useEffect(() => {
+//     setDropdownValue(defaultValue);
+//   }, [defaultValue, arrayListItems]); //should re-render if any of those is changed
                                       // BUT there is the following case in which this will not work as desired (to be fixed later): 
                                       //if there are 2 activities A and B with the same list of envs and with the same defEnv
                                       //and we 1.click activity A; 2.change the value of the dropdowm envs list to
@@ -50,6 +56,7 @@ const DropdownListButton = ({arrayListItems, defaultValue, precedingText, onSele
                         <View>
                             <TouchableOpacity onPress={() => {
                             setDropdownValue(item.title);
+                            console.log("------->--)))-->-))))--> Inside DropdownListButton2 item.id = " + item.id);
                             onSelect(item);
                             setModalVisible(!modalVisible);
                             }}>
@@ -175,4 +182,4 @@ const styles = StyleSheet.create({
     // }
 });
 
-export default DropdownListButton;
+export default DropdownListButton2;
