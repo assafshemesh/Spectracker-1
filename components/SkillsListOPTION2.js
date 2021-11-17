@@ -6,28 +6,34 @@ import Skill from '../components/Skill';
 import DropdownListButton2 from './DropdownListButton2';
 import RadioButtons from './RadioButtons';
 
-const SkillsList = ({skills}) => {
+const SkillsListOPTION2 = ({skills}) => {
 
+  const [isAchieved, setIsAchieved] = useState(false);
+  const [isShowAll, setIsShowAll] = useState(true);
   const [typeSelected, setTypeSelected] = useState(0);
 
   useEffect(() => {
-  }, [skills, typeSelected]);
-  
-  const skillsTypes = [{title: "כל תחום", id: 0}, {title: "טקסטואלי", id: 1}, {title: "ווקאלי", id: 2}, {title: "קוגנטיבי", id: 3}, {title: "תחושתי", id: 4}, {title: "ויזואלי", id: 5}];
-  const achievedButtons = [{title: "הכל", id: 0},{title: "שהושגו", id: 1},{title: "שלא הושגו", id: 2}];
-  const [achievedStatus, setAchievedStatus] = useState(0);
-  const onAchievedButtonsPress = (id) => setAchievedStatus(id);
+  }, [skills, isAchieved, typeSelected]);
 
+  const setAchieved = (status) => {
+    setIsAchieved(status);
+    setIsShowAll(false);
+    console.log(">.>.>.>.>.>.>.>.>>>> Inside SkillsList: isAchieved = " + isAchieved);
+  };
+  const skillsTypes = [{title: "כל תחום", id: 0}, {title: "טקסטואלי", id: 1}, {title: "ווקאלי", id: 2}, {title: "קוגנטיבי", id: 3}, {title: "תחושתי", id: 4}, {title: "ויזואלי", id: 5}];
+  
     return (
         <View style={styles.container}>
           <View style={styles.buttonsContainer}>
             <View style={styles.achievedButtonsContainer}>
-              <RadioButtons buttons={achievedButtons} defaultOn={0} styleButtonOn={styles.achievedRadioButtonOn} styleButtonOff={styles.achievedRadioButtonOff} onPress={onAchievedButtonsPress}/>
+              <TouchableOpacity style={styles.achievedRadioButtonOn} onPress={() => setIsShowAll(true)}><Text style={styles.filterButtonText}>הכל</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.achievedRadioButtonOn} onPress={() => setAchieved(true)}><Text style={styles.filterButtonText}>שהושגו</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.achievedRadioButtonOn} onPress={() => setAchieved(false)}><Text style={styles.filterButtonText}>שלא הושגו</Text></TouchableOpacity>
             </View>
             <DropdownListButton2 arrayListItems={skillsTypes} defaultValue={"כל תחום"} precedingText={""} onSelect={(item) => setTypeSelected(item.id)}/>
           </View>
               <FlatList 
-                data={achievedStatus == 0 ? skills :  (achievedStatus == 1 ? skills.filter(skill => skill.wasAchieved == true) : skills.filter(skill => skill.wasAchieved == false))}
+                data={isShowAll ? skills :  (isAchieved ? skills.filter(skill => skill.wasAchieved == true) : skills.filter(skill => skill.wasAchieved == false))}
                 renderItem={({item}) => (typeSelected == 0 || skillsTypes[typeSelected].title == item.type) ? <Skill skill={item} key={item.serialNum}/> : null }
               />
         </View>
@@ -42,7 +48,7 @@ const styles = StyleSheet.create({
       // borderWidth: 3,
       borderColor: 'orange',
     },
-    achievedRadioButtonOff: {
+    achievedRadioButtonOn: {
       // flex: 0.1,
       width: 80,
       height: 30,
@@ -53,22 +59,6 @@ const styles = StyleSheet.create({
       borderBottomRightRadius: 50,
       borderWidth: 1,
       borderColor: '#a9bec4',
-      // borderColor: 'lightgray',
-      marginRight: 3,
-      marginTop: 1,
-      alignItems: 'center',
-    },
-    achievedRadioButtonOn: {
-      // flex: 0.1,
-      width: 80,
-      height: 30,
-      backgroundColor: 'white',
-      borderTopLeftRadius: 50,
-      borderBottomLeftRadius: 50,
-      borderTopRightRadius: 50,
-      borderBottomRightRadius: 50,
-      borderWidth: 1,
-      borderColor: 'lightgray',
       marginRight: 3,
       marginTop: 1,
       alignItems: 'center',
@@ -79,13 +69,10 @@ const styles = StyleSheet.create({
       margin: 5,
     },
     achievedButtonsContainer: {
-      // flexDirection: 'row',
+      flexDirection: 'row',
       // margin: 5,
       marginLeft: 5,
       marginRight: 15,
-      // borderWidth: 1,
-      borderColor: "pink",
-      // width: 300,
     },
     filterButtonText: {
       // color: '#a9bec4',
@@ -93,4 +80,4 @@ const styles = StyleSheet.create({
     },
   })
 
-export default SkillsList;
+export default SkillsListOPTION2;

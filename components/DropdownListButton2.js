@@ -14,16 +14,6 @@ const DropdownListButton2 = ({arrayListItems, defaultValue, precedingText, onSel
   const [dropdownValue, setDropdownValue] = useState(defaultValue);
   const [modalVisible, setModalVisible] = useState(false);
 
-//   useEffect(() => {
-//     setDropdownValue(defaultValue);
-//   }, [defaultValue, arrayListItems]); //should re-render if any of those is changed
-                                      // BUT there is the following case in which this will not work as desired (to be fixed later): 
-                                      //if there are 2 activities A and B with the same list of envs and with the same defEnv
-                                      //and we 1.click activity A; 2.change the value of the dropdowm envs list to
-                                      //something else; 3. click activity B--- we'd expect the value of the
-                                      //dropdown list to change back to the defEnv--- but in this case the re-render will not be
-                                      //triggered, since the array [defaultValue, arrayListItems] is not changed.
-
   return (
     <View style={styles.container}>
       <View style={styles.buttonAreaContainer}>
@@ -122,11 +112,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         // height: 20,
         // backgroundColor: 'lavender',
+        color: '#47595e',
     },
     dropdownButtonIcon: {
       flex: 1,
       marginLeft: 4,
       alignSelf: 'center',
+      color: '#47595e',
     },
     menuOptionText: {
         flex: 1,

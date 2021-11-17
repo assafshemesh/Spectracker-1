@@ -95,7 +95,6 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
   return (
-    // <SessionProvider>
         <View style={styles.container}>
             <UpperMenu />
             <View style={styles.textContainer}>
@@ -110,9 +109,7 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.flatlistContainer}>
-            {/* <View style={[styles.flatlistContainer, , {
-              transform: [{ translateX: 80 }]
-            }]}> */}
+            {/* <View style={[styles.flatlistContainer, , {transform: [{ translateX: 80 }]}]}> */}
               <FlatList
                 ref={flatListRef}
                 keyExtractor={(item) => item.id}
@@ -124,24 +121,19 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
                 renderItem={({item}) => (
                   item.name == "goals" ? 
                   <View style={styles.flatListItem}><GoalsList goals={item.data} isSession={false}/></View> :
-                  <View style={styles.flatListItem}><SkillsList skills={item.data} /></View>)}
-                // style={{width: SCREEN_WIDTH + 5}}
-                // onViewableItemsChanged={myFunc}
+                  <View style={styles.flatListItem}><SkillsList skills={item.data} /></View>
+                )}
                 onViewableItemsChanged={onViewRef.current}
-                // viewabilityConfig={{
-                //   itemVisiblePercentThreshold: 50
-                // }}
                 viewabilityConfig={viewConfigRef.current}
               />
             </View>
-            {/* <TouchableOpacity style={styles.heading2Text} onPress={() => this.flatlist.scrollToIndex({ index: 0 })}>
-                <Text style={styles.linkText}>מיומנויות</Text>  
-            </TouchableOpacity> */}
-            {/* {goalsSection()} */}
-        </View>
-    // </SessionProvider>
+            <View style={styles.newGoalContainer}>
+              <View style={styles.textContainer}>
+                <Text style={styles.heading1Text}>מטרה חדשה</Text>
+              </View>
 
-  
+            </View>
+        </View>
   )
 }
 
@@ -289,6 +281,12 @@ const styles = StyleSheet.create({
     buttonsContainer: {
       flexDirection: 'row',
 
+    },
+    newGoalContainer: {
+      height: Dimensions.get('window').height * 0.55,
+      width: Dimensions.get('window').width,
+      borderWidth: 1,
+      borderColor: "pink",
     },
   });
 

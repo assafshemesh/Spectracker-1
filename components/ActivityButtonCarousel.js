@@ -21,7 +21,7 @@ const ActivityButtonCarousel = ({recommendedActivities, restOfActivities, update
 
   const updateStyle = (id) => {
       setButtonsState(prevButtonsState => {
-        return prevButtonsState.map((buttonState, index) => (allSessionActivities[index].id == id) );
+        return prevButtonsState.map((buttonsState, index) => (allSessionActivities[index].id == id) );
       });
       setIsActivitySelected(true);
   };

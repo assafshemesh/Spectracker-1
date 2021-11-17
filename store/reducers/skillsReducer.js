@@ -18,7 +18,7 @@ const getSkills = () => {
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
       {id: 3,
-       type: "ווקלי",
+       type: "ווקאלי",
        wasAchieved: true,
        description: "זיהויי דמויות וחפצים באמצעות המראה שלהם",
       },
