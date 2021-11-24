@@ -24,8 +24,9 @@ const Skill = ({skill}) => {
   // }, [skill.wasAchieved])
 
   return (
-    // <TouchableOpacity style={isSelected ? styles.container : {...styles.container, backgroundColor: "#ebf2eb"}}>
-    <TouchableOpacity style={!skill.wasAchieved ? styles.container : {...styles.container, backgroundColor: "#ebf2eb"}}>
+    // <TouchableOpacity style={!skill.wasAchieved ? styles.container : {...styles.container, backgroundColor: "#ebf2eb"}}>
+    // <TouchableOpacity style={!skill.wasAchieved ? styles.container : {...styles.container, backgroundColor: "#a9bec4"}}>
+    <TouchableOpacity style={!skill.wasAchieved ? styles.container : {...styles.container, backgroundColor: "#f8f8f8"}}>
       {/* <View style={styles.skillView}> */}
           <Text style={styles.skillTitle}>{skill.type}{skill.serialNum}</Text>
           <View style={styles.checkboxContainer}>
@@ -58,7 +59,8 @@ const styles = StyleSheet.create({
         padding: 15,
         paddingTop: 8,
         paddingBottom: 10,
-        backgroundColor: '#f8f8f8',
+        // backgroundColor: '#f8f8f8',
+        backgroundColor: '#ffffff',
         // borderBottomWidth: 1,
         borderWidth: 1,
         // borderColor: '#eee',

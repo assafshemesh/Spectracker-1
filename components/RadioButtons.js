@@ -3,7 +3,17 @@ import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const RadioButtons = ({buttons, defaultOn, styleButtonOn, styleButtonOff, onPress}) => {
-    const [buttonsState, setButtonsState] = useState(buttons.map((element, index) => index == defaultOn ? true : false));
+    
+    const setInitialState = () =>{
+        if (typeof(defaultOn) == 'undefined') { 
+             return (buttons.map((element) => false))
+        } else { 
+            return (buttons.map((element, index) => index == defaultOn ? true : false))
+        }
+    };
+
+    // const [buttonsState, setButtonsState] = useState(buttons.map((element, index) => index == defaultOn ? true : false));
+    const [buttonsState, setButtonsState] = useState(setInitialState());
 
     useEffect(() => {
     }, [buttonsState]);

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Button, FlatList, Alert, Modal, TouchableHighli
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import { faCaretDown } from '@fortawesome/free-solid-svg-icons'
 
-const DropdownListButton2 = ({arrayListItems, defaultValue, precedingText, onSelect}) => {
+const DropdownListButton2 = ({style, arrayListItems, defaultValue, precedingText, onSelect}) => {
 
     console.log("----------------------------------------------------------------------------------")
     console.log("----------------------------------------------------------------------------------")
@@ -15,52 +15,55 @@ const DropdownListButton2 = ({arrayListItems, defaultValue, precedingText, onSel
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.buttonAreaContainer}>
-       <View style={styles.buttonTextWrapper}>
-          <Text style={styles.dropdownButtonPrecedingText}>{precedingText}</Text>
-      </View>
-      <TouchableOpacity style={styles.button} onPress={() => {
-            setModalVisible(true);
-          }}>
-          <View style={styles.dropdownButtonContainer}>
-            <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCaretDown } />
-            <View style={styles.buttonTextWrapper}>
-              <Text style={styles.dropdownButtonText}>{dropdownValue}</Text>
-            </View>
-          </View>
-      </TouchableOpacity>
-      </View>
+    <View style={style}>
+      <View style={styles.container}>
+        <View style={styles.buttonAreaContainer}>
+        {/* <View style={styles.buttonTextWrapper}>
+            <Text style={styles.dropdownButtonPrecedingText}>{precedingText}</Text>
+        </View> */}
+        <TouchableOpacity style={styles.dropdownButtonContainer} onPress={() => {
+              setModalVisible(true);
+            }}>
+            {/* <View style={styles.dropdownButtonContainer}> */}
+              <Text style={styles.dropdownButtonPrecedingText}>{precedingText}</Text>
+              <FontAwesomeIcon style={styles.dropdownButtonIcon} icon={ faCaretDown } />
+              <View style={styles.buttonTextWrapper}>
+                <Text style={styles.dropdownButtonText}>{dropdownValue}</Text>
+              </View>
+            {/* </View> */}
+        </TouchableOpacity>
+        </View>
 
-      <Modal
-        transparent={true}
-        visible={modalVisible}
-      >
-          <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
-            <View style={styles.modalBackgroundView}>
-                <View style={styles.modalView}>
-                    <View style={styles.listItemsContainer}>
-                    <FlatList 
-                        data={arrayListItems}
-                        renderItem={({item, index}) =>
-                        <View>
-                            <TouchableOpacity onPress={() => {
-                            setDropdownValue(item.title);
-                            console.log("------->--)))-->-))))--> Inside DropdownListButton2 item.id = " + item.id);
-                            onSelect(item);
-                            setModalVisible(!modalVisible);
-                            }}>
-                                <Text style={styles.menuOptionText}>{item.title}</Text>
-                            </TouchableOpacity>
-                        </View>}
-                    />
-                    </View>
+        <Modal
+          transparent={true}
+          visible={modalVisible}
+        >
+            <TouchableWithoutFeedback onPress={() => setModalVisible(!modalVisible)}>
+              <View style={styles.modalBackgroundView}>
+                  <View style={styles.modalView}>
+                      <View style={styles.listItemsContainer}>
+                      <FlatList 
+                          data={arrayListItems}
+                          renderItem={({item, index}) =>
+                          <View>
+                              <TouchableOpacity onPress={() => {
+                              setDropdownValue(item.title);
+                              console.log("------->--)))-->-))))--> Inside DropdownListButton2 item.id = " + item.id);
+                              onSelect(item);
+                              setModalVisible(!modalVisible);
+                              }}>
+                                  <Text style={styles.menuOptionText}>{item.title}</Text>
+                              </TouchableOpacity>
+                          </View>}
+                      />
+                      </View>
 
-                </View>
-            </View>
-          </TouchableWithoutFeedback>
-      </Modal>
+                  </View>
+              </View>
+            </TouchableWithoutFeedback>
+        </Modal>
 
+    </View>
   </View>
   );
 };
@@ -80,7 +83,7 @@ const styles = StyleSheet.create({
       // borderWidth: 1,
   },
     dropdownButtonContainer: {
-      flex: 1,
+      // flex: 1,
       flexDirection: 'row',
       // borderColor: 'green',
       // borderWidth: 1,

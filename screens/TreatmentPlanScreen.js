@@ -12,6 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector, useDispatch  } from 'react-redux';
 /* action creators */
 import { updateGoal } from '../store/actions/goals/goals';
+import NewGoal from '../components/NewGoal';
 
 const TreatmentPlanScreen = ({ route, navigation }) => {
 
@@ -26,6 +27,7 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   const dispatch = useDispatch();
 
   const [currentItem, setCurrentItem] = useState(0);
+  const [isNewGoalOn, setIsNewGoalOn] = useState(false);
   
   const goals = state.goals.allGoals;
   const skills = state.skills.allSkills;
@@ -90,13 +92,48 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
 
   // setViewablePage[viewables[0].index];
 
-
-
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
+
+  const showUpperTitles = () => {
+    if(!isNewGoalOn) { 
+        return (
+          <View>
+            <View style={styles.container}>
+              <UpperMenu />
+            </View>
+            <View style={styles.textContainer}>
+              <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
+            </View>
+          </View>
+        )
+    }
+    // } else {
+    //   return (
+    //     <View style={styles.textContainer}>
+    //       <Text style={styles.heading1Text}>מטרה חדשה</Text>
+    //     </View>
+    //   )
+    // }
+  };
+  
+  const showNewGoal = () => {
+    if(isNewGoalOn) { 
+      return(<NewGoal onClose={(isGoalCanceled) => {
+          setIsNewGoalOn(false);
+        }} />);
+    } else {
+      return(
+        <View style={styles.newGoalButtonContainer}>
+          <TouchableOpacity style={styles.newGoalButton} onPress={() => setIsNewGoalOn(true)}/>
+        </View>
+      )
+    }
+  };
+
 
   return (
         <View style={styles.container}>
-            <UpperMenu />
+            {/* {showUpperTitles()} */}
             <View style={styles.textContainer}>
               <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
             </View>
@@ -127,20 +164,14 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
                 viewabilityConfig={viewConfigRef.current}
               />
             </View>
-            <View style={styles.newGoalContainer}>
-              <View style={styles.textContainer}>
-                <Text style={styles.heading1Text}>מטרה חדשה</Text>
-              </View>
-
-            </View>
+              {showNewGoal()}
         </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
-      flex: 4,
-      // flexDirection: "column-reverse",
+      flex: 1,
       // justifyContent: 'flex-end',
       justifyContent: 'space-between',
       // alignItems: "center",
@@ -148,7 +179,7 @@ const styles = StyleSheet.create({
       borderColor: "purple",
     },
     textContainer: {
-      marginBottom: 10,
+      // marginBottom: 10,
     },
     heading1Text: {
       textAlign: "center",
@@ -280,14 +311,37 @@ const styles = StyleSheet.create({
     },
     buttonsContainer: {
       flexDirection: 'row',
+      marginTop: 5,
 
     },
-    newGoalContainer: {
-      height: Dimensions.get('window').height * 0.55,
-      width: Dimensions.get('window').width,
-      borderWidth: 1,
+    newGoalButtonContainer: {
+      // flexDirection
+      height: 54,
+      width: 54,
+      borderRadius: 50,
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      // height: Dimensions.get('window').height * 0.55,
+      // width: Dimensions.get('window').width,
+      // borderWidth: 1,
       borderColor: "pink",
+      marginRight: 15,
+      marginBottom: 20,
     },
+    newGoalButton: {
+      // flex: 1,
+      height: 54,
+      width: 54,
+      borderRadius: 50,
+      elevation: 6,
+      // position: 'absolute',
+      // bottom: 10,
+      // right: 10,
+      // borderWidth: 2,
+      borderColor: "orange",
+      backgroundColor: 'darkslateblue',
+    }
   });
 
   const mapStateToProps = (state) => {
