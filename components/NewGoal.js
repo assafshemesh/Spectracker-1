@@ -25,14 +25,24 @@ const NewGoal = ({onClose}) => {
   const goals = state.goals.allGoals;
   const skills = state.skills.allSkills;
   const activities = state.activities.allActivities;
-  const skillsTypes = [{title: "טקסטואלי", id: 0}, {title: "ווקאלי", id: 1}, {title: "קוגנטיבי", id: 2}, {title: "תחושתי", id: 3}, {title: "ויזואלי", id: 4}];
+  const domains = state.domains.allDomains;
   const goalsNum = goals.length;
   const [typeSelected, setTypeSelected] = useState(0);
   const [newSubgoals, setNewSubgoals] = useState([{ id: 1, description: ""}]);
   const [dataFlicker, setDataFlicker] = useState(false);
+  const [input, setInput] = useState("");
   
+  const showDeleteButton = (id) => {
+    if (newSubgoals.length != 1) {
+      return (
+        <TouchableOpacity style={styles.removeSubgoalButton} onPress={() => onDeleteSubgoal(id)}>
+            <Text style={styles.removeSubgoalButtonText}>x</Text>
+        </TouchableOpacity>
+      )
+    }
+  }
   const onDeleteSubgoal = (id) => {
-    if (id !== 1 || newSubgoals.length > 1) {
+    if (newSubgoals.length > 1) {
       const filteredSubgoals = newSubgoals.filter(item => item.id !== id);
       setNewSubgoals(filteredSubgoals);
       setDataFlicker(!dataFlicker);
@@ -45,22 +55,19 @@ const NewGoal = ({onClose}) => {
   }
   return (
         <View style={styles.container}>
-            {/* <View style={styles.textContainer}>
-                <Text style={styles.heading1Text}>מטרה חדשה</Text>
-            </View> */}
             <View style={styles.secondaryContainer}>
                 <Text style={styles.heading1Text}>מטרה חדשה: מטרה מס' {goalsNum + 1}</Text>
-                {/* <DropdownListButton2 style={styles.rangeDropdownButton} arrayListItems={skillsTypes} defaultValue={""} placeHolder={""} precedingText={"תחום התפתחות"} onSelect={(item) => setTypeSelected(item.id)}/> */}
-                {/* ({buttons, defaultOn, styleButtonOn, styleButtonOff, onPress}) */}
-                <View style={styles.rangeButtonsContainer}>
+                <DropdownListButton2 style={styles.domainDropdownButton} arrayListItems={domains} defaultValue={""} placeHolder={""} precedingText={"תחום התפתחות"} onSelect={(item) => setTypeSelected(item.id)}/>
+                {/* <View style={styles.rangeButtonsContainer}>
                   <RadioButtons buttons={skillsTypes} styleButtonOn={styles.rangeButtonOn} styleButtonOff={styles.rangeButtonOff} onPress={(index) => console.log("The selected develpmental range is" + skillsTypes[index].title)} />
-                </View>
+                </View> */}
                 <View style={styles.subgoalsContainer}>
-                  <Text style={styles.heading2Text}>תתי מטרות</Text>
-                  {/* <TouchableOpacity style={styles.addSubgoalButton} onPress={() => {newSubgoals.push({id: newSubgoals[newSubgoals.length-1].id + 1, description: ""}); setDataFlicker(!dataFlicker);}}> */}
-                  <TouchableOpacity style={styles.addSubgoalButton} onPress={onAddSubgoal}>
-                      <Text>+</Text>
-                  </TouchableOpacity>
+                  <View style={styles.subgoalsHeadingContainer}>
+                      <Text style={styles.heading2Text}>תתי מטרות</Text>
+                      <TouchableOpacity style={styles.addSubgoalButton} onPress={onAddSubgoal}>
+                          <Text style={styles.addSubgoalButtonText}>+</Text>
+                      </TouchableOpacity>
+                  </View>
                   <FlatList
                     data={newSubgoals}
                     extraData={dataFlicker}
@@ -77,15 +84,16 @@ const NewGoal = ({onClose}) => {
                                 style={styles.subgoalInput}
                                 placeholder="      תת-מטרה "
                                 // multiline={true}
-                                onSubmitEditing={(event) => {
-                                  {console.log("-----------*+*_+*+*+>>>>> event = " + event)}
-                                  item.description = event.text;
+                                onChangeText={(text) => setInput(text)}
+                                // onSubmitEditing={(event) => {
+                                onSubmitEditing={() => {
+                                  // {console.log("-----------*+*_+*+*+>>>>> event = " + event)}
+                                  // item.description = event.text;
+                                  item.description = input;
                                   {console.log("-----------*+*_+*+*+>>>>> item.description = " + item.description)}
                                   }}
                             />
-                            <TouchableOpacity style={styles.removeSubgoalButton} onPress={() => onDeleteSubgoal(item.id)}>
-                              <Text>x</Text>
-                            </TouchableOpacity>
+                            {showDeleteButton(item.id)}
                         </View>
                     )}}
                   />
@@ -123,6 +131,7 @@ const styles = StyleSheet.create({
     heading1Text: {
       textAlign: "center",
       margin: 10,
+      marginBottom: 0,
       // marginLeft: 15,
       fontSize: 17,
       color: '#47595e',
@@ -165,10 +174,35 @@ const styles = StyleSheet.create({
       borderColor: "green",
       // height: 500,
     },
+    subgoalsHeadingContainer: {
+      // flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      marginRight: 10,
+      // borderWidth: 1,
+      borderColor: 'skyblue',
+    },
+    addSubgoalButton: {
+      // flex: 1,
+      width: 25,
+      height: 25,
+      borderRadius: 50,
+      backgroundColor: '#a9bec4',
+      marginLeft: 5,
+      // borderWidth: 1,
+      borderColor: "orange",
+    },
+    addSubgoalButtonText: {
+      alignSelf: 'center',
+      color: '#ffffff',
+      fontSize: 16,
+    },
     subgoalContainer: {
       // flex: 1,
       flexDirection: 'row',
       justifyContent: 'center',
+      alignItems: 'center',
       // borderWidth: 1,
       borderColor: "purple",
     },
@@ -196,19 +230,17 @@ const styles = StyleSheet.create({
       borderColor: "yellow",
     },
     removeSubgoalButton: {
+      // alignSelf: 'center',
       width: 20,
-      borderWidth: 1,
+      // borderWidth: 1,
       borderColor: 'magenta',
     },
-    addSubgoalButton: {
-      width: 25,
-      height: 25,
-      borderRadius: 50,
-      backgroundColor: '#a9bec4',
-      borderWidth: 1,
-      borderColor: "orange",
+    removeSubgoalButtonText: {
+      alignSelf: 'flex-start',
     },
-    rangeDropdownButton: {
+    
+    domainDropdownButton: {
+      alignSelf: 'center',
       // borderWidth: 1,
       borderColor: "pink",
     },

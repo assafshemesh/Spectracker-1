@@ -32,11 +32,15 @@ const Skill = ({skill}) => {
           <View style={styles.checkboxContainer}>
             <BouncyCheckbox
               size={25}
-              fillColor="green"
+              // fillColor="green"
+              // fillColor="darkslateblue"
+              fillColor="#47595e"
               unfillColor="#FFFFFF"
               text="הושגה:"
               disableText={true}
-              iconStyle={{ borderColor: "green" }}
+              // iconStyle={{ borderColor: "green" }}
+              // iconStyle={{ borderColor: "darkslateblue" }}
+              iconStyle={{ borderColor: "#47595e" }}
               textStyle={{ fontFamily: "JosefinSans-Regular" }}
               isChecked={skill.wasAchieved}
               onPress={() => {

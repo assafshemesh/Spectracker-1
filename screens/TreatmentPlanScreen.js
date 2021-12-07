@@ -175,6 +175,7 @@ const styles = StyleSheet.create({
       // justifyContent: 'flex-end',
       justifyContent: 'space-between',
       // alignItems: "center",
+      // backgroundColor: 'darkslateblue',
       // borderWidth: 3,
       borderColor: "purple",
     },

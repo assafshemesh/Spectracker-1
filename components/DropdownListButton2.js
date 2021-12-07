@@ -42,19 +42,19 @@ const DropdownListButton2 = ({style, arrayListItems, defaultValue, precedingText
               <View style={styles.modalBackgroundView}>
                   <View style={styles.modalView}>
                       <View style={styles.listItemsContainer}>
-                      <FlatList 
-                          data={arrayListItems}
-                          renderItem={({item, index}) =>
-                          <View>
-                              <TouchableOpacity onPress={() => {
-                              setDropdownValue(item.title);
-                              console.log("------->--)))-->-))))--> Inside DropdownListButton2 item.id = " + item.id);
-                              onSelect(item);
-                              setModalVisible(!modalVisible);
-                              }}>
-                                  <Text style={styles.menuOptionText}>{item.title}</Text>
-                              </TouchableOpacity>
-                          </View>}
+                          <FlatList 
+                              data={arrayListItems}
+                              renderItem={({item, index}) =>
+                              <View>
+                                  <TouchableOpacity onPress={() => {
+                                  setDropdownValue(item.title);
+                                  console.log("------->--)))-->-))))--> Inside DropdownListButton2 item.id = " + item.id);
+                                  onSelect(item);
+                                  setModalVisible(!modalVisible);
+                                  }}>
+                                      <Text style={styles.menuOptionText}>{item.title}</Text>
+                                  </TouchableOpacity>
+                              </View>}
                       />
                       </View>
 
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
     },
     buttonTextWrapper: {
       // flex: 1,
+      flexDirection: 'row',
       alignSelf: 'center',
       // borderColor: 'red',
       // borderWidth: 1,
@@ -105,13 +106,16 @@ const styles = StyleSheet.create({
     
     dropdownButtonPrecedingText: {
         // textAlign: 'center',
-        fontSize: 16,
+        // fontSize: 16,
+        fontSize: 14,
         // height: 20,
         // backgroundColor: 'lavender',
     },
     dropdownButtonText: {
+      flexShrink: 1,
         // textAlign: 'center',
-        fontSize: 16,
+        // fontSize: 16,
+        fontSize: 14,
         fontWeight: 'bold',
         // height: 20,
         // backgroundColor: 'lavender',
@@ -119,7 +123,7 @@ const styles = StyleSheet.create({
     },
     dropdownButtonIcon: {
       flex: 1,
-      marginLeft: 4,
+      // marginLeft: 4,
       alignSelf: 'center',
       color: '#47595e',
     },
