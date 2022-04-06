@@ -1,17 +1,20 @@
 import React, {useState, useRef, useEffect} from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, StyleSheet, FlatList, Alert, Dimensions, TextInput } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, Dimensions, TextInput, ScrollView, Button, SafeAreaView } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { useSelector, useDispatch  } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faAngleDown, faAngleUp, faCaretDown } from '@fortawesome/free-solid-svg-icons'
 import DropdownListButton2 from './DropdownListButton2';
 import RadioButtons from './RadioButtons';
+import ActivitiesTextInput from './ActivitiesTextInput';
 /* action creators */
 import { updateGoal } from '../store/actions/goals/goals';
 import { withTheme } from 'react-native-elements';
 
-const NewGoal = ({onClose}) => {
+const NewGoal = ({onClose, onSizing}) => {
 
   console.log("----------------------------------------------------------------------------------")
   console.log("--------------------------NewGoal rendered----------------------------")
@@ -30,8 +33,18 @@ const NewGoal = ({onClose}) => {
   const [typeSelected, setTypeSelected] = useState(0);
   const [newSubgoals, setNewSubgoals] = useState([{ id: 1, description: ""}]);
   const [dataFlicker, setDataFlicker] = useState(false);
-  const [input, setInput] = useState("");
+  const [subgoalInput, setSubgoalInput] = useState("");
+  const [activityNameInput, setActivityNameInput] = useState("");
+  const [activitiesSelected, setActivitiesSelected] = useState([]);
+  const [activitiesSuggested, setActivitiesSuggested] = useState(activities);
+  // const [activitiesUnselected, setActivitiesUnselected] = useState(activities);
+  // const [activityInput, setActivityInput] = useState("");
+  const [isExpended, setIsExpended] = useState(true);
   
+  // useEffect(() => {
+
+  // }, [activitiesSelected]);
+
   const showDeleteButton = (id) => {
     if (newSubgoals.length != 1) {
       return (
@@ -41,6 +54,10 @@ const NewGoal = ({onClose}) => {
       )
     }
   }
+  // const onSizing = () => {
+    
+
+  // }
   const onDeleteSubgoal = (id) => {
     if (newSubgoals.length > 1) {
       const filteredSubgoals = newSubgoals.filter(item => item.id !== id);
@@ -53,76 +70,103 @@ const NewGoal = ({onClose}) => {
     setNewSubgoals(longerSubgoals);
     setDataFlicker(!dataFlicker);
   }
+
+  const onActivitySelected = (activity) => {
+    setActivitiesSelected(prev => [...prev, activity]);
+  }
+
+  // const onActivityPressed = () => {
+
+  // }
+
   return (
         <View style={styles.container}>
-            <View style={styles.secondaryContainer}>
-                <Text style={styles.heading1Text}>מטרה חדשה: מטרה מס' {goalsNum + 1}</Text>
+            <TouchableOpacity style={styles.sizingButton} onPress={() => {onSizing(); setIsExpended(!isExpended);}}>
+                <FontAwesomeIcon style={styles.sizingButtonIcon} icon={isExpended ? faAngleDown : faAngleUp } />
+            </TouchableOpacity>
+            <Text style={styles.heading1Text}>מטרה חדשה: מטרה מס' {goalsNum + 1}</Text>
+            <View  style={styles.secondaryContainer}>
                 <DropdownListButton2 style={styles.domainDropdownButton} arrayListItems={domains} defaultValue={""} placeHolder={""} precedingText={"תחום התפתחות"} onSelect={(item) => setTypeSelected(item.id)}/>
-                {/* <View style={styles.rangeButtonsContainer}>
-                  <RadioButtons buttons={skillsTypes} styleButtonOn={styles.rangeButtonOn} styleButtonOff={styles.rangeButtonOff} onPress={(index) => console.log("The selected develpmental range is" + skillsTypes[index].title)} />
-                </View> */}
-                <View style={styles.subgoalsContainer}>
-                  <View style={styles.subgoalsHeadingContainer}>
-                      <Text style={styles.heading2Text}>תתי מטרות</Text>
-                      <TouchableOpacity style={styles.addSubgoalButton} onPress={onAddSubgoal}>
-                          <Text style={styles.addSubgoalButtonText}>+</Text>
-                      </TouchableOpacity>
-                  </View>
-                  <FlatList
-                    data={newSubgoals}
-                    extraData={dataFlicker}
-                    // keyExtractor={(item, index) => index}
-                    keyExtractor={(item) => item.id}
-                    // data={[{ id: 1, description: ""}, { id: 2, description: ""}]}
-                    renderItem={({item, index}) => { return (
-                        <View style={styles.subgoalContainer}>
-                            {console.log("-----------*+*_+*+*+>>>>> index = " + index)}
-                            {console.log("-----------*+*_+*+*+>>>>> item = " + item)}
-                            {console.log("-----------*+*_+*+*+>>>>> item.id = " + item.id)}
-                            <Text style={styles.subgoalNumText}>.{index + 1}</Text>
-                            <TextInput
-                                style={styles.subgoalInput}
-                                placeholder="      תת-מטרה "
-                                // multiline={true}
-                                onChangeText={(text) => setInput(text)}
-                                // onSubmitEditing={(event) => {
-                                onSubmitEditing={() => {
-                                  // {console.log("-----------*+*_+*+*+>>>>> event = " + event)}
-                                  // item.description = event.text;
-                                  item.description = input;
-                                  {console.log("-----------*+*_+*+*+>>>>> item.description = " + item.description)}
-                                  }}
-                            />
-                            {showDeleteButton(item.id)}
-                        </View>
-                    )}}
-                  />
+                <View style={styles.subgoalsHeadingContainer}>
+                    <Text style={styles.heading2Text}>תתי מטרות</Text>
                 </View>
-                
+                <View style={styles.subgoalsContainer}>
+                    <FlatList
+                      data={newSubgoals}
+                      extraData={dataFlicker}
+                      keyExtractor={(item) => item.id}
+                      renderItem={({item, index}) => { return (
+                          <View style={styles.subgoalWrapper}>
+                              <Text style={styles.subgoalNumText}>.{index + 1}</Text>
+                              <TextInput
+                                  style={styles.subgoalInput}
+                                  placeholder="      תת-מטרה "
+                                  // multiline={true}  // TBD
+                                  onChangeText={(text) => setSubgoalInput(text)}
+                                  onSubmitEditing={() => {
+                                    item.description = subgoalInput;
+                                    {console.log("-----------*+*_+*+*+>>>>> item.description = " + item.description)}
+                                    }}
+                              />
+                              {showDeleteButton(item.id)}
+                          </View>
+                      )}}
+                    />
+                </View>
+                <TouchableOpacity style={styles.addSubgoalButton} onPress={onAddSubgoal}>
+                    <Text style={styles.addSubgoalButtonText}>+</Text>
+                </TouchableOpacity>
+            {/* </View> */}
+
+            {/* <View  style={styles.secondaryContainer}> */}
+                <ActivitiesTextInput onActivitySelected={onActivitySelected} />
             </View>
             <TouchableOpacity style={styles.closeButton} onPress={() => {
               onClose(false);
-              setNewSubgoals([{ id: 1, description: ""}]);
+              setNewSubgoals([{ id: 1, description: ""}]); // -> this is for getting the subgoal list back to be empty with just one field for start, after closing the new goal.
             }}>
                 <Text style={styles.saveGoalButtonText}>שמירה</Text>
             </TouchableOpacity>
-                
         </View>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
+      // flex: 1.2,
       flex: 1.2,
-      // flex: 3,
+      // flex: 238,
+      // height: Dimensions.get('window').height - 30,
       // flexDirection: "column-reverse",
       // justifyContent: 'flex-end',
       justifyContent: 'space-between',
       // alignItems: "center",
       borderTopWidth: 3,
-      borderColor: 'lightgray',
+      // borderColor: 'lightgray',
+      borderColor: 'darkslateblue',
     //   backgroundColor: 'mediumpurple',
     },
+    sizingButton: {
+      // position: 'absolute',
+      // top: 20,
+      width: 30,
+      marginTop: 5,
+      marginLeft: 25,
+      paddingRight: 70,
+      // marginBottom: 0,
+      // borderWidth: 1,
+      borderColor: "brown",
+    },
+    sizingButtonIcon: {
+      color: 'darkslateblue',
+    },
+    secondaryContainer: {
+      flex: 8,
+      // alignItems: 'center',
+      borderWidth: 1,
+      borderColor: "brown",
+    },
+    
     textContainer: {
       marginBottom: 10,
       borderWidth: 1,
@@ -130,7 +174,7 @@ const styles = StyleSheet.create({
     },
     heading1Text: {
       textAlign: "center",
-      margin: 10,
+      // margin: 10,
       marginBottom: 0,
       // marginLeft: 15,
       fontSize: 17,
@@ -155,11 +199,7 @@ const styles = StyleSheet.create({
       marginLeft: 15,
       marginRight: 15,
     },
-    secondaryContainer: {
-      // alignItems: 'center',
-      // borderWidth: 1,
-      borderColor: "brown",
-    },
+    
     rangeButtonsContainer: {
       alignSelf: 'center',
       // alignItems: 'center',
@@ -170,7 +210,7 @@ const styles = StyleSheet.create({
     },
     subgoalsContainer: {
       // flex: 1,
-      // borderWidth: 1,
+      borderWidth: 5,
       borderColor: "green",
       // height: 500,
     },
@@ -185,11 +225,12 @@ const styles = StyleSheet.create({
     },
     addSubgoalButton: {
       // flex: 1,
+      alignSelf: 'flex-end',
       width: 25,
       height: 25,
       borderRadius: 50,
       backgroundColor: '#a9bec4',
-      marginLeft: 5,
+      marginRight: 12,
       // borderWidth: 1,
       borderColor: "orange",
     },
@@ -198,7 +239,7 @@ const styles = StyleSheet.create({
       color: '#ffffff',
       fontSize: 16,
     },
-    subgoalContainer: {
+    subgoalWrapper: {
       // flex: 1,
       flexDirection: 'row',
       justifyContent: 'center',
@@ -216,6 +257,7 @@ const styles = StyleSheet.create({
     },
     subgoalInput: {
       flex: 1,
+      width: 150,
       backgroundColor: '#ffffff',
       borderRadius: 10,
       // width: 250,
@@ -243,6 +285,32 @@ const styles = StyleSheet.create({
       alignSelf: 'center',
       // borderWidth: 1,
       borderColor: "pink",
+    },
+    activitiesContainerScroll: {
+        // marginLeft: 10,
+    },
+    activitiesContainer: {
+      flexWrap: 'wrap',
+      flexDirection: 'row',
+    //   height: 70,
+      width: 700,
+      marginTop: 1,
+    //   marginLeft: 10,
+    //   borderWidth: 1,
+      borderColor: "blue",
+    },
+    activity: {
+      // flex: 1,
+      flexWrap: 'wrap',
+      borderRadius: 3,
+      margin: 3,
+      padding: 1,
+      paddingLeft: 4,
+      paddingRight: 4,
+      fontSize: 12,
+      // width: 100,
+      // lineHeight: 15,
+      height: 20,
     },
     saveGoalButtonText: {
         // color: '#ffffff',

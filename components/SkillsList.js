@@ -1,12 +1,26 @@
 import { faAssistiveListeningSystems } from '@fortawesome/free-solid-svg-icons';
 import React, {useState, useEffect} from 'react';
-import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert, Animated } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector, useDispatch  } from 'react-redux';
 import Skill from '../components/Skill';
 import DropdownListButton2 from './DropdownListButton2';
 import RadioButtons from './RadioButtons';
+import Swipeable from 'react-native-gesture-handler/Swipeable';
 
+
+const LeftActions = (progress, dragX) => {
+  const scale = dragX.interpolate({
+    inputRange: [0, 100],
+    outputRange: [0, 1],
+    extrapolate: 'clamp',
+  })
+  return (
+    <View style={styles.leftAction}>
+      <Animated.Text style={[styles.actionText, { transform: [{ scale }]}]}>Achieved!</Animated.Text>
+    </View>
+  )
+};
 const SkillsList = ({skills}) => {
   const state = useSelector(state => state);
   const dispatch = useDispatch();
@@ -34,8 +48,12 @@ const SkillsList = ({skills}) => {
             {/* <DropdownListButton2 arrayListItems={domains} defaultValue={"כל תחום"} precedingText={""} onSelect={(item) => setTypeSelected(item.id)}/> */}
           </View>
               <FlatList 
+                //all skills / was achieved / was not achieved filter:
                 data={achievedStatus == 0 ? skills :  (achievedStatus == 1 ? skills.filter(skill => skill.wasAchieved == true) : skills.filter(skill => skill.wasAchieved == false))}
-                renderItem={({item}) => (typeSelected == 0 || skillsTypes[typeSelected].title == item.type) ? <Skill skill={item} key={item.serialNum}/> : null }
+                //skill type (skill domain) selection filter:
+                renderItem={({item}) => (typeSelected == 0 || skillsTypes[typeSelected].title == item.type) ? <Skill skill={item} 
+                key={item.serialNum}/> : null }
+                // renderItem={({item}) => (typeSelected == 0 || skillsTypes[typeSelected].title == item.type) ? <Swipeable renderLeftActions={LeftActions}><Skill skill={item} key={item.serialNum}/></Swipeable>: null }
                 // renderItem={({item}) => (typeSelected == 0 || domains[typeSelected].title == item.type) ? <Skill skill={item} key={item.serialNum}/> : null }
               />
         </View>
@@ -44,6 +62,16 @@ const SkillsList = ({skills}) => {
 
 
 const styles = StyleSheet.create({
+    leftAction: {
+      backgroundColor: '#388e3c',
+      justifyContent: 'center',
+      flex: 1,
+    },
+    actionText: {
+      color: '#fff',
+      fontWeight: '600',
+      padding: 20,
+    },
     container: {
       flex: 1,
       // backgroundColor: 'aliceblue',

@@ -28,6 +28,7 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
 
   const [currentItem, setCurrentItem] = useState(0);
   const [isNewGoalOn, setIsNewGoalOn] = useState(false);
+  const [newGoalStatus, setNewGoalStatus] =useState({on: false, isExpended: false})
   
   const goals = state.goals.allGoals;
   const skills = state.skills.allSkills;
@@ -95,48 +96,8 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
   const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
 
   const showUpperTitles = () => {
-    if(!isNewGoalOn) { 
+    if(!newGoalStatus.isExpended) { 
         return (
-          <View>
-            <View style={styles.container}>
-              <UpperMenu />
-            </View>
-            <View style={styles.textContainer}>
-              <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
-            </View>
-          </View>
-        )
-    }
-    // } else {
-    //   return (
-    //     <View style={styles.textContainer}>
-    //       <Text style={styles.heading1Text}>מטרה חדשה</Text>
-    //     </View>
-    //   )
-    // }
-  };
-  
-  const showNewGoal = () => {
-    if(isNewGoalOn) { 
-      return(<NewGoal onClose={(isGoalCanceled) => {
-          setIsNewGoalOn(false);
-        }} />);
-    } else {
-      return(
-        <View style={styles.newGoalButtonContainer}>
-          <TouchableOpacity style={styles.newGoalButton} onPress={() => setIsNewGoalOn(true)}/>
-        </View>
-      )
-    }
-  };
-
-
-  return (
-        <View style={styles.container}>
-            {/* {showUpperTitles()} */}
-            <View style={styles.textContainer}>
-              <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
-            </View>
             <View style={styles.buttonsContainer}>
               <TouchableOpacity style={(currentItem == 0) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}>
                 <Text style={(currentItem == 0) ? styles.linkTextOn : styles.linkTextOff}>מטרות טיפול</Text>  
@@ -145,8 +106,48 @@ const TreatmentPlanScreen = ({ route, navigation }) => {
                 <Text style={(currentItem == 1) ? styles.linkTextOn : styles.linkTextOff}>מיומנויות</Text>  
               </TouchableOpacity>
             </View>
-            <View style={styles.flatlistContainer}>
-            {/* <View style={[styles.flatlistContainer, , {transform: [{ translateX: 80 }]}]}> */}
+        )
+    }
+  };
+  
+  const showNewGoal = () => {
+    // if(isNewGoalOn) { 
+    if(newGoalStatus.on) { 
+      return(<NewGoal
+              onClose={(isGoalCanceled) => {
+              // setIsNewGoalOn(false);
+              setNewGoalStatus({on: false, isExpended: false});
+            }} onSizing={() => setNewGoalStatus({on: true, isExpended: !newGoalStatus.isExpended})} />);
+    } else {
+      return(
+            <View style={styles.newGoalButtonContainer}>
+              {/* <TouchableOpacity style={styles.newGoalButton} onPress={() => setIsNewGoalOn(true)}/> */}
+              <TouchableOpacity style={styles.newGoalButton} onPress={() => setNewGoalStatus({on: true, isExpended: true})}/>
+            </View>
+      )
+    }
+  };
+
+
+  return (
+        <View style={styles.container}>
+            {/* <View style={styles.upperMenuContainer}>
+              <UpperMenu />
+            </View> */}
+            <View style={styles.textContainer}>
+              <Text style={styles.heading1Text}>תוכנית הטיפול של <Text style={styles.nameText}>{lastPatient}</Text></Text>
+            </View>
+            {showUpperTitles()}
+            {/* <View style={styles.buttonsContainer}>
+              <TouchableOpacity style={(currentItem == 0) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 0 })}>
+                <Text style={(currentItem == 0) ? styles.linkTextOn : styles.linkTextOff}>מטרות טיפול</Text>  
+              </TouchableOpacity>
+              <TouchableOpacity style={(currentItem == 1) ? styles.pageOnHeading : styles.pageOffHeading} onPress={() => flatListRef?.current?.scrollToIndex({ index: 1 })}>
+                <Text style={(currentItem == 1) ? styles.linkTextOn : styles.linkTextOff}>מיומנויות</Text>  
+              </TouchableOpacity>
+            </View> */}
+            <View style={newGoalStatus.isExpended ? styles.flatlistContainer : {...styles.flatlistContainer, flex: 1}}>
+            {/* <View style={styles.flatlistContainer}> */}
               <FlatList
                 ref={flatListRef}
                 keyExtractor={(item) => item.id}
@@ -176,8 +177,14 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between',
       // alignItems: "center",
       // backgroundColor: 'darkslateblue',
-      // borderWidth: 3,
+      // borderWidth: 7,
       borderColor: "purple",
+    },
+    upperMenuContainer: {
+      flex: 0.03,
+      // flex: 6,
+      borderWidth: 3,
+      borderColor: "skyblue",
     },
     textContainer: {
       // marginBottom: 10,
@@ -296,7 +303,8 @@ const styles = StyleSheet.create({
       borderColor: "pink",
     },
     flatlistContainer: {
-      flex: 1,
+      // flex: 1,  -------------------------------------------------
+      // flex: 1,
       // width: Dimensions.get('window').width * 2,
       // justifyContent: 'flex-start',
       // justifyContent: 'space-between',
